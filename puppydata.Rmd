@@ -1,0 +1,154 @@
+---
+title: "Puppy Data (study2children)"
+author: "Adam Stone, PhD" 
+date: '`r format(Sys.Date(), "%m-%d-%Y")`'
+output:
+  github_document:
+    toc: yes
+    toc_depth: 2
+  html_notebook:
+    code_folding: hide
+    theme: spacelab
+    highlight: tango
+    toc: yes
+    toc_depth: 2
+    toc_float: yes
+    df_print: paged
+---
+
+# Looking Time Only
+
+Import files. **I'm taking out all participants that aren't marked "GoodData."**
+
+Let's just look at overall looking-on-puppy time (ignoring "Not On AOI" for now). That tells us how much time it took to redirect the child's attention to the puppy before the trial started, right? Each data point is a kid. 
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(stringr)
+library(lme4)
+library(lmerTest)
+library(broom)
+
+# Get and combine data from groups 1 & 2
+puppies1 <- read_csv('puppies1.csv') %>% filter(analysis=="GoodData")
+puppies2 <- read_csv('puppies2.csv') %>% filter(analysis=="GoodData")
+puppies <- bind_rows(puppies1,puppies2)
+
+puppies <- puppies %>%
+  select(-ends_with(".na")) %>%
+  add_column(id = 1:nrow(.))
+
+puppies.total <- puppies %>%
+  select(-participant,-recording,-age,-analysis,-gender,-group,-language) %>%
+  mutate(total = rowSums(.,na.rm=TRUE)) %>%
+  select(id,total) %>%
+  left_join(puppies,by="id")
+
+ggplot(puppies.total,aes(x=age,y=total,color=language)) + 
+  geom_point() + geom_smooth(method="lm") + ylab("secs")
+```
+
+Hmm, hmm. Looks like a HUGE difference! But those are subject-level averages. Let's plot individual trials instead. 
+
+```{r}
+puppies.total <- puppies.total %>%
+  select(-total) %>%
+  gather(puppy,secs,huskies1:golden6)
+
+ggplot(puppies.total,aes(x=age,y=secs,color=language)) + geom_point() + geom_smooth(method="lm") + ylab("secs")
+```
+
+Okay, that's better - no huge differences between groups. Let's see what a linear mixed model tells us.
+
+```{r}
+puppy.lm <- lmer(secs ~ language * age * (1|participant), data=puppies.total)
+summary(puppy.lm)
+```
+
+Cool. No effect of age or language on how long they look at the puppy. Had I run a *simple* linear model (aka simple linear regression) with no random terms, I'd have gotten this output: 
+```{r}
+puppy.lm.simple <- lm(secs ~ language * age, data = puppies.total)
+summary(puppy.lm.simple)
+```
+
+Shocking - an effect of language on how much they look at puppies! That's because we used the item-level data, not subject-level data (559 degrees of freedom), which gave us too much power and treated each item as its own participant. Wrong wrong. If you look at the mixed model output, you'll see this part:
+
+```
+Random effects:
+Groups      Name        Variance Std.Dev.
+ participant (Intercept) 0.5424   0.7365  
+ Residual                1.2104   1.1002  
+Number of obs: 563, groups:  participant, 52
+```
+
+The important part is the last line - where it says observations and groups. We picked participant as a grouping variable, so the linear mixed model was able to pool together the variance within each participant and account for that in the model, making it easier to look for only between-participant effects. 
+
+ANYWAY. I digress. Let's look at how on-AOI vs off-AOI data. 
+
+# On-AOI Percentages
+
+Here's the chart - each data point is a child - for percent of looking-at-AOI times. I calculated percentages this way:
+
+1. OnAOI / (OnAOI + OffAOI)
+1. If Off AOI time was 0, I gave them 100%.
+1. If On AOI time was 0, I gave them 0%.
+1. If both On and Off AOI times were 0, I left it empty (`NA`)
+
+```{r}
+puppies <- bind_rows(puppies1,puppies2) %>%
+  gather(scene,secs,huskies1:golden6.na) %>%
+  mutate(onaoi = !str_detect(scene,".na"))
+
+puppies.onaoi <- filter(puppies,onaoi==TRUE) %>% select(-onaoi) %>% rename(secson = secs) 
+puppies.offaoi <- filter(puppies,onaoi==FALSE) %>% select(-onaoi) %>% rename(secsoff = secs) %>%
+  mutate(scene = str_sub(scene,1,-4))
+
+puppies <- left_join(puppies.onaoi,puppies.offaoi)
+puppies[is.na(puppies)] <- 0
+puppies <- puppies %>%
+  mutate(percent = ifelse(secson > 0 & secsoff > 0, secson/(secson+secsoff),
+                          ifelse(secson > 0 & secsoff == 0, 1,
+                                 ifelse(secson == 0 & secsoff > 0, 0, NA))))
+
+agelang <- select(puppies,participant,age,language) %>% distinct()
+
+puppies.total <- puppies %>%
+  group_by(participant) %>%
+  summarize(percent = mean(percent, na.rm=TRUE)) %>%
+  left_join(agelang)
+
+ggplot(puppies.total,aes(x=age,y=percent,color=language)) + 
+  geom_point() + geom_smooth(method="lm") + ylab("percent")
+```
+
+Looks great, no differences. I'm curious about item-level, too. 
+
+```{r}
+ggplot(puppies,aes(x=age,y=percent,color=language)) + geom_point() + geom_smooth(method="lm") + ylab("percent")
+```
+
+Looks about the same at the subject level and item level. Great! Just out of curiosity, here's the histograms.
+
+```{r}
+ggplot(puppies,aes(x=percent,fill=language)) + geom_histogram() + facet_grid(language~.)
+```
+
+Nearly identical distributions. Great! And the linear mixed model (LMM) tells us the same thing. Except now there's an effect of age, which is fine (older kids should look at puppies more than babies, I think). It's only p = 0.044 anyway. 
+
+```{r}
+puppy.lm <- lmer(percent ~ language * age * (1|participant), data=puppies)
+summary(puppy.lm)
+```
+
+Again, see what happens if we mistakenly used a *simple linear regression* here, with nearly a thousand item-level rows. It tells us everything is significant, which we know it isn't. 575 degrees of freedom, too many! 
+
+```{r}
+puppy.lm <- lm(percent ~ language * age, data=puppies)
+summary(puppy.lm)
+```
+
+# Conclusion!
+
+1. Great news: no group differences!  
+    1. Age may be significant, but that's because we're looking at babies *and* children here! 
+1. I need to do some minor outlier cleanup here.  
