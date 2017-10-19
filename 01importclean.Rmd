@@ -1,0 +1,130 @@
+---
+title: "Data Import and Cleanup (study2children)"
+author: "Adam Stone, PhD" 
+date: '`r format(Sys.Date(), "%m-%d-%Y")`'
+output:
+  github_document:
+    toc: yes
+    toc_depth: 2
+  html_notebook:
+    code_folding: hide
+    theme: spacelab
+    highlight: tango
+    toc: yes
+    toc_depth: 2
+    toc_float: yes
+    df_print: paged
+---
+
+```{r}
+# Libraries
+library(tidyverse)
+library(stringr)
+
+# Import Group 1 data
+group1 <- read_delim("ASL story watching children group 1.txt", delim = "\t", na = "-") %>%
+  gather(aoi, sec, "Total Fixation Duration_Cinderella_1_FW_xvid.avi_Belly 2_Sum":"Total Fixation Duration_ThreeBears_2_ER_xvid.avi_RightSide 2_Sum") %>%
+  rename(recording = Recording,
+         participant = Participant,
+         age = Age,
+         analysis = Analysis,
+         gender = Gender,
+         language = Language) %>%
+  add_column(group = 1)
+
+# Import Group 2 data
+# First you must fix RedRiding2 FaceCenterRight - extra space at end
+# And fix ThreeBears1 Belly - extra space at end
+group2 <- read_delim("ASL story watching children group 2.txt", delim = "\t", na = "-") %>%
+  gather(aoi, sec, "Total Fixation Duration_Cinderella_1_ER_xvid.avi_Belly_Sum":"Total Fixation Duration_ThreeBears_2_FW_xvid.avi_RightSide_Sum_1") %>%
+  rename(recording = Recording,
+         participant = Participant,
+         age = Age,
+         analysis = Analysis,
+         gender = Gender,
+         language = Language) %>%
+  add_column(group = 2)
+
+# Import Group 1 order and repetition information
+group1order <- read_delim("Prosody Group 1.txt", delim = "\t") %>%
+  gather(order, event, 1:ncol(.)) %>%
+  mutate(xvid = str_detect(event, "xvid") & !str_detect(event, "Calibration")) %>%
+  filter(xvid == TRUE) %>%
+  mutate(order = 1:nrow(.)) %>%
+  separate(event, into=c("story", "clip", "direction","media","oldrep"), sep = "_") %>%
+  unite(story, story:clip, sep = "_") %>%
+  mutate(rep = case_when(
+    is.na(oldrep) ~ 1,
+    oldrep == 1 ~ 2)) %>%
+  select(-media, -xvid, -oldrep) %>%
+  filter(order < 9) # TEMPORARY FIX FOR NOW #########################
+
+# Import Group 2 order and repetition information
+group2order <- read_delim("Prosody Group 2.txt", delim = "\t") %>%
+  gather(order, event, 1:ncol(.)) %>%
+  mutate(xvid = str_detect(event, "xvid") & !str_detect(event, "Calibration")) %>%
+  filter(xvid == TRUE) %>%
+  mutate(order = 1:nrow(.)) %>%
+  separate(event, into=c("story", "clip", "direction","media", "oldrep"), sep = "_") %>%
+  unite(story, story:clip, sep = "_") %>%
+  mutate(rep = case_when(
+    is.na(oldrep) ~ 1,
+    oldrep == 1 ~ 2)) %>%
+  select(-media, -xvid, -oldrep)
+
+# Import cliplength information
+cliplength <- read_csv("cliplengths.csv") %>%
+  select(-frames) %>%
+  rename(cliplength = seconds)
+
+# Identify Group 1 story, trial, direction, aoi; add order/repetition/cliplength/percent information
+group1 <- group1 %>%
+  separate(aoi, into = c("metric", "story", "clip", "direction", "media", "aoi", "math"), 
+           sep = "_", convert = TRUE) %>%
+  select(-metric, -media, -math) %>%
+  unite(story, story:clip, sep = "_") %>%
+  left_join(group1order, by = c("story","direction")) %>%
+  left_join(cliplength, by = c("story")) %>%
+  mutate(percent = ifelse(is.na(sec), NA, sec / cliplength))
+
+# Identify Group 2 story, trial, direction, aoi; add order/repetition/cliplength/percent information
+group2 <- group2 %>%
+  separate(aoi, into = c("metric", "story", "clip", "direction", "media", "aoi", "math", "suffix"), 
+           sep = "_", convert = TRUE) %>%
+  select(-metric, -media, -math) %>%
+  unite(story, story:clip, sep = "_") %>%
+  mutate(rep = case_when(
+    story == "Cinderella_1" & is.na(suffix) ~ 1,
+    story == "Cinderella_1" & suffix == 1 ~ 2,    
+    story == "Cinderella_2" & str_detect(aoi,"3") ~ 1,    
+    story == "Cinderella_2" & str_detect(aoi,"2") ~ 2,
+    story == "KingMidas_1" & is.na(suffix) ~ 1,
+    story == "KingMidas_1" & suffix == 1 ~ 2,
+    story == "KingMidas_2" & str_detect(aoi,"3") ~ 1,    
+    story == "KingMidas_2" & !str_detect(aoi,"3") ~ 2,
+    story == "RedRiding_1" & is.na(suffix) ~ 1,
+    story == "RedRiding_1" & suffix == 1 ~ 2,
+    story == "RedRiding_2" & is.na(suffix) ~ 1,
+    story == "RedRiding_2" & suffix == 1 ~ 2,
+    story == "ThreeBears_1" & is.na(suffix) ~ 1,
+    story == "ThreeBears_1" & suffix == 1 ~ 2,
+    story == "ThreeBears_2" & is.na(suffix) ~ 1,
+    story == "ThreeBears_2" & suffix == 1 ~ 2
+  )) %>%
+  left_join(group2order, by = c("story", "direction", "rep")) %>%
+  left_join(cliplength, by = c("story")) %>%
+  mutate(sec = as.numeric(sec)) %>%
+  mutate(percent = ifelse(is.na(sec), NA, sec / cliplength)) %>% # calculate percentages
+  select(-suffix) %>%
+  mutate(aoi = ifelse(str_detect(aoi, "\\d"), str_sub(aoi,0,-3), aoi)) # scrub numbers from AOIs
+
+# Combine Groups 1 and 2! 
+# data <- bind_rows(group1, group2)
+# ggplot(data, aes(x = percent, fill = group)) + geom_histogram(binwidth = .05) + facet_wrap("group")
+```
+
+```{r}
+ggplot(group2, aes(x = percent)) + geom_histogram() + facet_grid(aoi~story)
+```
+
+
