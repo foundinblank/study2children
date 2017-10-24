@@ -16,67 +16,96 @@ output:
     df_print: paged
 ---
 
-```{r}
+```{r eval=FALSE, include=FALSE}
+# This is to get all kids' _processed_ AOI data into one single file. Should only run when needed. 
+library(tidyverse)
+library(feather)
+
+csvpath = "../Child Data/_aoidata/"
+files <- dir(path = csvpath, pattern = "_aoidata")
+files <- paste(csvpath, files, sep="")
+data <- files %>%
+  map(read_csv) %>%
+  reduce(rbind)
+write_feather(data, "childrawdata.feather")
+```
+
+# Introduction
+
+Great! At this point, I've run a Matlab script on the children's raw data to tally up all AOI hits for each video/trial they viewed. We start with 67 children. Not all of them go into our analysis. Some are babies, for one thing! Others had bad eye tracking calibration or were too fussy, and so were wholly thrown out. Other kids may have bad trials (e.g., no eye gaze data for more than 75% of the video). We'll go through each at a time. For now here's **all** our data. 
+
+```{r message=FALSE}
 # Libraries
 library(tidyverse)
 library(stringr)
+library(cowplot)
 
-# Import Group 1 data
-group1 <- read_delim("ASL story watching children group 1.txt", delim = "\t", na = "-") %>%
-  gather(aoi, sec, "Total Fixation Duration_Cinderella_1_FW_xvid.avi_Belly 2_Sum":"Total Fixation Duration_ThreeBears_2_ER_xvid.avi_RightSide 2_Sum") %>%
-  rename(recording = Recording,
-         participant = Participant,
-         age = Age,
-         analysis = Analysis,
-         gender = Gender,
-         language = Language) %>%
-  add_column(group = 1)
+# Import data (and fix one participant name)
+data <- read_feather("childrawdata.feather") %>%
+  mutate(participant = case_when(
+    participant == "Ab07ov09_22m" ~ "Ab07ov09_32m",
+    TRUE ~ participant
+  ))
 
-# Import Group 2 data
-# First you must fix RedRiding2 FaceCenterRight - extra space at end
-# And fix ThreeBears1 Belly - extra space at end
-group2 <- read_delim("ASL story watching children group 2.txt", delim = "\t", na = "-") %>%
-  gather(aoi, sec, "Total Fixation Duration_Cinderella_1_ER_xvid.avi_Belly_Sum":"Total Fixation Duration_ThreeBears_2_FW_xvid.avi_RightSide_Sum_1") %>%
-  rename(recording = Recording,
-         participant = Participant,
-         age = Age,
-         analysis = Analysis,
-         gender = Gender,
-         language = Language) %>%
-  add_column(group = 2)
+# Get ages
+ages <- read_csv("childrenages.csv")
+data <- data %>% left_join(ages, by = "participant")
+data %>% select(participant,language,age) %>% distinct() # print data table
 
-# Import Group 1 order and repetition information
-group1order <- read_delim("Prosody Group 1.txt", delim = "\t") %>%
-  gather(order, event, 1:ncol(.)) %>%
-  mutate(xvid = str_detect(event, "xvid") & !str_detect(event, "Calibration")) %>%
-  filter(xvid == TRUE) %>%
-  mutate(order = 1:nrow(.)) %>%
-  separate(event, into=c("story", "clip", "direction","media","oldrep"), sep = "_") %>%
-  unite(story, story:clip, sep = "_") %>%
-  mutate(rep = case_when(
-    is.na(oldrep) ~ 1,
-    oldrep == 1 ~ 2)) %>%
-  select(-media, -xvid, -oldrep) %>%
-  filter(order < 9) # TEMPORARY FIX FOR NOW #########################
+# Histogram of ages
+data %>% select(participant,language,age) %>% 
+  distinct() %>% 
+  ggplot(aes(x = age)) + geom_histogram(fill = "royalblue") + ggtitle("Ages in Full Dataset")
+```
 
-# Import Group 2 order and repetition information
-group2order <- read_delim("Prosody Group 2.txt", delim = "\t") %>%
-  gather(order, event, 1:ncol(.)) %>%
-  mutate(xvid = str_detect(event, "xvid") & !str_detect(event, "Calibration")) %>%
-  filter(xvid == TRUE) %>%
-  mutate(order = 1:nrow(.)) %>%
-  separate(event, into=c("story", "clip", "direction","media", "oldrep"), sep = "_") %>%
-  unite(story, story:clip, sep = "_") %>%
-  mutate(rep = case_when(
-    is.na(oldrep) ~ 1,
-    oldrep == 1 ~ 2)) %>%
-  select(-media, -xvid, -oldrep)
+# Removing Bad/Irrelevant Data
 
-# Import cliplength information
+In this order: 
+
+1. "Children" are ages 2 and up so remove all < 2 yrs
+1. Keep only those that have "GoodData"
+
+Below are all the children that did *not* have GoodData. 
+
+```{r}
+alldata <- data
+data <- data %>%
+  filter(age > 2.0) %>%
+  filter(analysis == "GoodData")
+
+anti_join(alldata, data, by = "participant") %>% 
+  select(participant, analysis, age) %>% 
+  distinct() %>%
+  filter(age > 2.0)
+```
+
+All children saw all trials. Now, we need to remove trials where looking data was collected <25% of the video length. I'm importing a table of clip lengths, see below. The videos were shown at 25 FPS so frames / 25 = seconds. 
+
+```{r message=FALSE}
 cliplength <- read_csv("cliplengths.csv") %>%
-  select(-frames) %>%
-  rename(cliplength = seconds)
+  rename(clip_sec = seconds) %>%
+  separate(story, into = c("video", "clipnum")) %>%
+  filter(clipnum < 3) %>%
+  unite(video, clipnum, col = "story", sep = "_")
 
+cliplength
+```
+
+Now let's fold that in. I'm summing up all AOI hits for each video/trial, converting that to seconds (divide by 60, as Tobii's sampling rate is 60 Hz), and throwing out any trials < 25%. 
+
+```{r}
+trialcheck <- data %>%
+  group_by(participant, condition, trial) %>%
+  summarise(secs = sum(hits)/60) %>%
+  separate(condition, into = c("story", "clipnum", "direction", "media"), sep = "_") %>%
+  unite(story, clipnum, col = "story", sep = "_") %>%
+  left_join(cliplength, by = "story") %>%
+  mutate(percent = secs / clip_sec)
+```
+
+
+
+```{r}
 # Identify Group 1 story, trial, direction, aoi; add order/repetition/cliplength/percent information
 group1 <- group1 %>%
   separate(aoi, into = c("metric", "story", "clip", "direction", "media", "aoi", "math"), 
