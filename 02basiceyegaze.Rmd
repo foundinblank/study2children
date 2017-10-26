@@ -1,0 +1,53 @@
+---
+title: "Basic Eye Gaze (study2children)"
+author: "Adam Stone, PhD" 
+date: '`r format(Sys.Date(), "%m-%d-%Y")`'
+output:
+  github_document:
+    toc: yes
+    toc_depth: 2
+  html_notebook:
+    code_folding: hide
+    theme: spacelab
+    highlight: tango
+    toc: yes
+    toc_depth: 2
+    toc_float: yes
+    df_print: paged
+---
+
+# Starting Out
+
+We've cleaned up the data in [01importclean](01importclean.nb.html). So we're importing it here. First, let's do boxplots of each AOI across all stories and kids, grouping for forward vs. reversed. 
+
+```{r}
+
+# Libraries
+library(tidyverse)
+library(feather)
+library(scales)
+library(stringr)
+#library(cowplot)
+
+# Import data that's been cleaned up from 01importclean
+data <- read_feather("cleanedchildeyedata.feather")
+
+# Boxplot!
+ggplot(data, aes(x = aoi, y = percent, fill = direction)) + 
+  geom_boxplot() + theme(axis.text.x = element_text(angle=45, hjust = 1)) +
+  ggtitle("Looking Percentages for Each AOI, All Stories") +
+  scale_y_continuous(labels = scales::percent, limits = c(0,1))
+```
+
+Looks like by far most of the activity is along the Mid** AOIs. Let's look closer. 
+
+```{r}
+data_mid <- data %>%
+  filter(str_detect(aoi,"Mid"))
+
+ggplot(data_mid, aes(x = aoi, y = percent, fill = direction)) + 
+  geom_boxplot() + theme(axis.text.x = element_text(angle=45, hjust = 1)) +
+  ggtitle("Looking Percentages for Middle AOIs, All Stories") +
+  scale_y_continuous(labels = scales::percent, limits = c(0,1))
+```
+
