@@ -231,6 +231,10 @@ data <- data %>%
     direction == "FW" ~ "forward",
     direction == "ER" ~ "reversed"
   )) %>%
+  mutate(language = case_when(
+    language == "SignLanguageExposed" ~ "sign",
+    language == "EnglishExposed" ~ "english"
+  )) %>%
   mutate(group = as.factor(group),
          gender = as.factor(gender),
          language = as.factor(language),
