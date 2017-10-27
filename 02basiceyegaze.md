@@ -1,15 +1,16 @@
 Basic Eye Gaze (study2children)
 ================
 Adam Stone, PhD
-10-26-2017
+10-27-2017
 
 -   [Starting Out](#starting-out)
 -   [Statistical Testing of FCR/mFCR](#statistical-testing-of-fcrmfcr)
     -   [Language, Direction, & Age Predictors](#language-direction-age-predictors)
     -   [Language & Age Predictors](#language-age-predictors)
--   [Direction & Language Predictors](#direction-language-predictors)
+    -   [Direction & Language Predictors](#direction-language-predictors)
     -   [Language as only predictor](#language-as-only-predictor)
 -   [Could Age be Polynomial?](#could-age-be-polynomial)
+-   [How Young Can We Go?](#how-young-can-we-go)
 
 Starting Out
 ============
@@ -416,7 +417,7 @@ summary(mfcr_lmm_nodir)
     ## age:lnggsgn  0.670 -0.697 -0.968
 
 Direction & Language Predictors
-===============================
+-------------------------------
 
 In the LMMs we've run so far, age is always the worst predictor. So we should have taken that out first, anyway.
 
@@ -685,3 +686,64 @@ ggplot(data_mid, aes(x = age, y = mfcr, color = direction)) + geom_point(alpha =
     ## Warning: Removed 6 rows containing missing values (geom_point).
 
 ![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-18-2.png)
+
+How Young Can We Go?
+====================
+
+How young can we still find differences between NSE and CODA kids? If we look only at 2 to 4.9 year old kids then the language effect gets weaker (p = 0.06) but then again it's only 12 kids total. (If I lower the cutoff to 4.5, it's 0.05, but 10 kids; if it's 4, it's 0.60, but only 6 kids).
+
+``` r
+data_young <- data_mid %>%
+  ungroup() %>%
+  filter(age < 4)
+data_young %>% select(participant, language) %>% distinct() %>% count(language)
+```
+
+    ## # A tibble: 2 x 2
+    ##   language     n
+    ##     <fctr> <int>
+    ## 1  english     2
+    ## 2     sign     4
+
+``` r
+fcr_lmm_young <- lmer(fcr ~ direction * language + (1|story) + (1|participant), data = data_young)
+summary(fcr_lmm_young)
+```
+
+    ## Linear mixed model fit by REML t-tests use Satterthwaite approximations
+    ##   to degrees of freedom [lmerMod]
+    ## Formula: fcr ~ direction * language + (1 | story) + (1 | participant)
+    ##    Data: data_young
+    ## 
+    ## REML criterion at convergence: 121.9
+    ## 
+    ## Scaled residuals: 
+    ##     Min      1Q  Median      3Q     Max 
+    ## -2.8773 -0.4826  0.2243  0.6822  1.4392 
+    ## 
+    ## Random effects:
+    ##  Groups      Name        Variance Std.Dev.
+    ##  story       (Intercept) 0.006683 0.08175 
+    ##  participant (Intercept) 0.056710 0.23814 
+    ##  Residual                0.208995 0.45716 
+    ## Number of obs: 84, groups:  story, 8; participant, 6
+    ## 
+    ## Fixed effects:
+    ##                                Estimate Std. Error      df t value
+    ## (Intercept)                      0.3171     0.2101  6.0000   1.509
+    ## directionreversed                0.2139     0.1702 69.8500   1.257
+    ## languagesign                     0.1405     0.2555  5.8700   0.550
+    ## directionreversed:languagesign  -0.4200     0.2124 74.9500  -1.978
+    ##                                Pr(>|t|)  
+    ## (Intercept)                      0.1820  
+    ## directionreversed                0.2129  
+    ## languagesign                     0.6027  
+    ## directionreversed:languagesign   0.0516 .
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Correlation of Fixed Effects:
+    ##             (Intr) drctnr lnggsg
+    ## dirctnrvrsd -0.419              
+    ## languagesgn -0.807  0.345       
+    ## drctnrvrsd:  0.336 -0.801 -0.422

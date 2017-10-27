@@ -1,0 +1,268 @@
+---
+title: "Baby Data Import and Cleanup (study2children)"
+author: "Adam Stone, PhD" 
+date: '`r format(Sys.Date(), "%m-%d-%Y")`'
+output:
+  github_document:
+    toc: yes
+    toc_depth: 2
+  html_notebook:
+    code_folding: hide
+    theme: spacelab
+    highlight: tango
+    toc: yes
+    toc_depth: 2
+    toc_float: yes
+    df_print: paged
+---
+
+# Introduction
+
+Let's repeat [01importclean](01importclean.nb.html) but this time, select ONLY babies. YES!
+
+In this order: 
+
+1. "Children" are ages 2 and below so remove all > 2 yrs
+1. Keep only those that have "GoodData"
+
+Below are all the children that did *not* have GoodData. 
+
+
+```{r message=FALSE}
+# Libraries
+library(tidyverse)
+library(feather)
+library(stringr)
+library(RColorBrewer)
+#library(cowplot)
+
+# Import data (and fix one participant name)
+data <- read_feather("childrawdata.feather") %>%
+  mutate(participant = case_when(
+    participant == "Ab07ov09_22m" ~ "Ab07ov09_32m",
+    TRUE ~ participant
+  ))
+
+# Get ages
+ages <- read_csv("childrenages.csv")
+data <- data %>% left_join(ages, by = "participant")
+#data %>% select(participant,language,age) %>% distinct() # print data table
+
+# # Histogram of ages
+# data %>% select(participant,language,age) %>% 
+#   distinct() %>% 
+#   ggplot(aes(x = age)) + geom_histogram(fill = "royalblue") + ggtitle("Ages in Full Dataset")
+
+alldata <- data
+data <- data %>%
+  filter(age < 2.0) %>%
+  filter(analysis == "GoodData")
+
+anti_join(alldata, data, by = "participant") %>% 
+  select(participant, analysis, language, group, age) %>% 
+  distinct() %>%
+  filter(age < 2.0)
+```
+
+Next, we want to get a general idea of how many trials each baby saw. The trials column will tell us which babies saw *less* than 16 trials. Okay, just 3 kids and all saw at least half the study. All good. 
+
+```{r}
+data %>% group_by(participant) %>% summarise(trials = max(trial)) %>% filter(trials < 16)
+```
+
+All children saw all trials. Now, we need to remove trials where looking data was collected <25% of the video length. I'm importing a table of clip lengths, see below. The videos were shown at 25 FPS so frames / 25 = seconds. 
+
+```{r message=FALSE}
+cliplength <- read_csv("cliplengths.csv") %>%
+  rename(clip_sec = seconds) %>%
+  separate(story, into = c("video", "clipnum")) %>%
+  filter(clipnum < 3) %>%
+  unite(video, clipnum, col = "story", sep = "_")
+
+trialcheck <- data %>%
+  group_by(participant, condition, trial) %>%
+  summarise(hits = sum(hits)) %>%
+  mutate(secs = hits/120) %>%
+  separate(condition, into = c("story", "clipnum", "direction", "media"), sep = "_") %>%
+  unite(story, clipnum, col = "story", sep = "_") %>%
+  left_join(cliplength, by = "story") %>%
+  mutate(percent = secs / clip_sec) %>%
+  mutate(lessthan25 = percent <= 0.25)
+
+# Histogram of trial total percentages
+ggplot(trialcheck, aes(x = percent)) + 
+  geom_histogram(binwidth = 0.025) + ggtitle("Total Percent Looking Time, All Trials") + xlab("total percent") +
+  geom_vline(xintercept = 0.25, linetype = "dashed", color = "red") + 
+  annotate("text", x = 0.125, y = 20, label = "trials to remove", color = "red")
+
+# Values to put in commentary
+numtotakeout = sum(trialcheck$lessthan25)
+numtotaltrials = dim(trialcheck)[1]
+percenttakeout = paste(numtotakeout/numtotaltrials * 100, "%", sep = "")
+```
+
+We removed `r numtotakeout` trials out of `r numtotaltrials` (`r percenttakeout`). Was there any correlation with the number of trials removed by age, language, or gender? Scatterplot below - looks fine. (Took out one CODA girl that has nearly all trials removed, was skewing the data). 
+
+```{r}
+# Grab age/group data we need for scatterplot
+agegroup <- data %>%
+  select(participant, age, language, gender) %>%
+  distinct()
+
+# Join age/group data with trialcheck data (actually trialcheck2, just for plotting)
+trialcheck2 <- trialcheck %>%
+  group_by(participant) %>%
+  summarize(trialsremoved = sum(lessthan25)) %>%
+  left_join(agegroup, by = "participant") 
+
+# Scatterplot of bad trials grouped by age, language, gender
+ggplot(trialcheck2, aes(x = age, y = trialsremoved, color = gender)) + geom_point() + 
+  facet_wrap("language") + geom_smooth(method = "lm") + 
+  ggtitle("Participants' Trials to be Removed") + ylab("Trials <25% Looking Time")
+```
+
+Now take out bad trials - and let's check how many good trials each baby has. 
+```{r}
+# Select only bad trials to use in an anti_join
+trialcheck <- trialcheck %>%
+  filter(lessthan25 == TRUE) %>% 
+  select(participant, trial)
+
+# Now remove all bad trials. Also Jelena too. 
+data <- data %>%
+  anti_join(trialcheck, by = c("participant","trial"))
+
+# Table of trials per baby
+data %>% select(participant, language, trial) %>% distinct() %>% group_by(language, participant) %>% summarise(trials = n()) %>% arrange(trials)
+```
+
+Based on that list, we'll take out Wyatt. (We may want to take out Li11hy29 and Brooke, but let's keep them in for now and see what happens.)
+
+```{r}
+data <- data %>% filter(participant != "wyatt 7m")
+```
+
+# Checking for Outliers 
+Now I'm going to make a histogram of each story and AOI, to check if there are any kids who may have had their eye gaze shifted incorrectly (or needs to be shifted). Because there are so many AOIs we'll show separate histograms for each fairy tale.
+
+```{r message=FALSE, warning=FALSE}
+# Pull apart condition and AOI columns
+data <- data %>%
+  separate(condition, into = c("story", "clipnum", "direction", "media"), sep = "_") %>%
+  unite(story, clipnum, col = "story", sep = "_") %>%
+  select(-media) %>%
+  separate(aoi, into = c("math", "label", "aoi", "hitlabel", "indicator"), sep = "_") %>%
+  select(-math, -label, -hitlabel, -indicator)
+
+# Remove numbers from end of AOI label 
+data <- data %>%
+  mutate(aoi = case_when(
+    str_detect(aoi, "\\d") ~ str_sub(aoi, 0, -2),
+    TRUE ~ aoi
+  ))
+
+# Now let's add cliplengths again, but this time to data, and calculate percentage looking times
+data <- data %>%
+  left_join(cliplength, by = "story") %>%
+  select(-frames) %>%
+  mutate(secs = hits/120,
+         percent = secs/clip_sec)
+
+# Histogram!
+data_ci <- data %>% filter(str_detect(story, "Cinderella"), percent > 0.04)
+data_km <- data %>% filter(str_detect(story, "KingMidas"), percent > 0.04)
+data_3b <- data %>% filter(str_detect(story, "ThreeBears"), percent > 0.04)
+data_rr <- data %>% filter(str_detect(story, "RedRiding"), percent > 0.04)
+
+ggplot(data_ci, aes(x = percent)) + geom_histogram() + facet_grid(aoi ~ story) + theme(strip.text.y = element_text(angle = 0), axis.text.y = element_blank(), axis.ticks = element_blank()) + ylab("")
+
+ggplot(data_km, aes(x = percent)) + geom_histogram() + facet_grid(aoi ~ story) + theme(strip.text.y = element_text(angle = 0), axis.text.y = element_blank(), axis.ticks = element_blank()) + ylab("")
+
+ggplot(data_3b, aes(x = percent)) + geom_histogram() + facet_grid(aoi ~ story) + theme(strip.text.y = element_text(angle = 0), axis.text.y = element_blank(), axis.ticks = element_blank()) + ylab("")
+
+ggplot(data_rr, aes(x = percent)) + geom_histogram() + facet_grid(aoi ~ story) + theme(strip.text.y = element_text(angle = 0), axis.text.y = element_blank(), axis.ticks = element_blank()) + ylab("")
+
+```
+
+Based on these histograms, I sent to Rain on 26 Oct 2017 this table. Plus I asked about Jelena (CODA) who had very little data in 14 out of 16 trials so she was thrown out entirely from the dataset. I wrote to Rain: 
+
+> Alright, here's what I found. Good news, I'm not seeing any really BAD kids! Yay. Just two that may need to be looked at. Attached is the list of all kids/stories I flagged for having way too much looking in that AOI. The trial column indicates which clip out of 16 (so 5 means 5th clip in the sequence). Most kids on the list are fine really, I think, and, yes, these AOIs were flagged for having weirdly high percentages but what probably happened was that they zoned out during that particular clip or stared at something interesting/idiosyncratic. I would especially review the static gaze plot/scatterplot images for these kids: 
+
+> Lyla (Group 1) - A lot of chest looking. Calibration may have been shifted down. 
+
+> Mason (Group 2) - VERY focused on MidFaceCenter across several stories (that's usually a low AOI). It could be that his calibration is shifted up; all other kids look at MidFaceBottom, not MidFaceCenter). Or it could just be his idiosyncratic looking behavior. Give it a look. 
+
+> Isabella (Group 1) - I know we're not using her for this paper, but FYI her eye gaze was kinda random for a few stories. Might be something interesting there. I don't think it's mis-shifted or anything, though. 
+
+```{r}
+outliers <- read_csv("outliers.csv") %>%
+  separate(outlier, into = letters[seq( from = 1, to = 9 )]) %>%
+  select(-a, -c, -h) %>%
+  rename(participant = b,
+         group = d,
+         trial = g,
+         aoi = i) %>%
+  unite(col = "story", e:f, sep = "_") %>%
+  select(group, participant, story, trial, aoi) %>%
+  arrange(group, participant)
+
+outliers
+write_csv(outliers, "outlierkids.csv")
+```
+
+# Save!
+Great. Let's save this as `cleanedchildeyedata.csv'. 
+
+```{r}
+# A bit more cleaning up
+data <- data %>%
+  mutate(direction = case_when(
+    direction == "FW" ~ "forward",
+    direction == "ER" ~ "reversed"
+  )) %>%
+  mutate(language = case_when(
+    language == "SignLanguageExposed" ~ "sign",
+    language == "EnglishExposed" ~ "english"
+  )) %>%
+  mutate(group = as.factor(group),
+         gender = as.factor(gender),
+         language = as.factor(language),
+         story = as.factor(story),
+         direction = as.factor(direction),
+         aoi = as.factor(aoi))
+
+# Save as csv and feather (feather preserves column types for R)
+write_csv(data,"cleanedbabyeyedata.csv")
+write_feather(data,"cleanedbabyeyedata.feather")
+```
+
+# Participant Table
+
+Now we can present the following table about our participants. 
+
+```{r}
+participants <- data %>%
+  select(participant, gender, language, age) %>%
+  distinct()
+
+participants_n <- participants %>%
+  count(gender, language) %>%
+  spread(gender, n)
+
+participants_age <- participants %>%
+  group_by(language) %>%
+  summarise(age_m = round(mean(age), 1), 
+            age_sd = round(sd(age), 1),
+            age_min = range(age)[1],
+            age_max = range(age)[2]) %>%
+  mutate(age_range = paste(age_min, age_max, sep = " - ")) %>%
+  select(-age_min, -age_max) %>%
+  mutate(age_mean = paste(age_m, age_sd, sep = "±")) %>%
+  select(-age_m, -age_sd) %>%
+  select(language, age_mean, age_range)
+
+left_join(participants_n, participants_age, by = "language")
+
+data %>% select(participant, age, language) %>% distinct() %>% ggplot(aes(x = age, fill = language)) + geom_histogram() + facet_grid(language ~ .) + scale_fill_brewer(palette = "Accent")
+```
+

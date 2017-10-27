@@ -1,5 +1,5 @@
 ---
-title: "Basic Eye Gaze (study2children)"
+title: "Baby Basic Eye Gaze (study2children)"
 author: "Adam Stone, PhD" 
 date: '`r format(Sys.Date(), "%m-%d-%Y")`'
 output:
@@ -18,10 +18,9 @@ output:
 
 # Starting Out
 
-We've cleaned up the data in [01importclean](01importclean.nb.html). So we're importing it here. First, let's do boxplots of each AOI across all stories and kids, grouping for forward vs. reversed. 
+We've cleaned up the data in [03importcleanbabies](03importcleanbabies.nb.html). So we're importing it here. Let's get a chart of how old our babies are.
 
 ```{r}
-
 # Libraries
 library(tidyverse)
 library(feather)
@@ -34,8 +33,18 @@ library(RColorBrewer)
 #library(cowplot)
 
 # Import data that's been cleaned up from 01importclean
-data <- read_feather("cleanedchildeyedata.feather")
+data <- read_feather("cleanedbabyeyedata.feather")
 
+data_ages <- data %>%
+  select(participant, language, age) %>%
+  distinct()
+
+ggplot(data_ages, aes(x = age, fill = language)) + geom_histogram() + facet_grid(language ~ .) + scale_fill_brewer(palette = "Accent")
+```
+
+Next, let's do boxplots of each AOI across all stories and kids, grouping for forward vs. reversed. 
+
+```{r}
 # Boxplot!
 ggplot(data, aes(x = aoi, y = percent, fill = direction)) + 
   geom_boxplot() + theme(axis.text.x = element_text(angle=45, hjust = 1)) +
@@ -66,7 +75,7 @@ data_mid %>%
   ggtitle("Top 2 AOIs")
 ```
 
-I am not observing big differences for directin. But I sort of notice that CODAs show increased looking at MidFaceBottom as they get older, while English kids don't (and actually show a downward trajectory).  
+I am not observing big differences for direction. And not strong patterns across age, although there are subtle upward trends for increased chest looking in NSE kids as they get older, but increased face looking in CODAS as they get older.  
 
 What if we defined a Face-Chest Ratio (FCR) such that:
 
@@ -74,9 +83,9 @@ What if we defined a Face-Chest Ratio (FCR) such that:
 1. MidChestTop, MidChestCenter, MidChestBottom = Chest
 1. FCR = face - chest / face + chest
 
-Let's try that. Let's also try only MidFaceBottom vs. MidChestTop too, and call that MFCR (for middle of middle). 
+Let's try that. Let's also try only MidFaceBottom vs. MidChestTop too, and call that MFCR (for middle of middle).
 
-Ooh, cool chart below. Looks like both effects of direction, language, and age. Signing kids, right away, have higher FCR (positive) while English kids have just slightly negative FCR. And signing kids' behavior doesn't really change depending on direction or age. English kids, however, show a big change based on direction, and on age. 
+CHart belows suggests group differences and that CODA babies have a trend to more face-looking while NSE babies don't. 
 ```{r}
 data_mid <- data_mid %>%
   select(-secs, -hits) %>%
@@ -128,7 +137,7 @@ Now that we've found something interesting with FCR and mFCR, let's see if it ho
 
 ## Language, Direction, & Age Predictors
 
-First, a LMM with predictors Language, Direction, and Age, and outcome variable FCR. Nothing significant, or even close to it! I'm surprised. 
+First, a LMM with predictors Language, Direction, and Age, and outcome variable FCR. Nothing significant.
 
 ```{r}
 fcr_lmm <- lmer(fcr ~ age * language * direction + (1|story) + (1|participant), data = data_mid)
@@ -164,14 +173,14 @@ summary(mfcr_lmm_nodir)
 
 In the LMMs we've run so far, age is always the worst predictor. So we should have taken that out first, anyway.
 
-Alright, we got a very significant effect of language (p = 0.003). Signing kids have a much higher FCR than non-signing kids. 
+Alright, we got an effect of language (p = 0.07) AND an interaction with direction, p = 0.008. CODA babies generally have much higher FCR, but they're also strongly affected by reversal. 
 
 ```{r}
 fcr_lmm_noage <- lmer(fcr ~ direction * language + (1|story) + (1|participant), data = data_mid)
 summary(fcr_lmm_noage)
 ```
 
-The mFCR LMM gives us similar results - strong effect of language (p = 0.006). 
+The mFCR LMM gives us similar results. 
 
 ```{r}
 mfcr_lmm_noage <- lmer(mfcr ~ direction * language + (1|story) + (1|participant), data = data_mid)
@@ -186,7 +195,7 @@ fcr_lmm_langonly <- lmer(fcr ~  language + (1|story) + (1|participant) + (1|dire
 summary(fcr_lmm_langonly)
 ```
 
-Forward only. Language effect, p = 0.004. 
+Forward only. Language effect, p = 0.05. 
 
 ```{r}
 fcr_lmm_langonly_f <- lmer(fcr ~  language + (1|story) + (1|participant), data = filter(data_mid,direction=="forward"))
@@ -216,27 +225,6 @@ ggplot(data_mid, aes(x = language, y = mfcr, fill = language)) + geom_boxplot() 
 ggplot(data_mid, aes(x = language, y = mfcr, fill = direction)) + geom_boxplot() + ylab("M-FaceChest Ratio") + ggtitle("Middle-Middle FaceChest Ratio by Language & Direction")
 ```
 
-# Could Age be Polynomial? 
 
-I graphed age using a polynomial scale (^2, parabolic) and there definitely seems to be something there. I'm not sure how to work with these, though, so putting it off for a bit later. See below: 
 
-```{r}
-ggplot(data_mid, aes(x = age, y = fcr, color = direction)) + geom_point(alpha = 0.25) +
-  geom_smooth(method = "loess", span = 5) + facet_wrap("language") + ggtitle("FaceChest Ratio")
-
-ggplot(data_mid, aes(x = age, y = mfcr, color = direction)) + geom_point(alpha = 0.25) +
-  geom_smooth(method = "loess", span = 5) + facet_wrap("language") + ggtitle("MFaceChest Ratio")
-
-```
-
-# How Young Can We Go?
-How young can we still find differences between NSE and CODA kids? If we look only at 2 to 4.9 year old kids then the language effect gets weaker (p = 0.06) but then again it's only 12 kids total. (If I lower the cutoff to 4.5, it's 0.05, but 10 kids; if it's 4, it's 0.60, but only 6 kids). 
-```{r}
-data_young <- data_mid %>%
-  ungroup() %>%
-  filter(age < 4)
-data_young %>% select(participant, language) %>% distinct() %>% count(language)
-fcr_lmm_young <- lmer(fcr ~ direction * language + (1|story) + (1|participant), data = data_young)
-summary(fcr_lmm_young)
-```
 
