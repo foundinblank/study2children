@@ -15,7 +15,7 @@ Adam Stone, PhD
 Starting Out
 ============
 
-We've cleaned up the data in [01importclean](01importclean.nb.html). So we're importing it here. First, let's do boxplots of each AOI across all stories and kids, grouping for forward vs. reversed.
+We've cleaned up the data in [01importclean](01importclean.nb.html). So we're importing it here. Let's grab histograms of our kids and groups.
 
 ``` r
 # Libraries
@@ -103,6 +103,20 @@ library(RColorBrewer)
 # Import data that's been cleaned up from 01importclean
 data <- read_feather("cleanedchildeyedata.feather")
 
+data_ages <- data %>%
+  select(participant, language, age, group) %>%
+  distinct()
+
+ggplot(data_ages, aes(x = age, fill = language)) + geom_histogram() + facet_grid(language ~ group) + scale_fill_brewer(palette = "Accent")
+```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-1-1.png)
+
+First, let's do boxplots of each AOI across all stories and kids, grouping for forward vs. reversed.
+
+``` r
 # Boxplot!
 ggplot(data, aes(x = aoi, y = percent, fill = direction)) + 
   geom_boxplot() + theme(axis.text.x = element_text(angle=45, hjust = 1)) +
@@ -110,7 +124,7 @@ ggplot(data, aes(x = aoi, y = percent, fill = direction)) +
   scale_y_continuous(labels = scales::percent, limits = c(0,1))
 ```
 
-![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-1-1.png)
+![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-2-1.png)
 
 Looks like by far most of the activity is along the Mid\*\* AOIs. Let's look closer.
 
@@ -124,7 +138,7 @@ ggplot(data_mid, aes(x = aoi, y = percent, fill = direction)) +
   scale_y_continuous(labels = scales::percent, limits = c(0,1))
 ```
 
-![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-2-1.png)
+![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-3-1.png)
 
 As a preliminary analysis I'm going to just look at MidChestTop and MidFaceBottom. Are there differences based on direction, group, or age for either AOI?
 
@@ -137,7 +151,7 @@ data_mid %>%
   ggtitle("Top 2 AOIs")
 ```
 
-![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-3-1.png)
+![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-4-1.png)
 
 I am not observing big differences for directin. But I sort of notice that CODAs show increased looking at MidFaceBottom as they get older, while English kids don't (and actually show a downward trajectory).
 
@@ -169,7 +183,7 @@ ggplot(data_mid, aes(x = age, y = fcr, color = direction)) + geom_point(alpha = 
 
     ## Warning: Removed 1 rows containing missing values (geom_point).
 
-![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-4-1.png)
+![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-5-1.png)
 
 Let's also check out MFCR (a stricter ratio). Almost the same thing.
 
@@ -182,7 +196,7 @@ ggplot(data_mid, aes(x = age, y = mfcr, color = direction)) + geom_point(alpha =
 
     ## Warning: Removed 6 rows containing missing values (geom_point).
 
-![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-5-1.png)
+![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-6-1.png)
 
 So this is rad! Such obvious group differences should also be reflected in a heat map that is collapsed across age and direction. And the heat map below shows that CODAs really focus on the MidFaceBottom AOI, while English-exposed children are a bit more spread out, looking much more at the chest.
 
@@ -207,7 +221,7 @@ ggplot(data_mid_heat, aes(x = language, y = aoi)) +
   ylab("") + xlab("") + ggtitle("Eye Gaze Heat Map")
 ```
 
-![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-6-1.png)
+![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-7-1.png)
 
 Statistical Testing of FCR/mFCR
 ===============================
@@ -632,7 +646,7 @@ ggplot(data_mid, aes(x = language, y = fcr, fill = language)) + geom_boxplot() +
 
     ## Warning: Removed 1 rows containing non-finite values (stat_boxplot).
 
-![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-16-1.png)
+![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-17-1.png)
 
 ``` r
 ggplot(data_mid, aes(x = language, y = fcr, fill = direction)) + geom_boxplot() + ylab("FaceChest Ratio") + ggtitle("FaceChest Ratio by Language & Direction")
@@ -640,7 +654,7 @@ ggplot(data_mid, aes(x = language, y = fcr, fill = direction)) + geom_boxplot() 
 
     ## Warning: Removed 1 rows containing non-finite values (stat_boxplot).
 
-![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-16-2.png)
+![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-17-2.png)
 
 And Middle-Middle FaceChest Ratio here.
 
@@ -650,7 +664,7 @@ ggplot(data_mid, aes(x = language, y = mfcr, fill = language)) + geom_boxplot() 
 
     ## Warning: Removed 6 rows containing non-finite values (stat_boxplot).
 
-![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-17-1.png)
+![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-18-1.png)
 
 ``` r
 ggplot(data_mid, aes(x = language, y = mfcr, fill = direction)) + geom_boxplot() + ylab("M-FaceChest Ratio") + ggtitle("Middle-Middle FaceChest Ratio by Language & Direction")
@@ -658,7 +672,7 @@ ggplot(data_mid, aes(x = language, y = mfcr, fill = direction)) + geom_boxplot()
 
     ## Warning: Removed 6 rows containing non-finite values (stat_boxplot).
 
-![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-17-2.png)
+![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-18-2.png)
 
 Could Age be Polynomial?
 ========================
@@ -674,7 +688,7 @@ ggplot(data_mid, aes(x = age, y = fcr, color = direction)) + geom_point(alpha = 
 
     ## Warning: Removed 1 rows containing missing values (geom_point).
 
-![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-18-1.png)
+![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-19-1.png)
 
 ``` r
 ggplot(data_mid, aes(x = age, y = mfcr, color = direction)) + geom_point(alpha = 0.25) +
@@ -685,7 +699,7 @@ ggplot(data_mid, aes(x = age, y = mfcr, color = direction)) + geom_point(alpha =
 
     ## Warning: Removed 6 rows containing missing values (geom_point).
 
-![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-18-2.png)
+![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-19-2.png)
 
 How Young Can We Go?
 ====================

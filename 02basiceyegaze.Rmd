@@ -18,7 +18,7 @@ output:
 
 # Starting Out
 
-We've cleaned up the data in [01importclean](01importclean.nb.html). So we're importing it here. First, let's do boxplots of each AOI across all stories and kids, grouping for forward vs. reversed. 
+We've cleaned up the data in [01importclean](01importclean.nb.html). So we're importing it here. Let's grab histograms of our kids and groups. 
 
 ```{r}
 
@@ -36,6 +36,16 @@ library(RColorBrewer)
 # Import data that's been cleaned up from 01importclean
 data <- read_feather("cleanedchildeyedata.feather")
 
+data_ages <- data %>%
+  select(participant, language, age, group) %>%
+  distinct()
+
+ggplot(data_ages, aes(x = age, fill = language)) + geom_histogram() + facet_grid(language ~ group) + scale_fill_brewer(palette = "Accent")
+```
+
+First, let's do boxplots of each AOI across all stories and kids, grouping for forward vs. reversed. 
+
+```{r}
 # Boxplot!
 ggplot(data, aes(x = aoi, y = percent, fill = direction)) + 
   geom_boxplot() + theme(axis.text.x = element_text(angle=45, hjust = 1)) +

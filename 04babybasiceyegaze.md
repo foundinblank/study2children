@@ -102,10 +102,10 @@ library(RColorBrewer)
 data <- read_feather("cleanedbabyeyedata.feather")
 
 data_ages <- data %>%
-  select(participant, language, age) %>%
+  select(participant, language, age, group) %>%
   distinct()
 
-ggplot(data_ages, aes(x = age, fill = language)) + geom_histogram() + facet_grid(language ~ .) + scale_fill_brewer(palette = "Accent")
+ggplot(data_ages, aes(x = age, fill = language)) + geom_histogram() + facet_grid(language ~ group) + scale_fill_brewer(palette = "Accent")
 ```
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
