@@ -75,7 +75,7 @@ data <- data %>%
   filter(analysis == "GoodData")
 
 anti_join(alldata, data, by = "participant") %>% 
-  select(participant, analysis, age) %>% 
+  select(participant, analysis, language, group, age) %>% 
   distinct() %>%
   filter(age > 2.0)
 ```
@@ -221,7 +221,7 @@ outliers
 write_csv(outliers, "outlierkids.csv")
 ```
 
-# All done!
+# Save!
 Great. Let's save this as `cleanedchildeyedata.csv'. 
 
 ```{r}
@@ -245,5 +245,33 @@ data <- data %>%
 # Save as csv and feather (feather preserves column types for R)
 write_csv(data,"cleanedchildeyedata.csv")
 write_feather(data,"cleanedchildeyedata.feather")
+```
+
+# Participant Table
+
+Now we can present the following table about our participants. 
+
+```{r}
+participants <- data %>%
+  select(participant, gender, language, age) %>%
+  distinct()
+
+participants_n <- participants %>%
+  count(gender, language) %>%
+  spread(gender, n)
+
+participants_age <- participants %>%
+  group_by(language) %>%
+  summarise(age_m = round(mean(age), 1), 
+            age_sd = round(sd(age), 1),
+            age_min = range(age)[1],
+            age_max = range(age)[2]) %>%
+  mutate(age_range = paste(age_min, age_max, sep = " - ")) %>%
+  select(-age_min, -age_max) %>%
+  mutate(age_mean = paste(age_m, age_sd, sep = "±")) %>%
+  select(-age_m, -age_sd) %>%
+  select(language, age_mean, age_range)
+
+left_join(participants_n, participants_age, by = "language")
 ```
 

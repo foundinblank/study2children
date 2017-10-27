@@ -1,12 +1,13 @@
 Data Import and Cleanup (study2children)
 ================
 Adam Stone, PhD
-10-26-2017
+10-27-2017
 
 -   [Introduction](#introduction)
 -   [Removing Bad/Irrelevant Data](#removing-badirrelevant-data)
 -   [Checking for Outliers](#checking-for-outliers)
--   [All done!](#all-done)
+-   [Save!](#save)
+-   [Participant Table](#participant-table)
 
 Introduction
 ============
@@ -79,17 +80,17 @@ data <- data %>%
   filter(analysis == "GoodData")
 
 anti_join(alldata, data, by = "participant") %>% 
-  select(participant, analysis, age) %>% 
+  select(participant, analysis, language, group, age) %>% 
   distinct() %>%
   filter(age > 2.0)
 ```
 
-    ## # A tibble: 3 x 3
-    ##           participant             analysis   age
-    ##                 <chr>                <chr> <dbl>
-    ## 1  na01pe06_2013_3.5y     Not Yet Assigned   3.5
-    ## 2 OwenTwin030212_4y2m Good_But_Needs_Shift   4.2
-    ## 3 Kiera_8_20_13 3y,5m Good_But_Needs_Shift   3.4
+    ## # A tibble: 3 x 5
+    ##           participant             analysis            language group   age
+    ##                 <chr>                <chr>               <chr> <int> <dbl>
+    ## 1  na01pe06_2013_3.5y     Not Yet Assigned      EnglishExposed     2   3.5
+    ## 2 OwenTwin030212_4y2m Good_But_Needs_Shift SignLanguageExposed     2   4.2
+    ## 3 Kiera_8_20_13 3y,5m Good_But_Needs_Shift      EnglishExposed     1   3.4
 
 All children saw all trials. Now, we need to remove trials where looking data was collected &lt;25% of the video length. I'm importing a table of clip lengths, see below. The videos were shown at 25 FPS so frames / 25 = seconds.
 
@@ -289,8 +290,8 @@ outliers
 write_csv(outliers, "outlierkids.csv")
 ```
 
-All done!
-=========
+Save!
+=====
 
 Great. Let's save this as \`cleanedchildeyedata.csv'.
 
@@ -300,6 +301,10 @@ data <- data %>%
   mutate(direction = case_when(
     direction == "FW" ~ "forward",
     direction == "ER" ~ "reversed"
+  )) %>%
+  mutate(language = case_when(
+    language == "SignLanguageExposed" ~ "sign",
+    language == "EnglishExposed" ~ "english"
   )) %>%
   mutate(group = as.factor(group),
          gender = as.factor(gender),
@@ -312,3 +317,38 @@ data <- data %>%
 write_csv(data,"cleanedchildeyedata.csv")
 write_feather(data,"cleanedchildeyedata.feather")
 ```
+
+Participant Table
+=================
+
+Now we can present the following table about our participants.
+
+``` r
+participants <- data %>%
+  select(participant, gender, language, age) %>%
+  distinct()
+
+participants_n <- participants %>%
+  count(gender, language) %>%
+  spread(gender, n)
+
+participants_age <- participants %>%
+  group_by(language) %>%
+  summarise(age_m = round(mean(age), 1), 
+            age_sd = round(sd(age), 1),
+            age_min = range(age)[1],
+            age_max = range(age)[2]) %>%
+  mutate(age_range = paste(age_min, age_max, sep = " - ")) %>%
+  select(-age_min, -age_max) %>%
+  mutate(age_mean = paste(age_m, age_sd, sep = "±")) %>%
+  select(-age_m, -age_sd) %>%
+  select(language, age_mean, age_range)
+
+left_join(participants_n, participants_age, by = "language")
+```
+
+    ## # A tibble: 2 x 5
+    ##   language Female  Male age_mean age_range
+    ##     <fctr>  <int> <int>    <chr>     <chr>
+    ## 1  english      8     5  5.2±1.5 2.7 - 8.3
+    ## 2     sign      8     8  5.1±1.3 3.5 - 7.3

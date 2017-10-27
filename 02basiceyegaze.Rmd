@@ -160,7 +160,7 @@ mfcr_lmm_nodir <- lmer(mfcr ~ age * language + (1|story) + (1|participant) + (1|
 summary(mfcr_lmm_nodir)
 ```
 
-# Direction & Language Predictors
+## Direction & Language Predictors
 
 In the LMMs we've run so far, age is always the worst predictor. So we should have taken that out first, anyway.
 
