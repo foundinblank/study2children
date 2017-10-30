@@ -1,0 +1,281 @@
+---
+title: "All Children's Eye Gaze (study2children)"
+author: "Adam Stone, PhD" 
+date: '`r format(Sys.Date(), "%m-%d-%Y")`'
+output:
+  github_document:
+    toc: yes
+    toc_depth: 2
+  html_notebook:
+    code_folding: hide
+    theme: spacelab
+    highlight: tango
+    toc: yes
+    toc_depth: 2
+    toc_float: yes
+    df_print: paged
+---
+
+# All Children!
+
+We're importing *both* the child and baby data.  Let's get a chart of how old all our kids are.
+
+```{r message=FALSE, warning=FALSE}
+# Libraries
+library(tidyverse)
+library(feather)
+library(scales)
+library(stringr)
+library(viridis)
+library(lme4)
+library(lmerTest)
+library(RColorBrewer)
+#library(cowplot)
+
+# Import data that's been cleaned up from 01importclean
+babydata <- read_feather("cleanedbabyeyedata.feather")
+kiddata <- read_feather("cleanedchildeyedata.feather")
+data <- rbind(babydata,kiddata)
+
+data_ages <- data %>%
+  select(participant, language, age, group) %>%
+  distinct()
+
+ggplot(data_ages, aes(x = age, fill = language)) + geom_histogram(binwidth = 0.1) + facet_grid(language ~ .) + scale_fill_brewer(palette = "Accent")
+```
+
+Next, let's do boxplots of each AOI across all stories and kids, grouping for forward vs. reversed. 
+
+```{r}
+# Boxplot!
+ggplot(data, aes(x = aoi, y = percent, fill = direction)) + 
+  geom_boxplot() + theme(axis.text.x = element_text(angle=45, hjust = 1)) +
+  ggtitle("Looking Percentages for Each AOI, All Stories") +
+  scale_y_continuous(labels = scales::percent, limits = c(0,1))
+```
+
+Looks like by far most of the activity is along the Mid** AOIs. Let's look closer. 
+
+```{r}
+data_mid <- data %>%
+  filter(str_detect(aoi,"Mid"))
+
+ggplot(data_mid, aes(x = aoi, y = percent, fill = direction)) + 
+  geom_boxplot() + theme(axis.text.x = element_text(angle=45, hjust = 1)) +
+  ggtitle("Looking Percentages for Middle AOIs, All Stories") +
+  scale_y_continuous(labels = scales::percent, limits = c(0,1))
+```
+
+As a preliminary analysis I'm going to just look at MidChestTop and MidFaceBottom. Are there differences based on direction, group, or age for either AOI? 
+
+```{r}
+data_mid %>% 
+  filter(aoi == "MidChestTop" | aoi == "MidFaceBottom") %>%
+  ggplot(aes(x = age, y = percent, color = direction)) + geom_point(alpha = 0.25) +
+  geom_smooth(method = "lm") + facet_grid(language ~ aoi) +
+  scale_y_continuous(labels = scales::percent, limits = c(0,1)) +
+  ggtitle("Top 2 AOIs")
+```
+
+I am not observing big differences for direction. And not strong patterns across age, although there are subtle upward trends for increased chest looking in NSE kids as they get older, but increased face looking in CODAS as they get older.  
+
+What if we defined a Face-Chest Ratio (FCR) such that:
+
+1. MidFaceTop, MidFaceCenter, MidFaceBottom = Face
+1. MidChestTop, MidChestCenter, MidChestBottom = Chest
+1. FCR = face - chest / face + chest
+
+Let's try that. Let's also try only MidFaceBottom vs. MidChestTop too, and call that MFCR (for middle-middle).
+
+Chart belows suggests group differences. CODAs overall have higher FCR ratios, AND direction effects work differently. While NSE kids generally do not show an age-related trend towards more face-looking.
+```{r}
+data_mid <- data_mid %>%
+  select(-secs, -hits) %>%
+  spread(aoi,percent) %>%
+  group_by(participant, trial) %>%
+  mutate(face = sum(MidFaceTop, MidFaceCenter, MidFaceBottom, na.rm = TRUE),
+         chest = sum(MidChestTop, MidChestCenter, MidChestBottom, na.rm = TRUE),
+         fcr = (face - chest) / (face + chest),
+         mfcr = (MidFaceBottom - MidChestTop) / (MidFaceBottom + MidChestTop))
+
+ggplot(data_mid, aes(x = age, y = fcr, color = direction)) + geom_point(alpha = 0.25) +
+  geom_smooth(method = "lm") + facet_wrap("language") + ggtitle("FaceChest Ratio")
+```
+
+Let's also check out MFCR (a stricter ratio). Almost the same thing. 
+
+```{r}
+ggplot(data_mid, aes(x = age, y = mfcr, color = direction)) + geom_point(alpha = 0.25) +
+  geom_smooth(method = "lm") + facet_wrap("language") + ggtitle("Middle-Middle FaceChest Ratio")
+```
+
+So this is rad! Such obvious group differences should also be reflected in a heat map that is collapsed across age and direction. And the heat map below shows that CODAs really focus on the MidFaceBottom AOI, while English-exposed children are a bit more spread out, looking much more at the chest. 
+
+```{r}
+data_mid_heat <- data_mid %>%
+  ungroup() %>%
+  select(-face, -chest, -fcr, -mfcr) %>%
+  gather(aoi, percent, MidChestBottom:MidFaceTop) %>%
+  group_by(language, participant, direction, aoi) %>%
+  summarise(percent = mean(percent, na.rm = TRUE)) %>%
+  group_by(language, direction, aoi) %>%
+  summarise(percent = mean(percent, na.rm = TRUE)) %>%
+  group_by(language, aoi) %>%
+  summarise(percent = mean(percent, na.rm = TRUE)) %>%
+  mutate(aoi = factor(aoi, levels = c("MidChestBottom", "MidChestCenter", "MidChestTop",
+                                      "MidFaceBottom", "MidFaceCenter", "MidFaceTop")))
+
+ggplot(data_mid_heat, aes(x = language, y = aoi)) +
+  geom_tile(aes(fill=percent),color="lightgray",na.rm=TRUE) + 
+  scale_fill_viridis(option = "viridis", direction=-1, limits = c(0,1)) +
+  theme(axis.text.x=element_text(angle=45,hjust=1)) +
+  ylab("") + xlab("") + ggtitle("Eye Gaze Heat Map")
+```
+
+
+# Statistical Testing of FCR/mFCR
+
+Now that we've found something interesting with FCR and mFCR, let's see if it holds up in stats modeling.
+
+## Language, Direction, & Age Predictors
+
+First, a LMM with predictors Language, Direction, and Age, and outcome variable FCR. 
+
+Here, some interesting effects (and this model was NOT working with just babies and children!). 
+
+1. Overall group effect of language. CODA kids on average have 0.48 higher FCR than NSE kids, p = 0.0494. 
+1. Significant Language X Direction interaction (p = 0.01). 
+1. No effect of age.
+
+```{r}
+fcr_lmm <- lmer(fcr ~ age * language * direction + (1|story) + (1|participant), data = data_mid)
+summary(fcr_lmm)
+```
+
+Let's repeat the LMM with outcome mFCR. Stronger statistical values.  
+
+1. Overall group effect of language, p = 0.361. 
+1. Significant Direction effect, p = 0.0485. 
+1. Significant Language X Direction interaction (p = 0.01). 
+1. No effect of age.
+
+
+```{r}
+mfcr_lmm <- lmer(mfcr ~ age * language * direction + (1|story) + (1|participant), data = data_mid)
+summary(mfcr_lmm)
+```
+
+What if we did ANCOVAs (C because age would be a covariate). First, FCR as outcome. 
+
+## Direction & Language Predictors
+
+In the LMMs we've run so far, age is always the worst predictor. So we should take that out. 
+
+1. Strong effect of language (p < 0.001)
+1. Significant language x direction interaction (p = 0.02). 
+
+```{r}
+fcr_lmm_noage <- lmer(fcr ~ direction * language + (1|story) + (1|participant), data = data_mid)
+summary(fcr_lmm_noage)
+```
+
+The mFCR LMM gives us similar results. 
+
+```{r}
+mfcr_lmm_noage <- lmer(mfcr ~ direction * language + (1|story) + (1|participant), data = data_mid)
+summary(mfcr_lmm_noage)
+```
+
+## Separate for direction
+
+Forward only. Language effect, p < 0.001. (I ran this WITH age, and age was not significant). 
+
+```{r}
+fcr_lmm_langonly_f <- lmer(fcr ~ language + (1|story) + (1|participant), data = filter(data_mid,direction=="forward"))
+summary(fcr_lmm_langonly_f)
+```
+
+Reversed only. Slightly weaker language effect, p = 0.008. (I ran this with AGE too and not sig.)
+
+```{r}
+fcr_lmm_langonly_r <- lmer(fcr ~ language + (1|story) + (1|participant), data = filter(data_mid,direction=="reversed"))
+summary(fcr_lmm_langonly_r)
+```
+
+Let's go ahead and plot boxplots to represent LMMs with only language as an important effect. (We can add in direction too). FaceChest Ratio here. 
+
+```{r}
+ggplot(data_mid, aes(x = language, y = fcr, fill = language)) + geom_boxplot() + scale_fill_brewer(palette = "Dark2") + ylab("FaceChest Ratio") + ggtitle("FaceChest Ratio by Language")
+
+ggplot(data_mid, aes(x = language, y = fcr, fill = direction)) + geom_boxplot() + ylab("FaceChest Ratio") + ggtitle("FaceChest Ratio by Language & Direction")
+```
+
+And Middle-Middle FaceChest Ratio here. 
+
+```{r}
+ggplot(data_mid, aes(x = language, y = mfcr, fill = language)) + geom_boxplot() + scale_fill_brewer(palette = "Dark2") + ylab("M-FaceChest Ratio") + ggtitle("Middle-Middle FaceChest Ratio by Language")
+
+ggplot(data_mid, aes(x = language, y = mfcr, fill = direction)) + geom_boxplot() + ylab("M-FaceChest Ratio") + ggtitle("Middle-Middle FaceChest Ratio by Language & Direction")
+```
+
+Maybe error bars would be nice here. Let's do it. 
+
+```{r}
+data_mid_fcr <- data_mid %>%
+  group_by(language, participant, direction) %>%
+  summarise(fcr_mean_subj = mean(fcr, na.rm=TRUE)) %>%
+  group_by(language, direction) %>%
+  summarise(fcr_mean = mean(fcr_mean_subj, na.rm=TRUE),
+            fcr_sd = sd(fcr_mean_subj, na.rm=TRUE),
+            fcr_n = n()) %>%
+  ungroup() %>%
+  mutate(fcr_se = fcr_sd/sqrt(fcr_n))
+
+ggplot(data_mid_fcr, aes(x = language, y = fcr_mean, color = direction, group = direction, fill = direction)) + geom_errorbar(aes(ymin = fcr_mean-fcr_se, ymax = fcr_mean+fcr_se), position = "dodge", width = 0.2) +
+  geom_point(position = position_dodge(width = 0.2)) + scale_y_continuous(limits = c(-1,1)) + ylab("M-FaceChest Ratio") + ggtitle("FaceChest Ratio by Language & Direction")
+```
+
+```{r}
+data_mid_mfcr <- data_mid %>%
+  group_by(language, participant, direction) %>%
+  summarise(fcr_mean_subj = mean(mfcr, na.rm=TRUE)) %>%
+  group_by(language, direction) %>%
+  summarise(fcr_mean = mean(fcr_mean_subj, na.rm=TRUE),
+            fcr_sd = sd(fcr_mean_subj, na.rm=TRUE),
+            fcr_n = n()) %>%
+  ungroup() %>%
+  mutate(fcr_se = fcr_sd/sqrt(fcr_n))
+
+ggplot(data_mid_mfcr, aes(x = language, y = fcr_mean, color = direction, group = direction, fill = direction)) + geom_errorbar(aes(ymin = fcr_mean-fcr_se, ymax = fcr_mean+fcr_se), position = "dodge", width = 0.2) +
+  geom_point(position = position_dodge(width = 0.2)) + scale_y_continuous(limits = c(-1,1)) + ylab("M-FaceChest Ratio") + ggtitle("Middle-Middle FaceChest Ratio by Language & Direction")
+```
+
+```{r}
+data_mid_fcr <- data_mid %>%
+  group_by(language, participant) %>%
+  summarise(fcr_mean_subj = mean(fcr, na.rm=TRUE)) %>%
+  group_by(language) %>%
+  summarise(fcr_mean = mean(fcr_mean_subj, na.rm=TRUE),
+            fcr_sd = sd(fcr_mean_subj, na.rm=TRUE),
+            fcr_n = n()) %>%
+  ungroup() %>%
+  mutate(fcr_se = fcr_sd/sqrt(fcr_n))
+
+ggplot(data_mid_fcr, aes(x = language, y = fcr_mean, color = language)) + geom_errorbar(aes(ymin = fcr_mean-fcr_se, ymax = fcr_mean+fcr_se), width = 0.2) +
+  geom_point() + scale_y_continuous(limits = c(-1,1)) + ylab("M-FaceChest Ratio") + ggtitle("FaceChest Ratio by Language") + scale_color_brewer(palette = "Dark2")
+```
+
+```{r}
+data_mid_mfcr <- data_mid %>%
+  group_by(language, participant) %>%
+  summarise(fcr_mean_subj = mean(mfcr, na.rm=TRUE)) %>%
+  group_by(language) %>%
+  summarise(fcr_mean = mean(fcr_mean_subj, na.rm=TRUE),
+            fcr_sd = sd(fcr_mean_subj, na.rm=TRUE),
+            fcr_n = n()) %>%
+  ungroup() %>%
+  mutate(fcr_se = fcr_sd/sqrt(fcr_n))
+
+ggplot(data_mid_mfcr, aes(x = language, y = fcr_mean, color = language)) + geom_errorbar(aes(ymin = fcr_mean-fcr_se, ymax = fcr_mean+fcr_se), width = 0.2) +
+  geom_point() + scale_y_continuous(limits = c(-1,1)) + ylab("M-FaceChest Ratio") + ggtitle("Middle-Middle FaceChest Ratio by Language") + scale_color_brewer(palette = "Dark2")
+```
