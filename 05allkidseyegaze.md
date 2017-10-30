@@ -8,6 +8,7 @@ Adam Stone, PhD
     -   [Language, Direction, & Age Predictors](#language-direction-age-predictors)
     -   [Direction & Language Predictors](#direction-language-predictors)
     -   [Separate for direction](#separate-for-direction)
+    -   [Are Babies and Children Different?](#are-babies-and-children-different)
 
 All Children!
 =============
@@ -562,3 +563,2179 @@ ggplot(data_mid_mfcr, aes(x = language, y = fcr_mean, color = language)) + geom_
 ```
 
 ![](05allkidseyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-19-1.png)
+
+Are Babies and Children Different?
+----------------------------------
+
+Quick check here. First, are CODA babies different from CODA children?
+
+``` r
+data_mid <- data_mid %>% 
+  mutate(agegroup = ifelse(age < 2, "baby", "child")) %>%
+  mutate(agegroup = as.factor(agegroup))
+```
+
+    ## Warning in mutate_impl(.data, dots): Unequal factor levels: coercing to
+    ## character
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+    ## Warning in mutate_impl(.data, dots): binding character and factor vector,
+    ## coercing into character vector
+
+``` r
+ggplot(data_mid, aes(x = age, y = fcr, color = direction)) + geom_point(alpha = 0.25) +
+  geom_smooth(method = "lm", aes(linetype = agegroup)) + facet_grid(language ~ .) + ggtitle("FaceChest Ratio")
+```
+
+    ## Warning: Removed 2 rows containing non-finite values (stat_smooth).
+
+    ## Warning: Removed 2 rows containing missing values (geom_point).
+
+![](05allkidseyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-20-1.png) Let's do a LMM with agegroup
+
+``` r
+agegroup_lmm <- lmer(fcr ~ agegroup * direction * language + (1|story) + (1|participant), data = data_mid)
+summary(agegroup_lmm)
+```
+
+    ## Linear mixed model fit by REML t-tests use Satterthwaite approximations
+    ##   to degrees of freedom [lmerMod]
+    ## Formula: 
+    ## fcr ~ agegroup * direction * language + (1 | story) + (1 | participant)
+    ##    Data: data_mid
+    ## 
+    ## REML criterion at convergence: 972.2
+    ## 
+    ## Scaled residuals: 
+    ##     Min      1Q  Median      3Q     Max 
+    ## -3.3043 -0.5755  0.0608  0.6407  2.6036 
+    ## 
+    ## Random effects:
+    ##  Groups      Name        Variance Std.Dev.
+    ##  participant (Intercept) 0.19879  0.4459  
+    ##  story       (Intercept) 0.01153  0.1074  
+    ##  Residual                0.19213  0.4383  
+    ## Number of obs: 679, groups:  participant, 52; story, 8
+    ## 
+    ## Fixed effects:
+    ##                                               Estimate Std. Error
+    ## (Intercept)                                   -0.17202    0.12580
+    ## agegroupchild                                  0.09192    0.17874
+    ## directionreversed                              0.08250    0.06206
+    ## languagesign                                   0.47986    0.21758
+    ## agegroupchild:directionreversed               -0.10248    0.09241
+    ## agegroupchild:languagesign                     0.01278    0.28160
+    ## directionreversed:languagesign                -0.24766    0.11377
+    ## agegroupchild:directionreversed:languagesign   0.16381    0.14731
+    ##                                                     df t value Pr(>|t|)  
+    ## (Intercept)                                   59.10000  -1.367   0.1767  
+    ## agegroupchild                                 53.70000   0.514   0.6092  
+    ## directionreversed                            616.10000   1.329   0.1842  
+    ## languagesign                                  54.30000   2.205   0.0317 *
+    ## agegroupchild:directionreversed              622.70000  -1.109   0.2679  
+    ## agegroupchild:languagesign                    54.10000   0.045   0.9640  
+    ## directionreversed:languagesign               615.80000  -2.177   0.0299 *
+    ## agegroupchild:directionreversed:languagesign 622.30000   1.112   0.2666  
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Correlation of Fixed Effects:
+    ##             (Intr) aggrpc drctnr lnggsg aggrpchld:d aggrpchld:l drctn:
+    ## agegropchld -0.640                                                    
+    ## dirctnrvrsd -0.243  0.170                                             
+    ## languagesgn -0.525  0.370  0.140                                      
+    ## aggrpchld:d  0.163 -0.258 -0.667 -0.096                               
+    ## aggrpchld:l  0.406 -0.636 -0.107 -0.773  0.167                        
+    ## drctnrvrsd:  0.132 -0.094 -0.544 -0.253  0.368       0.196            
+    ## aggrpchld:: -0.102  0.165  0.417  0.197 -0.638      -0.257      -0.774
+
+LMM here for CODA babies vs. CODA children - no difference based on age group. And here there's no direction effect, either. (Same for mFCR)
+
+``` r
+data_coda <- data_mid %>% 
+  filter(language=="sign")
+
+coda_lmm <- lmer(fcr ~ agegroup * direction + (1|story) + (1|participant), data = data_coda)
+summary(coda_lmm)
+```
+
+    ## Linear mixed model fit by REML t-tests use Satterthwaite approximations
+    ##   to degrees of freedom [lmerMod]
+    ## Formula: fcr ~ agegroup * direction + (1 | story) + (1 | participant)
+    ##    Data: data_coda
+    ## 
+    ## REML criterion at convergence: 445.7
+    ## 
+    ## Scaled residuals: 
+    ##     Min      1Q  Median      3Q     Max 
+    ## -3.0590 -0.5124  0.1779  0.6524  2.0285 
+    ## 
+    ## Random effects:
+    ##  Groups      Name        Variance Std.Dev.
+    ##  participant (Intercept) 0.115316 0.33958 
+    ##  story       (Intercept) 0.008846 0.09405 
+    ##  Residual                0.214742 0.46340 
+    ## Number of obs: 296, groups:  participant, 23; story, 8
+    ## 
+    ## Fixed effects:
+    ##                                  Estimate Std. Error        df t value
+    ## (Intercept)                       0.32057    0.15056  27.51000   2.129
+    ## agegroupchild                     0.08920    0.17568  25.26000   0.508
+    ## directionreversed                -0.16870    0.10093 264.47000  -1.671
+    ## agegroupchild:directionreversed   0.06949    0.12008 266.43000   0.579
+    ##                                 Pr(>|t|)  
+    ## (Intercept)                       0.0423 *
+    ## agegroupchild                     0.6160  
+    ## directionreversed                 0.0958 .
+    ## agegroupchild:directionreversed   0.5633  
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Correlation of Fixed Effects:
+    ##             (Intr) aggrpc drctnr
+    ## agegropchld -0.815              
+    ## dirctnrvrsd -0.322  0.276       
+    ## aggrpchld:d  0.271 -0.332 -0.842
+
+LMM here for NSE babies vs. NSE children - no difference based on age group or direction. Same for mFCR.
+
+``` r
+data_nse <- data_mid %>% 
+  filter(language=="english")
+
+nse_lmm <- lmer(fcr ~ agegroup * direction + (1|story) + (1|participant), data = data_nse)
+summary(nse_lmm)
+```
+
+    ## Linear mixed model fit by REML t-tests use Satterthwaite approximations
+    ##   to degrees of freedom [lmerMod]
+    ## Formula: fcr ~ agegroup * direction + (1 | story) + (1 | participant)
+    ##    Data: data_nse
+    ## 
+    ## REML criterion at convergence: 527
+    ## 
+    ## Scaled residuals: 
+    ##      Min       1Q   Median       3Q      Max 
+    ## -2.70309 -0.59545  0.01691  0.55557  2.81587 
+    ## 
+    ## Random effects:
+    ##  Groups      Name        Variance Std.Dev.
+    ##  participant (Intercept) 0.26317  0.5130  
+    ##  story       (Intercept) 0.01218  0.1104  
+    ##  Residual                0.17622  0.4198  
+    ## Number of obs: 383, groups:  participant, 29; story, 8
+    ## 
+    ## Fixed effects:
+    ##                                  Estimate Std. Error        df t value
+    ## (Intercept)                      -0.16897    0.14061  33.10000  -1.202
+    ## agegroupchild                     0.07989    0.20164  29.50000   0.396
+    ## directionreversed                 0.08292    0.05946 345.50000   1.394
+    ## agegroupchild:directionreversed  -0.08407    0.09012 349.80000  -0.933
+    ##                                 Pr(>|t|)
+    ## (Intercept)                        0.238
+    ## agegroupchild                      0.695
+    ## directionreversed                  0.164
+    ## agegroupchild:directionreversed    0.352
+    ## 
+    ## Correlation of Fixed Effects:
+    ##             (Intr) aggrpc drctnr
+    ## agegropchld -0.644              
+    ## dirctnrvrsd -0.208  0.143       
+    ## aggrpchld:d  0.137 -0.224 -0.652

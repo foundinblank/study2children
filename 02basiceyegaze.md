@@ -1,7 +1,7 @@
 Basic Eye Gaze (study2children)
 ================
 Adam Stone, PhD
-10-27-2017
+10-30-2017
 
 -   [Starting Out](#starting-out)
 -   [Statistical Testing of FCR/mFCR](#statistical-testing-of-fcrmfcr)
@@ -28,8 +28,6 @@ library(tidyverse)
     ## Loading tidyverse: readr
     ## Loading tidyverse: purrr
     ## Loading tidyverse: dplyr
-
-    ## Warning: package 'dplyr' was built under R version 3.4.2
 
     ## Conflicts with tidy packages ----------------------------------------------
 
@@ -69,8 +67,6 @@ library(viridis)
 ``` r
 library(lme4)
 ```
-
-    ## Warning: package 'lme4' was built under R version 3.4.2
 
     ## Loading required package: Matrix
 

@@ -165,6 +165,7 @@ mfcr_lmm <- lmer(mfcr ~ age * language * direction + (1|story) + (1|participant)
 summary(mfcr_lmm)
 ```
 
+
 What if we did ANCOVAs (C because age would be a covariate). First, FCR as outcome. 
 
 ## Direction & Language Predictors
@@ -278,4 +279,40 @@ data_mid_mfcr <- data_mid %>%
 
 ggplot(data_mid_mfcr, aes(x = language, y = fcr_mean, color = language)) + geom_errorbar(aes(ymin = fcr_mean-fcr_se, ymax = fcr_mean+fcr_se), width = 0.2) +
   geom_point() + scale_y_continuous(limits = c(-1,1)) + ylab("M-FaceChest Ratio") + ggtitle("Middle-Middle FaceChest Ratio by Language") + scale_color_brewer(palette = "Dark2")
+```
+
+## Are Babies and Children Different?
+
+Quick check here. First, are CODA babies different from CODA children? 
+
+```{r}
+data_mid <- data_mid %>% 
+  mutate(agegroup = ifelse(age < 2, "baby", "child")) %>%
+  mutate(agegroup = as.factor(agegroup))
+
+ggplot(data_mid, aes(x = age, y = fcr, color = direction)) + geom_point(alpha = 0.25) +
+  geom_smooth(method = "lm", aes(linetype = agegroup)) + facet_grid(language ~ .) + ggtitle("FaceChest Ratio")
+```
+Let's do a LMM with agegroup
+```{r}
+agegroup_lmm <- lmer(fcr ~ agegroup * direction * language + (1|story) + (1|participant), data = data_mid)
+summary(agegroup_lmm)
+```
+
+LMM here for CODA babies vs. CODA children - no difference based on age group. And here there's no direction effect, either.  (Same for mFCR)
+```{r}
+data_coda <- data_mid %>% 
+  filter(language=="sign")
+
+coda_lmm <- lmer(fcr ~ agegroup * direction + (1|story) + (1|participant), data = data_coda)
+summary(coda_lmm)
+```
+
+LMM here for NSE babies vs. NSE children - no difference based on age group or direction. Same for mFCR.
+```{r}
+data_nse <- data_mid %>% 
+  filter(language=="english")
+
+nse_lmm <- lmer(fcr ~ agegroup * direction + (1|story) + (1|participant), data = data_nse)
+summary(nse_lmm)
 ```
