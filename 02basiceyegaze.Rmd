@@ -20,7 +20,7 @@ output:
 
 We've cleaned up the data in [01importclean](01importclean.nb.html). So we're importing it here. Let's grab histograms of our kids and groups. 
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 
 # Libraries
 library(tidyverse)

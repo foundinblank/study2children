@@ -281,11 +281,11 @@ ggplot(data_mid_mfcr, aes(x = language, y = fcr_mean, color = language)) + geom_
   geom_point() + scale_y_continuous(limits = c(-1,1)) + ylab("M-FaceChest Ratio") + ggtitle("Middle-Middle FaceChest Ratio by Language") + scale_color_brewer(palette = "Dark2")
 ```
 
-## Are Babies and Children Different?
+# Are Babies and Children Different?
 
 Quick check here. First, are CODA babies different from CODA children? 
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 data_mid <- data_mid %>% 
   mutate(agegroup = ifelse(age < 2, "baby", "child")) %>%
   mutate(agegroup = as.factor(agegroup))
