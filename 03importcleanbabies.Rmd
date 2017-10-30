@@ -59,9 +59,14 @@ data <- data %>%
   filter(analysis == "GoodData")
 
 anti_join(alldata, data, by = "participant") %>% 
-  select(participant, analysis, language, group, age) %>% 
+  select(participant, recording, analysis, language, group, age) %>% 
   distinct() %>%
   filter(age < 2.0)
+
+# Add de02wi15, lo08jo20, vi11hi18 back in. 
+goodbabies <- alldata %>%
+  filter(participant=="de02wi15_12m_10d" | participant == "lo08jo20_6m_14d" | participant == "vi11hi18_1027d")
+data <- rbind(data, goodbabies)
 ```
 
 Next, we want to get a general idea of how many trials each baby saw. The trials column will tell us which babies saw *less* than 16 trials. Okay, just 3 kids and all saw at least half the study. All good. 

@@ -6293,3 +6293,771 @@ WY06WE01_10.5m GREAT looksAtMomALot,WY06WE01_10M_17D,GoodData,1,Male,english,Cin
 WY06WE01_10.5m GREAT looksAtMomALot,WY06WE01_10M_17D,GoodData,1,Male,english,Cinderella_1,forward,1,13,2,30257,31313,BelowChest,22,0.9,8.44,0.18333333333333332,0.021721958925750396
 WY06WE01_10.5m GREAT looksAtMomALot,WY06WE01_10M_17D,GoodData,1,Male,english,Cinderella_1,forward,1,13,2,30257,31313,LeftSide,0,0.9,8.44,0,0
 WY06WE01_10.5m GREAT looksAtMomALot,WY06WE01_10M_17D,GoodData,1,Male,english,Cinderella_1,forward,1,13,2,30257,31313,RightSide,33,0.9,8.44,0.275,0.032582938388625596
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,1,1,1543,2047,RightChestBottom,0,1,4.2,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,1,1,1543,2047,MidChestBottom,54,1,4.2,0.45,0.10714285714285714
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,1,1,1543,2047,LeftChestBottom,0,1,4.2,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,1,1,1543,2047,LeftChestCenter,0,1,4.2,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,1,1,1543,2047,MidChestCenter,2,1,4.2,0.016666666666666666,0.003968253968253968
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,1,1,1543,2047,RightChestCenter,0,1,4.2,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,1,1,1543,2047,LeftChestTop,0,1,4.2,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,1,1,1543,2047,MidChestTop,313,1,4.2,2.6083333333333334,0.621031746031746
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,1,1,1543,2047,RightChestTop,0,1,4.2,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,1,1,1543,2047,RightFaceBottom,0,1,4.2,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,1,1,1543,2047,MidFaceBottom,114,1,4.2,0.95,0.22619047619047616
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,1,1,1543,2047,LeftFaceBottom,0,1,4.2,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,1,1,1543,2047,LeftFaceCenter,0,1,4.2,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,1,1,1543,2047,MidFaceCenter,0,1,4.2,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,1,1,1543,2047,RightFaceCenter,0,1,4.2,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,1,1,1543,2047,LeftFaceTop,0,1,4.2,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,1,1,1543,2047,MidFaceTop,0,1,4.2,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,1,1,1543,2047,RightFaceTop,0,1,4.2,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,1,1,1543,2047,Belly,0,1,4.2,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,1,1,1543,2047,LeftSide,0,1,4.2,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,1,1,1543,2047,RightSide,0,1,4.2,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,2,1,2426,3435,RightChestBottom,16,1,8.4,0.13333333333333333,0.015873015873015872
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,2,1,2426,3435,MidChestBottom,66,1,8.4,0.55,0.06547619047619048
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,2,1,2426,3435,LeftChestBottom,0,1,8.4,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,2,1,2426,3435,LeftChestCenter,0,1,8.4,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,2,1,2426,3435,MidChestCenter,2,1,8.4,0.016666666666666666,0.001984126984126984
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,2,1,2426,3435,RightChestCenter,0,1,8.4,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,2,1,2426,3435,LeftChestTop,0,1,8.4,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,2,1,2426,3435,MidChestTop,508,1,8.4,4.233333333333333,0.503968253968254
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,2,1,2426,3435,RightChestTop,0,1,8.4,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,2,1,2426,3435,RightFaceBottom,0,1,8.4,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,2,1,2426,3435,MidFaceBottom,102,1,8.4,0.85,0.10119047619047618
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,2,1,2426,3435,LeftFaceBottom,0,1,8.4,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,2,1,2426,3435,LeftFaceCenter,0,1,8.4,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,2,1,2426,3435,MidFaceCenter,15,1,8.4,0.125,0.01488095238095238
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,2,1,2426,3435,RightFaceCenter,6,1,8.4,0.05,0.005952380952380952
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,2,1,2426,3435,LeftFaceTop,1,1,8.4,0.008333333333333333,9.92063492063492e-4
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,2,1,2426,3435,MidFaceTop,0,1,8.4,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,2,1,2426,3435,RightFaceTop,1,1,8.4,0.008333333333333333,9.92063492063492e-4
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,2,1,2426,3435,Belly,0,1,8.4,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,2,1,2426,3435,BelowChest,0,1,8.4,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,2,1,2426,3435,LeftSide,0,1,8.4,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,2,1,2426,3435,RightSide,0,1,8.4,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,3,1,3745,5082,RightChestBottom,0,1,11.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,3,1,3745,5082,MidChestBottom,5,1,11.12,0.041666666666666664,0.003747002398081535
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,3,1,3745,5082,LeftChestBottom,0,1,11.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,3,1,3745,5082,LeftChestCenter,33,1,11.12,0.275,0.024730215827338132
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,3,1,3745,5082,MidChestCenter,24,1,11.12,0.2,0.01798561151079137
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,3,1,3745,5082,RightChestCenter,0,1,11.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,3,1,3745,5082,LeftChestTop,21,1,11.12,0.175,0.015737410071942445
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,3,1,3745,5082,MidChestTop,362,1,11.12,3.0166666666666666,0.27128297362110315
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,3,1,3745,5082,RightChestTop,0,1,11.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,3,1,3745,5082,RightFaceBottom,1,1,11.12,0.008333333333333333,7.49400479616307e-4
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,3,1,3745,5082,MidFaceBottom,85,1,11.12,0.7083333333333334,0.0636990407673861
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,3,1,3745,5082,LeftFaceBottom,0,1,11.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,3,1,3745,5082,LeftFaceCenter,0,1,11.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,3,1,3745,5082,MidFaceCenter,0,1,11.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,3,1,3745,5082,RightFaceCenter,0,1,11.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,3,1,3745,5082,LeftFaceTop,0,1,11.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,3,1,3745,5082,MidFaceTop,0,1,11.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,3,1,3745,5082,RightFaceTop,0,1,11.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,3,1,3745,5082,Belly,4,1,11.12,0.03333333333333333,0.002997601918465228
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,3,1,3745,5082,BelowChest,40,1,11.12,0.3333333333333333,0.02997601918465228
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,3,1,3745,5082,LeftSide,0,1,11.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,3,1,3745,5082,RightSide,0,1,11.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,4,1,5404,6738,RightChestBottom,0,1,11.08,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,4,1,5404,6738,MidChestBottom,63,1,11.08,0.525,0.047382671480144405
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,4,1,5404,6738,LeftChestBottom,0,1,11.08,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,4,1,5404,6738,LeftChestCenter,51,1,11.08,0.425,0.03835740072202166
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,4,1,5404,6738,MidChestCenter,47,1,11.08,0.39166666666666666,0.035348977135980744
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,4,1,5404,6738,RightChestCenter,0,1,11.08,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,4,1,5404,6738,LeftChestTop,2,1,11.08,0.016666666666666666,0.0015042117930204573
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,4,1,5404,6738,MidChestTop,299,1,11.08,2.4916666666666667,0.22487966305655838
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,4,1,5404,6738,RightChestTop,0,1,11.08,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,4,1,5404,6738,RightFaceBottom,1,1,11.08,0.008333333333333333,7.521058965102287e-4
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,4,1,5404,6738,MidFaceBottom,102,1,11.08,0.85,0.07671480144404332
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,4,1,5404,6738,LeftFaceBottom,31,1,11.08,0.25833333333333336,0.02331528279181709
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,4,1,5404,6738,LeftFaceCenter,16,1,11.08,0.13333333333333333,0.012033694344163659
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,4,1,5404,6738,MidFaceCenter,9,1,11.08,0.075,0.006768953068592058
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,4,1,5404,6738,RightFaceCenter,0,1,11.08,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,4,1,5404,6738,LeftFaceTop,0,1,11.08,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,4,1,5404,6738,MidFaceTop,0,1,11.08,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,4,1,5404,6738,RightFaceTop,0,1,11.08,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,4,1,5404,6738,Belly,0,1,11.08,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,4,1,5404,6738,BelowChest,50,1,11.08,0.4166666666666667,0.037605294825511434
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,4,1,5404,6738,LeftSide,1,1,11.08,0.008333333333333333,7.521058965102287e-4
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,4,1,5404,6738,RightSide,0,1,11.08,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,5,1,7032,8052,RightChestBottom,0,1,8.44,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,5,1,7032,8052,MidChestBottom,0,1,8.44,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,5,1,7032,8052,LeftChestBottom,0,1,8.44,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,5,1,7032,8052,LeftChestCenter,0,1,8.44,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,5,1,7032,8052,MidChestCenter,0,1,8.44,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,5,1,7032,8052,RightChestCenter,0,1,8.44,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,5,1,7032,8052,LeftChestTop,0,1,8.44,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,5,1,7032,8052,MidChestTop,236,1,8.44,1.9666666666666666,0.2330173775671406
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,5,1,7032,8052,RightChestTop,0,1,8.44,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,5,1,7032,8052,RightFaceBottom,0,1,8.44,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,5,1,7032,8052,MidFaceBottom,12,1,8.44,0.1,0.011848341232227489
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,5,1,7032,8052,LeftFaceBottom,0,1,8.44,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,5,1,7032,8052,LeftFaceCenter,3,1,8.44,0.025,0.0029620853080568723
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,5,1,7032,8052,MidFaceCenter,0,1,8.44,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,5,1,7032,8052,RightFaceCenter,0,1,8.44,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,5,1,7032,8052,LeftFaceTop,4,1,8.44,0.03333333333333333,0.003949447077409163
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,5,1,7032,8052,MidFaceTop,0,1,8.44,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,5,1,7032,8052,RightFaceTop,0,1,8.44,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,5,1,7032,8052,Belly,0,1,8.44,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,5,1,7032,8052,BelowChest,0,1,8.44,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,5,1,7032,8052,LeftSide,0,1,8.44,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,5,1,7032,8052,RightSide,0,1,8.44,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,6,1,8455,9362,RightSide,1,1,7.52,0.008333333333333333,0.0011081560283687944
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,6,1,8455,9362,LeftSide,0,1,7.52,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,6,1,8455,9362,BelowChest,0,1,7.52,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,6,1,8455,9362,Belly,0,1,7.52,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,6,1,8455,9362,RightFaceTop,45,1,7.52,0.375,0.04986702127659575
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,6,1,8455,9362,RightFaceCenter,3,1,7.52,0.025,0.0033244680851063834
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,6,1,8455,9362,RightFaceBottom,1,1,7.52,0.008333333333333333,0.0011081560283687944
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,6,1,8455,9362,RightChestTop,1,1,7.52,0.008333333333333333,0.0011081560283687944
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,6,1,8455,9362,RightChestCenter,13,1,7.52,0.10833333333333334,0.014406028368794328
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,6,1,8455,9362,RightChestBottom,0,1,7.52,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,6,1,8455,9362,LeftFaceTop,0,1,7.52,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,6,1,8455,9362,LeftFaceCenter,0,1,7.52,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,6,1,8455,9362,LeftFaceBottom,0,1,7.52,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,6,1,8455,9362,LeftChestTop,1,1,7.52,0.008333333333333333,0.0011081560283687944
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,6,1,8455,9362,LeftChestCenter,45,1,7.52,0.375,0.04986702127659575
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,6,1,8455,9362,LeftChestBottom,1,1,7.52,0.008333333333333333,0.0011081560283687944
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,6,1,8455,9362,MidFaceTop,0,1,7.52,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,6,1,8455,9362,MidFaceCenter,1,1,7.52,0.008333333333333333,0.0011081560283687944
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,6,1,8455,9362,MidFaceBottom,249,1,7.52,2.075,0.2759308510638298
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,6,1,8455,9362,MidChestTop,117,1,7.52,0.975,0.12965425531914895
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,6,1,8455,9362,MidChestCenter,0,1,7.52,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,6,1,8455,9362,MidChestBottom,0,1,7.52,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,7,1,9911,11010,RightChestBottom,0,1,9.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,7,1,9911,11010,MidChestBottom,0,1,9.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,7,1,9911,11010,LeftChestBottom,0,1,9.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,7,1,9911,11010,LeftChestCenter,0,1,9.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,7,1,9911,11010,MidChestCenter,0,1,9.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,7,1,9911,11010,RightChestCenter,0,1,9.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,7,1,9911,11010,LeftChestTop,0,1,9.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,7,1,9911,11010,MidChestTop,164,1,9.12,1.3666666666666667,0.14985380116959066
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,7,1,9911,11010,RightChestTop,0,1,9.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,7,1,9911,11010,RightFaceBottom,0,1,9.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,7,1,9911,11010,MidFaceBottom,76,1,9.12,0.6333333333333333,0.06944444444444445
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,7,1,9911,11010,LeftFaceBottom,0,1,9.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,7,1,9911,11010,LeftFaceCenter,0,1,9.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,7,1,9911,11010,MidFaceCenter,47,1,9.12,0.39166666666666666,0.042945906432748544
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,7,1,9911,11010,RightFaceCenter,13,1,9.12,0.10833333333333334,0.011878654970760235
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,7,1,9911,11010,LeftFaceTop,0,1,9.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,7,1,9911,11010,MidFaceTop,1,1,9.12,0.008333333333333333,9.137426900584796e-4
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,7,1,9911,11010,RightFaceTop,0,1,9.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,7,1,9911,11010,Belly,0,1,9.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,7,1,9911,11010,BelowChest,0,1,9.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,7,1,9911,11010,LeftSide,0,1,9.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,7,1,9911,11010,RightSide,0,1,9.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,8,1,11354,12283,RightChestBottom,0,1,7.72,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,8,1,11354,12283,MidChestBottom,0,1,7.72,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,8,1,11354,12283,LeftChestBottom,0,1,7.72,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,8,1,11354,12283,LeftChestCenter,1,1,7.72,0.008333333333333333,0.001079447322970639
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,8,1,11354,12283,MidChestCenter,86,1,7.72,0.7166666666666667,0.09283246977547496
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,8,1,11354,12283,RightChestCenter,0,1,7.72,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,8,1,11354,12283,LeftChestTop,75,1,7.72,0.625,0.08095854922279792
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,8,1,11354,12283,MidChestTop,413,1,7.72,3.441666666666667,0.445811744386874
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,8,1,11354,12283,RightChestTop,0,1,7.72,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,8,1,11354,12283,RightFaceBottom,0,1,7.72,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,8,1,11354,12283,MidFaceBottom,31,1,7.72,0.25833333333333336,0.033462867012089816
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,8,1,11354,12283,LeftFaceBottom,2,1,7.72,0.016666666666666666,0.002158894645941278
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,8,1,11354,12283,LeftFaceCenter,0,1,7.72,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,8,1,11354,12283,MidFaceCenter,0,1,7.72,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,8,1,11354,12283,RightFaceCenter,0,1,7.72,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,8,1,11354,12283,LeftFaceTop,0,1,7.72,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,8,1,11354,12283,MidFaceTop,0,1,7.72,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,8,1,11354,12283,RightFaceTop,0,1,7.72,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,8,1,11354,12283,Belly,0,1,7.72,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,8,1,11354,12283,BelowChest,0,1,7.72,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,8,1,11354,12283,LeftSide,1,1,7.72,0.008333333333333333,0.001079447322970639
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,8,1,11354,12283,RightSide,0,1,7.72,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,9,2,12614,13121,RightChestBottom,6,1,4.2,0.05,0.011904761904761904
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,9,2,12614,13121,MidChestBottom,51,1,4.2,0.425,0.10119047619047618
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,9,2,12614,13121,LeftChestBottom,0,1,4.2,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,9,2,12614,13121,LeftChestCenter,0,1,4.2,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,9,2,12614,13121,MidChestCenter,4,1,4.2,0.03333333333333333,0.007936507936507936
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,9,2,12614,13121,RightChestCenter,0,1,4.2,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,9,2,12614,13121,LeftChestTop,0,1,4.2,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,9,2,12614,13121,MidChestTop,227,1,4.2,1.8916666666666666,0.45039682539682535
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,9,2,12614,13121,RightChestTop,0,1,4.2,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,9,2,12614,13121,RightFaceBottom,0,1,4.2,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,9,2,12614,13121,MidFaceBottom,0,1,4.2,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,9,2,12614,13121,LeftFaceBottom,0,1,4.2,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,9,2,12614,13121,LeftFaceCenter,0,1,4.2,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,9,2,12614,13121,MidFaceCenter,0,1,4.2,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,9,2,12614,13121,RightFaceCenter,0,1,4.2,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,9,2,12614,13121,LeftFaceTop,1,1,4.2,0.008333333333333333,0.001984126984126984
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,9,2,12614,13121,MidFaceTop,0,1,4.2,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,9,2,12614,13121,RightFaceTop,0,1,4.2,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,9,2,12614,13121,Belly,0,1,4.2,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,9,2,12614,13121,LeftSide,0,1,4.2,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,9,2,12614,13121,RightSide,0,1,4.2,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,10,2,13561,14569,RightChestBottom,0,1,8.4,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,10,2,13561,14569,MidChestBottom,0,1,8.4,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,10,2,13561,14569,LeftChestBottom,0,1,8.4,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,10,2,13561,14569,LeftChestCenter,0,1,8.4,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,10,2,13561,14569,MidChestCenter,0,1,8.4,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,10,2,13561,14569,RightChestCenter,46,1,8.4,0.38333333333333336,0.04563492063492064
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,10,2,13561,14569,LeftChestTop,0,1,8.4,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,10,2,13561,14569,MidChestTop,426,1,8.4,3.55,0.42261904761904756
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,10,2,13561,14569,RightChestTop,32,1,8.4,0.26666666666666666,0.031746031746031744
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,10,2,13561,14569,RightFaceBottom,0,1,8.4,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,10,2,13561,14569,MidFaceBottom,28,1,8.4,0.23333333333333334,0.027777777777777776
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,10,2,13561,14569,LeftFaceBottom,1,1,8.4,0.008333333333333333,9.92063492063492e-4
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,10,2,13561,14569,LeftFaceCenter,0,1,8.4,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,10,2,13561,14569,MidFaceCenter,42,1,8.4,0.35,0.041666666666666664
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,10,2,13561,14569,RightFaceCenter,0,1,8.4,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,10,2,13561,14569,LeftFaceTop,0,1,8.4,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,10,2,13561,14569,MidFaceTop,0,1,8.4,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,10,2,13561,14569,RightFaceTop,0,1,8.4,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,10,2,13561,14569,Belly,0,1,8.4,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,10,2,13561,14569,BelowChest,0,1,8.4,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,10,2,13561,14569,LeftSide,0,1,8.4,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_1,forward,7,10,2,13561,14569,RightSide,6,1,8.4,0.05,0.005952380952380952
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,11,2,15015,16355,RightChestBottom,3,1,11.12,0.025,0.002248201438848921
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,11,2,15015,16355,MidChestBottom,42,1,11.12,0.35,0.03147482014388489
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,11,2,15015,16355,LeftChestBottom,0,1,11.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,11,2,15015,16355,LeftChestCenter,0,1,11.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,11,2,15015,16355,MidChestCenter,12,1,11.12,0.1,0.008992805755395685
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,11,2,15015,16355,RightChestCenter,2,1,11.12,0.016666666666666666,0.001498800959232614
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,11,2,15015,16355,LeftChestTop,12,1,11.12,0.1,0.008992805755395685
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,11,2,15015,16355,MidChestTop,401,1,11.12,3.341666666666667,0.3005095923261391
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,11,2,15015,16355,RightChestTop,0,1,11.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,11,2,15015,16355,RightFaceBottom,27,1,11.12,0.225,0.02023381294964029
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,11,2,15015,16355,MidFaceBottom,147,1,11.12,1.225,0.11016187050359713
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,11,2,15015,16355,LeftFaceBottom,8,1,11.12,0.06666666666666667,0.005995203836930456
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,11,2,15015,16355,LeftFaceCenter,1,1,11.12,0.008333333333333333,7.49400479616307e-4
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,11,2,15015,16355,MidFaceCenter,54,1,11.12,0.45,0.04046762589928058
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,11,2,15015,16355,RightFaceCenter,0,1,11.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,11,2,15015,16355,LeftFaceTop,0,1,11.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,11,2,15015,16355,MidFaceTop,0,1,11.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,11,2,15015,16355,RightFaceTop,0,1,11.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,11,2,15015,16355,Belly,0,1,11.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,11,2,15015,16355,BelowChest,0,1,11.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,11,2,15015,16355,LeftSide,0,1,11.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_2,reversed,4,11,2,15015,16355,RightSide,60,1,11.12,0.5,0.04496402877697842
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,12,2,16825,18161,RightChestBottom,0,1,11.08,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,12,2,16825,18161,MidChestBottom,11,1,11.08,0.09166666666666666,0.008273164861612515
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,12,2,16825,18161,LeftChestBottom,76,1,11.08,0.6333333333333333,0.057160048134777375
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,12,2,16825,18161,LeftChestCenter,24,1,11.08,0.2,0.018050541516245487
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,12,2,16825,18161,MidChestCenter,71,1,11.08,0.5916666666666667,0.05339951865222623
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,12,2,16825,18161,RightChestCenter,0,1,11.08,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,12,2,16825,18161,LeftChestTop,1,1,11.08,0.008333333333333333,7.521058965102287e-4
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,12,2,16825,18161,MidChestTop,188,1,11.08,1.5666666666666667,0.14139590854392298
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,12,2,16825,18161,RightChestTop,4,1,11.08,0.03333333333333333,0.0030084235860409147
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,12,2,16825,18161,RightFaceBottom,0,1,11.08,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,12,2,16825,18161,MidFaceBottom,176,1,11.08,1.4666666666666666,0.13237063778580024
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,12,2,16825,18161,LeftFaceBottom,1,1,11.08,0.008333333333333333,7.521058965102287e-4
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,12,2,16825,18161,LeftFaceCenter,0,1,11.08,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,12,2,16825,18161,MidFaceCenter,0,1,11.08,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,12,2,16825,18161,RightFaceCenter,0,1,11.08,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,12,2,16825,18161,LeftFaceTop,0,1,11.08,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,12,2,16825,18161,MidFaceTop,0,1,11.08,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,12,2,16825,18161,RightFaceTop,0,1,11.08,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,12,2,16825,18161,Belly,0,1,11.08,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,12,2,16825,18161,BelowChest,0,1,11.08,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,12,2,16825,18161,LeftSide,1,1,11.08,0.008333333333333333,7.521058965102287e-4
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_2,reversed,6,12,2,16825,18161,RightSide,0,1,11.08,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,13,2,18632,19652,RightChestBottom,0,1,8.44,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,13,2,18632,19652,MidChestBottom,36,1,8.44,0.3,0.035545023696682464
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,13,2,18632,19652,LeftChestBottom,7,1,8.44,0.058333333333333334,0.006911532385466036
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,13,2,18632,19652,LeftChestCenter,0,1,8.44,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,13,2,18632,19652,MidChestCenter,52,1,8.44,0.43333333333333335,0.05134281200631912
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,13,2,18632,19652,RightChestCenter,0,1,8.44,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,13,2,18632,19652,LeftChestTop,1,1,8.44,0.008333333333333333,9.873617693522908e-4
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,13,2,18632,19652,MidChestTop,261,1,8.44,2.175,0.25770142180094785
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,13,2,18632,19652,RightChestTop,0,1,8.44,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,13,2,18632,19652,RightFaceBottom,28,1,8.44,0.23333333333333334,0.027646129541864142
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,13,2,18632,19652,MidFaceBottom,91,1,8.44,0.7583333333333333,0.08984992101105846
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,13,2,18632,19652,LeftFaceBottom,1,1,8.44,0.008333333333333333,9.873617693522908e-4
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,13,2,18632,19652,LeftFaceCenter,0,1,8.44,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,13,2,18632,19652,MidFaceCenter,0,1,8.44,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,13,2,18632,19652,RightFaceCenter,0,1,8.44,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,13,2,18632,19652,LeftFaceTop,0,1,8.44,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,13,2,18632,19652,MidFaceTop,1,1,8.44,0.008333333333333333,9.873617693522908e-4
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,13,2,18632,19652,RightFaceTop,0,1,8.44,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,13,2,18632,19652,Belly,0,1,8.44,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,13,2,18632,19652,BelowChest,0,1,8.44,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,13,2,18632,19652,LeftSide,0,1,8.44,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_1,forward,1,13,2,18632,19652,RightSide,2,1,8.44,0.016666666666666666,0.0019747235387045817
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,14,2,20012,20913,RightSide,2,1,7.52,0.016666666666666666,0.002216312056737589
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,14,2,20012,20913,LeftSide,0,1,7.52,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,14,2,20012,20913,BelowChest,0,1,7.52,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,14,2,20012,20913,Belly,0,1,7.52,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,14,2,20012,20913,RightFaceTop,0,1,7.52,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,14,2,20012,20913,RightFaceCenter,0,1,7.52,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,14,2,20012,20913,RightFaceBottom,1,1,7.52,0.008333333333333333,0.0011081560283687944
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,14,2,20012,20913,RightChestTop,0,1,7.52,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,14,2,20012,20913,RightChestCenter,0,1,7.52,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,14,2,20012,20913,RightChestBottom,0,1,7.52,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,14,2,20012,20913,LeftFaceTop,0,1,7.52,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,14,2,20012,20913,LeftFaceCenter,0,1,7.52,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,14,2,20012,20913,LeftFaceBottom,0,1,7.52,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,14,2,20012,20913,LeftChestTop,58,1,7.52,0.48333333333333334,0.06427304964539007
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,14,2,20012,20913,LeftChestCenter,0,1,7.52,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,14,2,20012,20913,LeftChestBottom,0,1,7.52,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,14,2,20012,20913,MidFaceTop,0,1,7.52,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,14,2,20012,20913,MidFaceCenter,2,1,7.52,0.016666666666666666,0.002216312056737589
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,14,2,20012,20913,MidFaceBottom,49,1,7.52,0.4083333333333333,0.05429964539007093
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,14,2,20012,20913,MidChestTop,167,1,7.52,1.3916666666666666,0.18506205673758866
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,14,2,20012,20913,MidChestCenter,1,1,7.52,0.008333333333333333,0.0011081560283687944
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,ThreeBears_1,reversed,3,14,2,20012,20913,MidChestBottom,0,1,7.52,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,15,2,21261,22358,RightChestBottom,0,1,9.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,15,2,21261,22358,MidChestBottom,0,1,9.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,15,2,21261,22358,LeftChestBottom,5,1,9.12,0.041666666666666664,0.004568713450292397
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,15,2,21261,22358,LeftChestCenter,14,1,9.12,0.11666666666666667,0.012792397660818714
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,15,2,21261,22358,MidChestCenter,93,1,9.12,0.775,0.08497807017543861
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,15,2,21261,22358,RightChestCenter,26,1,9.12,0.21666666666666667,0.02375730994152047
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,15,2,21261,22358,LeftChestTop,2,1,9.12,0.016666666666666666,0.0018274853801169592
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,15,2,21261,22358,MidChestTop,239,1,9.12,1.9916666666666667,0.21838450292397663
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,15,2,21261,22358,RightChestTop,46,1,9.12,0.38333333333333336,0.04203216374269007
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,15,2,21261,22358,RightFaceBottom,0,1,9.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,15,2,21261,22358,MidFaceBottom,241,1,9.12,2.0083333333333333,0.22021198830409358
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,15,2,21261,22358,LeftFaceBottom,0,1,9.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,15,2,21261,22358,LeftFaceCenter,0,1,9.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,15,2,21261,22358,MidFaceCenter,0,1,9.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,15,2,21261,22358,RightFaceCenter,0,1,9.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,15,2,21261,22358,LeftFaceTop,0,1,9.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,15,2,21261,22358,MidFaceTop,0,1,9.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,15,2,21261,22358,RightFaceTop,0,1,9.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,15,2,21261,22358,Belly,0,1,9.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,15,2,21261,22358,BelowChest,0,1,9.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,15,2,21261,22358,LeftSide,0,1,9.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,KingMidas_1,reversed,5,15,2,21261,22358,RightSide,0,1,9.12,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,16,2,22573,23503,RightChestBottom,0,1,7.72,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,16,2,22573,23503,MidChestBottom,163,1,7.72,1.3583333333333334,0.17594991364421417
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,16,2,22573,23503,LeftChestBottom,0,1,7.72,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,16,2,22573,23503,LeftChestCenter,0,1,7.72,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,16,2,22573,23503,MidChestCenter,108,1,7.72,0.9,0.11658031088082903
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,16,2,22573,23503,RightChestCenter,0,1,7.72,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,16,2,22573,23503,LeftChestTop,0,1,7.72,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,16,2,22573,23503,MidChestTop,27,1,7.72,0.225,0.029145077720207257
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,16,2,22573,23503,RightChestTop,0,1,7.72,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,16,2,22573,23503,RightFaceBottom,0,1,7.72,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,16,2,22573,23503,MidFaceBottom,99,1,7.72,0.825,0.10686528497409326
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,16,2,22573,23503,LeftFaceBottom,0,1,7.72,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,16,2,22573,23503,LeftFaceCenter,0,1,7.72,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,16,2,22573,23503,MidFaceCenter,0,1,7.72,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,16,2,22573,23503,RightFaceCenter,0,1,7.72,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,16,2,22573,23503,LeftFaceTop,0,1,7.72,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,16,2,22573,23503,MidFaceTop,0,1,7.72,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,16,2,22573,23503,RightFaceTop,0,1,7.72,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,16,2,22573,23503,Belly,0,1,7.72,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,16,2,22573,23503,BelowChest,0,1,7.72,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,16,2,22573,23503,LeftSide,0,1,7.72,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,RedRiding_2,forward,8,16,2,22573,23503,RightSide,0,1,7.72,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1771,3104,RightChestBottom,0,0.5,11.08,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1771,3104,MidChestBottom,122,0.5,11.08,1.0166666666666666,0.09175691937424789
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1771,3104,LeftChestBottom,0,0.5,11.08,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1771,3104,LeftChestCenter,0,0.5,11.08,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1771,3104,MidChestCenter,54,0.5,11.08,0.45,0.04061371841155235
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1771,3104,RightChestCenter,0,0.5,11.08,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1771,3104,LeftChestTop,0,0.5,11.08,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1771,3104,MidChestTop,38,0.5,11.08,0.31666666666666665,0.028580024067388687
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1771,3104,RightChestTop,2,0.5,11.08,0.016666666666666666,0.0015042117930204573
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1771,3104,RightFaceBottom,31,0.5,11.08,0.25833333333333336,0.02331528279181709
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1771,3104,MidFaceBottom,570,0.5,11.08,4.75,0.4287003610108303
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1771,3104,LeftFaceBottom,0,0.5,11.08,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1771,3104,LeftFaceCenter,0,0.5,11.08,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1771,3104,MidFaceCenter,6,0.5,11.08,0.05,0.004512635379061372
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1771,3104,RightFaceCenter,0,0.5,11.08,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1771,3104,LeftFaceTop,0,0.5,11.08,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1771,3104,MidFaceTop,4,0.5,11.08,0.03333333333333333,0.0030084235860409147
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1771,3104,RightFaceTop,0,0.5,11.08,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1771,3104,Belly,0,0.5,11.08,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1771,3104,BelowChest,0,0.5,11.08,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1771,3104,LeftSide,0,0.5,11.08,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1771,3104,RightSide,0,0.5,11.08,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3749,4766,RightChestBottom,0,0.5,8.44,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3749,4766,MidChestBottom,0,0.5,8.44,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3749,4766,LeftChestBottom,0,0.5,8.44,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3749,4766,LeftChestCenter,0,0.5,8.44,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3749,4766,MidChestCenter,0,0.5,8.44,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3749,4766,RightChestCenter,0,0.5,8.44,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3749,4766,LeftChestTop,1,0.5,8.44,0.008333333333333333,9.873617693522908e-4
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3749,4766,MidChestTop,6,0.5,8.44,0.05,0.0059241706161137445
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3749,4766,RightChestTop,0,0.5,8.44,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3749,4766,RightFaceBottom,3,0.5,8.44,0.025,0.0029620853080568723
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3749,4766,MidFaceBottom,325,0.5,8.44,2.7083333333333335,0.32089257503949453
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3749,4766,LeftFaceBottom,0,0.5,8.44,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3749,4766,LeftFaceCenter,0,0.5,8.44,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3749,4766,MidFaceCenter,3,0.5,8.44,0.025,0.0029620853080568723
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3749,4766,RightFaceCenter,19,0.5,8.44,0.15833333333333333,0.018759873617693525
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3749,4766,LeftFaceTop,0,0.5,8.44,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3749,4766,MidFaceTop,1,0.5,8.44,0.008333333333333333,9.873617693522908e-4
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3749,4766,RightFaceTop,6,0.5,8.44,0.05,0.0059241706161137445
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3749,4766,Belly,0,0.5,8.44,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3749,4766,BelowChest,0,0.5,8.44,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3749,4766,LeftSide,1,0.5,8.44,0.008333333333333333,9.873617693522908e-4
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3749,4766,RightSide,0,0.5,8.44,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,6098,7028,RightChestBottom,3,0.5,7.72,0.025,0.0032383419689119173
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,6098,7028,MidChestBottom,4,0.5,7.72,0.03333333333333333,0.004317789291882556
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,6098,7028,LeftChestBottom,0,0.5,7.72,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,6098,7028,LeftChestCenter,0,0.5,7.72,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,6098,7028,MidChestCenter,36,0.5,7.72,0.3,0.038860103626943004
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,6098,7028,RightChestCenter,26,0.5,7.72,0.21666666666666667,0.028065630397236616
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,6098,7028,LeftChestTop,0,0.5,7.72,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,6098,7028,MidChestTop,83,0.5,7.72,0.6916666666666667,0.08959412780656303
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,6098,7028,RightChestTop,0,0.5,7.72,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,6098,7028,RightFaceBottom,0,0.5,7.72,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,6098,7028,MidFaceBottom,121,0.5,7.72,1.0083333333333333,0.13061312607944733
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,6098,7028,LeftFaceBottom,0,0.5,7.72,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,6098,7028,LeftFaceCenter,0,0.5,7.72,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,6098,7028,MidFaceCenter,19,0.5,7.72,0.15833333333333333,0.020509499136442143
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,6098,7028,RightFaceCenter,0,0.5,7.72,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,6098,7028,LeftFaceTop,0,0.5,7.72,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,6098,7028,MidFaceTop,1,0.5,7.72,0.008333333333333333,0.001079447322970639
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,6098,7028,RightFaceTop,0,0.5,7.72,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,6098,7028,Belly,0,0.5,7.72,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,6098,7028,BelowChest,24,0.5,7.72,0.2,0.02590673575129534
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,6098,7028,LeftSide,0,0.5,7.72,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,6098,7028,RightSide,82,0.5,7.72,0.6833333333333333,0.0885146804835924
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,7895,8801,RightChestBottom,22,0.5,7.52,0.18333333333333332,0.024379432624113476
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,7895,8801,MidChestBottom,54,0.5,7.52,0.45,0.0598404255319149
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,7895,8801,LeftChestBottom,0,0.5,7.52,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,7895,8801,LeftChestCenter,0,0.5,7.52,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,7895,8801,MidChestCenter,2,0.5,7.52,0.016666666666666666,0.002216312056737589
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,7895,8801,RightChestCenter,23,0.5,7.52,0.19166666666666668,0.02548758865248227
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,7895,8801,LeftChestTop,0,0.5,7.52,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,7895,8801,MidChestTop,8,0.5,7.52,0.06666666666666667,0.008865248226950355
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,7895,8801,RightChestTop,0,0.5,7.52,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,7895,8801,RightFaceBottom,10,0.5,7.52,0.08333333333333333,0.011081560283687944
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,7895,8801,MidFaceBottom,134,0.5,7.52,1.1166666666666667,0.14849290780141844
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,7895,8801,LeftFaceBottom,0,0.5,7.52,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,7895,8801,LeftFaceCenter,0,0.5,7.52,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,7895,8801,MidFaceCenter,0,0.5,7.52,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,7895,8801,RightFaceCenter,0,0.5,7.52,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,7895,8801,LeftFaceTop,0,0.5,7.52,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,7895,8801,MidFaceTop,0,0.5,7.52,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,7895,8801,RightFaceTop,0,0.5,7.52,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,7895,8801,Belly,3,0.5,7.52,0.025,0.0033244680851063834
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,7895,8801,BelowChest,43,0.5,7.52,0.35833333333333334,0.04765070921985816
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,7895,8801,LeftSide,0,0.5,7.52,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,7895,8801,RightSide,1,0.5,7.52,0.008333333333333333,0.0011081560283687944
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,6,1,13012,13519,RightChestBottom,1,0.5,4.2,0.008333333333333333,0.001984126984126984
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,6,1,13012,13519,MidChestBottom,0,0.5,4.2,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,6,1,13012,13519,LeftChestBottom,0,0.5,4.2,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,6,1,13012,13519,LeftChestCenter,0,0.5,4.2,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,6,1,13012,13519,MidChestCenter,0,0.5,4.2,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,6,1,13012,13519,RightChestCenter,0,0.5,4.2,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,6,1,13012,13519,LeftChestTop,0,0.5,4.2,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,6,1,13012,13519,MidChestTop,104,0.5,4.2,0.8666666666666667,0.20634920634920634
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,6,1,13012,13519,RightChestTop,0,0.5,4.2,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,6,1,13012,13519,RightFaceBottom,0,0.5,4.2,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,6,1,13012,13519,MidFaceBottom,0,0.5,4.2,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,6,1,13012,13519,LeftFaceBottom,0,0.5,4.2,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,6,1,13012,13519,LeftFaceCenter,0,0.5,4.2,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,6,1,13012,13519,MidFaceCenter,0,0.5,4.2,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,6,1,13012,13519,RightFaceCenter,0,0.5,4.2,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,6,1,13012,13519,LeftFaceTop,0,0.5,4.2,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,6,1,13012,13519,MidFaceTop,0,0.5,4.2,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,6,1,13012,13519,RightFaceTop,0,0.5,4.2,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,6,1,13012,13519,Belly,5,0.5,4.2,0.041666666666666664,0.00992063492063492
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,6,1,13012,13519,BelowChest,54,0.5,4.2,0.45,0.10714285714285714
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,6,1,13012,13519,LeftSide,0,0.5,4.2,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,6,1,13012,13519,RightSide,0,0.5,4.2,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,15270,16608,RightChestBottom,20,0.5,11.12,0.16666666666666666,0.01498800959232614
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,15270,16608,MidChestBottom,3,0.5,11.12,0.025,0.002248201438848921
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,15270,16608,LeftChestBottom,0,0.5,11.12,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,15270,16608,LeftChestCenter,0,0.5,11.12,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,15270,16608,MidChestCenter,0,0.5,11.12,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,15270,16608,RightChestCenter,6,0.5,11.12,0.05,0.004496402877697842
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,15270,16608,LeftChestTop,0,0.5,11.12,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,15270,16608,MidChestTop,61,0.5,11.12,0.5083333333333333,0.045713429256594725
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,15270,16608,RightChestTop,116,0.5,11.12,0.9666666666666667,0.08693045563549161
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,15270,16608,RightFaceBottom,39,0.5,11.12,0.325,0.029226618705035973
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,15270,16608,MidFaceBottom,1,0.5,11.12,0.008333333333333333,7.49400479616307e-4
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,15270,16608,LeftFaceBottom,0,0.5,11.12,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,15270,16608,LeftFaceCenter,0,0.5,11.12,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,15270,16608,MidFaceCenter,0,0.5,11.12,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,15270,16608,RightFaceCenter,0,0.5,11.12,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,15270,16608,LeftFaceTop,0,0.5,11.12,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,15270,16608,MidFaceTop,0,0.5,11.12,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,15270,16608,RightFaceTop,0,0.5,11.12,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,15270,16608,Belly,30,0.5,11.12,0.25,0.02248201438848921
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,15270,16608,BelowChest,55,0.5,11.12,0.4583333333333333,0.04121702637889688
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,15270,16608,LeftSide,0,0.5,11.12,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,15270,16608,RightSide,5,0.5,11.12,0.041666666666666664,0.003747002398081535
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,17487,18494,RightChestBottom,0,0.5,8.4,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,17487,18494,LeftChestBottom,1,0.5,8.4,0.008333333333333333,9.92063492063492e-4
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,17487,18494,LeftChestCenter,0,0.5,8.4,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,17487,18494,RightChestCenter,0,0.5,8.4,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,17487,18494,LeftChestTop,0,0.5,8.4,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,17487,18494,RightChestTop,0,0.5,8.4,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,17487,18494,RightFaceBottom,0,0.5,8.4,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,17487,18494,LeftFaceBottom,0,0.5,8.4,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,17487,18494,LeftFaceCenter,0,0.5,8.4,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,17487,18494,RightFaceCenter,0,0.5,8.4,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,17487,18494,LeftFaceTop,0,0.5,8.4,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,17487,18494,RightFaceTop,0,0.5,8.4,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,17487,18494,MidChestBottom,2,0.5,8.4,0.016666666666666666,0.001984126984126984
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,17487,18494,MidChestCenter,27,0.5,8.4,0.225,0.026785714285714284
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,17487,18494,MidChestTop,69,0.5,8.4,0.575,0.06845238095238095
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,17487,18494,MidFaceBottom,117,0.5,8.4,0.975,0.11607142857142856
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,17487,18494,MidFaceCenter,0,0.5,8.4,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,17487,18494,MidFaceTop,0,0.5,8.4,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,17487,18494,Belly,33,0.5,8.4,0.275,0.03273809523809524
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,17487,18494,BelowChest,7,0.5,8.4,0.058333333333333334,0.006944444444444444
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,17487,18494,LeftSide,0,0.5,8.4,0,0
+lo08jo 6m14d GOOD,lo08jo20_6m_14d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,17487,18494,RightSide,0,0.5,8.4,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1583,2915,RightChestBottom,0,0.9,11.08,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1583,2915,MidChestBottom,0,0.9,11.08,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1583,2915,LeftChestBottom,0,0.9,11.08,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1583,2915,LeftChestCenter,102,0.9,11.08,0.85,0.07671480144404332
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1583,2915,MidChestCenter,227,0.9,11.08,1.8916666666666666,0.1707280385078219
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1583,2915,RightChestCenter,0,0.9,11.08,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1583,2915,LeftChestTop,60,0.9,11.08,0.5,0.04512635379061372
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1583,2915,MidChestTop,713,0.9,11.08,5.941666666666666,0.536251504211793
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1583,2915,RightChestTop,0,0.9,11.08,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1583,2915,RightFaceBottom,0,0.9,11.08,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1583,2915,MidFaceBottom,6,0.9,11.08,0.05,0.004512635379061372
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1583,2915,LeftFaceBottom,0,0.9,11.08,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1583,2915,LeftFaceCenter,0,0.9,11.08,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1583,2915,MidFaceCenter,0,0.9,11.08,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1583,2915,RightFaceCenter,0,0.9,11.08,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1583,2915,LeftFaceTop,0,0.9,11.08,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1583,2915,MidFaceTop,0,0.9,11.08,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1583,2915,RightFaceTop,0,0.9,11.08,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1583,2915,Belly,0,0.9,11.08,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1583,2915,BelowChest,0,0.9,11.08,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1583,2915,LeftSide,0,0.9,11.08,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,1,1,1583,2915,RightSide,35,0.9,11.08,0.2916666666666667,0.026323706377858004
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3184,4199,RightChestBottom,0,0.9,8.44,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3184,4199,MidChestBottom,0,0.9,8.44,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3184,4199,LeftChestBottom,0,0.9,8.44,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3184,4199,LeftChestCenter,0,0.9,8.44,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3184,4199,MidChestCenter,0,0.9,8.44,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3184,4199,RightChestCenter,0,0.9,8.44,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3184,4199,LeftChestTop,0,0.9,8.44,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3184,4199,MidChestTop,438,0.9,8.44,3.65,0.4324644549763033
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3184,4199,RightChestTop,0,0.9,8.44,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3184,4199,RightFaceBottom,41,0.9,8.44,0.3416666666666667,0.040481832543443924
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3184,4199,MidFaceBottom,395,0.9,8.44,3.2916666666666665,0.3900078988941548
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3184,4199,LeftFaceBottom,0,0.9,8.44,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3184,4199,LeftFaceCenter,0,0.9,8.44,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3184,4199,MidFaceCenter,0,0.9,8.44,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3184,4199,RightFaceCenter,0,0.9,8.44,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3184,4199,LeftFaceTop,0,0.9,8.44,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3184,4199,MidFaceTop,0,0.9,8.44,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3184,4199,RightFaceTop,0,0.9,8.44,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3184,4199,Belly,0,0.9,8.44,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3184,4199,BelowChest,0,0.9,8.44,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3184,4199,LeftSide,0,0.9,8.44,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_1,reversed,9,2,1,3184,4199,RightSide,0,0.9,8.44,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,5212,6142,RightChestBottom,0,0.9,7.72,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,5212,6142,MidChestBottom,2,0.9,7.72,0.016666666666666666,0.002158894645941278
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,5212,6142,LeftChestBottom,0,0.9,7.72,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,5212,6142,LeftChestCenter,0,0.9,7.72,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,5212,6142,MidChestCenter,3,0.9,7.72,0.025,0.0032383419689119173
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,5212,6142,RightChestCenter,0,0.9,7.72,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,5212,6142,LeftChestTop,0,0.9,7.72,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,5212,6142,MidChestTop,260,0.9,7.72,2.1666666666666665,0.28065630397236613
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,5212,6142,RightChestTop,2,0.9,7.72,0.016666666666666666,0.002158894645941278
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,5212,6142,RightFaceBottom,0,0.9,7.72,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,5212,6142,MidFaceBottom,72,0.9,7.72,0.6,0.07772020725388601
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,5212,6142,LeftFaceBottom,0,0.9,7.72,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,5212,6142,LeftFaceCenter,0,0.9,7.72,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,5212,6142,MidFaceCenter,0,0.9,7.72,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,5212,6142,RightFaceCenter,0,0.9,7.72,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,5212,6142,LeftFaceTop,0,0.9,7.72,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,5212,6142,MidFaceTop,0,0.9,7.72,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,5212,6142,RightFaceTop,0,0.9,7.72,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,5212,6142,Belly,18,0.9,7.72,0.15,0.019430051813471502
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,5212,6142,BelowChest,2,0.9,7.72,0.016666666666666666,0.002158894645941278
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,5212,6142,LeftSide,0,0.9,7.72,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_2,reversed,16,3,1,5212,6142,RightSide,1,0.9,7.72,0.008333333333333333,0.001079447322970639
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,6406,7310,RightChestBottom,14,0.9,7.52,0.11666666666666667,0.015514184397163122
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,6406,7310,MidChestBottom,67,0.9,7.52,0.5583333333333333,0.07424645390070922
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,6406,7310,LeftChestBottom,0,0.9,7.52,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,6406,7310,LeftChestCenter,0,0.9,7.52,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,6406,7310,MidChestCenter,2,0.9,7.52,0.016666666666666666,0.002216312056737589
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,6406,7310,RightChestCenter,12,0.9,7.52,0.1,0.013297872340425534
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,6406,7310,LeftChestTop,0,0.9,7.52,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,6406,7310,MidChestTop,395,0.9,7.52,3.2916666666666665,0.43772163120567376
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,6406,7310,RightChestTop,7,0.9,7.52,0.058333333333333334,0.007757092198581561
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,6406,7310,RightFaceBottom,3,0.9,7.52,0.025,0.0033244680851063834
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,6406,7310,MidFaceBottom,262,0.9,7.52,2.183333333333333,0.2903368794326241
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,6406,7310,LeftFaceBottom,0,0.9,7.52,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,6406,7310,LeftFaceCenter,0,0.9,7.52,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,6406,7310,MidFaceCenter,0,0.9,7.52,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,6406,7310,RightFaceCenter,0,0.9,7.52,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,6406,7310,LeftFaceTop,0,0.9,7.52,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,6406,7310,MidFaceTop,0,0.9,7.52,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,6406,7310,RightFaceTop,0,0.9,7.52,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,6406,7310,Belly,0,0.9,7.52,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,6406,7310,BelowChest,0,0.9,7.52,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,6406,7310,LeftSide,0,0.9,7.52,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_1,forward,11,4,1,6406,7310,RightSide,2,0.9,7.52,0.016666666666666666,0.002216312056737589
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,5,2,7609,8945,RightChestBottom,0,0.9,11.08,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,5,2,7609,8945,MidChestBottom,0,0.9,11.08,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,5,2,7609,8945,LeftChestBottom,1,0.9,11.08,0.008333333333333333,7.521058965102287e-4
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,5,2,7609,8945,LeftChestCenter,65,0.9,11.08,0.5416666666666666,0.04888688327316486
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,5,2,7609,8945,MidChestCenter,92,0.9,11.08,0.7666666666666667,0.06919374247894104
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,5,2,7609,8945,RightChestCenter,0,0.9,11.08,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,5,2,7609,8945,LeftChestTop,0,0.9,11.08,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,5,2,7609,8945,MidChestTop,563,0.9,11.08,4.691666666666666,0.4234356197352587
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,5,2,7609,8945,RightChestTop,0,0.9,11.08,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,5,2,7609,8945,RightFaceBottom,0,0.9,11.08,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,5,2,7609,8945,MidFaceBottom,492,0.9,11.08,4.1,0.3700361010830325
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,5,2,7609,8945,LeftFaceBottom,0,0.9,11.08,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,5,2,7609,8945,LeftFaceCenter,0,0.9,11.08,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,5,2,7609,8945,MidFaceCenter,0,0.9,11.08,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,5,2,7609,8945,RightFaceCenter,0,0.9,11.08,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,5,2,7609,8945,LeftFaceTop,0,0.9,11.08,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,5,2,7609,8945,MidFaceTop,0,0.9,11.08,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,5,2,7609,8945,RightFaceTop,0,0.9,11.08,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,5,2,7609,8945,Belly,0,0.9,11.08,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,5,2,7609,8945,BelowChest,0,0.9,11.08,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,5,2,7609,8945,LeftSide,21,0.9,11.08,0.175,0.0157942238267148
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_2,forward,14,5,2,7609,8945,RightSide,0,0.9,11.08,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,10870,12206,RightChestBottom,41,0.9,11.12,0.3416666666666667,0.03072541966426859
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,10870,12206,MidChestBottom,94,0.9,11.12,0.7833333333333333,0.07044364508393286
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,10870,12206,LeftChestBottom,0,0.9,11.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,10870,12206,LeftChestCenter,0,0.9,11.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,10870,12206,MidChestCenter,13,0.9,11.12,0.10833333333333334,0.009742206235011992
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,10870,12206,RightChestCenter,46,0.9,11.12,0.38333333333333336,0.03447242206235013
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,10870,12206,LeftChestTop,0,0.9,11.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,10870,12206,MidChestTop,588,0.9,11.12,4.9,0.4406474820143885
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,10870,12206,RightChestTop,186,0.9,11.12,1.55,0.13938848920863312
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,10870,12206,RightFaceBottom,15,0.9,11.12,0.125,0.011241007194244606
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,10870,12206,MidFaceBottom,3,0.9,11.12,0.025,0.002248201438848921
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,10870,12206,LeftFaceBottom,0,0.9,11.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,10870,12206,LeftFaceCenter,0,0.9,11.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,10870,12206,MidFaceCenter,0,0.9,11.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,10870,12206,RightFaceCenter,0,0.9,11.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,10870,12206,LeftFaceTop,0,0.9,11.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,10870,12206,MidFaceTop,0,0.9,11.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,10870,12206,RightFaceTop,0,0.9,11.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,10870,12206,Belly,0,0.9,11.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,10870,12206,BelowChest,0,0.9,11.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,10870,12206,LeftSide,0,0.9,11.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,7,1,10870,12206,RightSide,59,0.9,11.12,0.49166666666666664,0.04421462829736211
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,12430,13441,RightChestBottom,2,0.9,8.4,0.016666666666666666,0.001984126984126984
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,12430,13441,LeftChestBottom,0,0.9,8.4,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,12430,13441,LeftChestCenter,0,0.9,8.4,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,12430,13441,RightChestCenter,2,0.9,8.4,0.016666666666666666,0.001984126984126984
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,12430,13441,LeftChestTop,57,0.9,8.4,0.475,0.05654761904761904
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,12430,13441,RightChestTop,0,0.9,8.4,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,12430,13441,RightFaceBottom,0,0.9,8.4,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,12430,13441,LeftFaceBottom,0,0.9,8.4,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,12430,13441,LeftFaceCenter,0,0.9,8.4,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,12430,13441,RightFaceCenter,0,0.9,8.4,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,12430,13441,LeftFaceTop,0,0.9,8.4,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,12430,13441,RightFaceTop,0,0.9,8.4,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,12430,13441,MidChestBottom,0,0.9,8.4,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,12430,13441,MidChestCenter,39,0.9,8.4,0.325,0.03869047619047619
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,12430,13441,MidChestTop,548,0.9,8.4,4.566666666666666,0.5436507936507936
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,12430,13441,MidFaceBottom,146,0.9,8.4,1.2166666666666666,0.14484126984126983
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,12430,13441,MidFaceCenter,0,0.9,8.4,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,12430,13441,MidFaceTop,0,0.9,8.4,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,12430,13441,Belly,0,0.9,8.4,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,12430,13441,BelowChest,121,0.9,8.4,1.0083333333333333,0.12003968253968253
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,12430,13441,LeftSide,0,0.9,8.4,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,8,1,12430,13441,RightSide,0,0.9,8.4,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,9,2,13715,15055,RightChestBottom,0,0.9,11.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,9,2,13715,15055,MidChestBottom,5,0.9,11.12,0.041666666666666664,0.003747002398081535
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,9,2,13715,15055,LeftChestBottom,0,0.9,11.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,9,2,13715,15055,LeftChestCenter,0,0.9,11.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,9,2,13715,15055,MidChestCenter,72,0.9,11.12,0.6,0.053956834532374105
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,9,2,13715,15055,RightChestCenter,0,0.9,11.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,9,2,13715,15055,LeftChestTop,1,0.9,11.12,0.008333333333333333,7.49400479616307e-4
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,9,2,13715,15055,MidChestTop,442,0.9,11.12,3.683333333333333,0.33123501199040767
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,9,2,13715,15055,RightChestTop,4,0.9,11.12,0.03333333333333333,0.002997601918465228
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,9,2,13715,15055,RightFaceBottom,1,0.9,11.12,0.008333333333333333,7.49400479616307e-4
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,9,2,13715,15055,MidFaceBottom,28,0.9,11.12,0.23333333333333334,0.020983213429256596
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,9,2,13715,15055,LeftFaceBottom,0,0.9,11.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,9,2,13715,15055,LeftFaceCenter,0,0.9,11.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,9,2,13715,15055,MidFaceCenter,0,0.9,11.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,9,2,13715,15055,RightFaceCenter,0,0.9,11.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,9,2,13715,15055,LeftFaceTop,0,0.9,11.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,9,2,13715,15055,MidFaceTop,0,0.9,11.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,9,2,13715,15055,RightFaceTop,0,0.9,11.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,9,2,13715,15055,Belly,4,0.9,11.12,0.03333333333333333,0.002997601918465228
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,9,2,13715,15055,BelowChest,247,0.9,11.12,2.058333333333333,0.1851019184652278
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,9,2,13715,15055,LeftSide,1,0.9,11.12,0.008333333333333333,7.49400479616307e-4
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,ThreeBears_2,forward,12,9,2,13715,15055,RightSide,0,0.9,11.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,10,1,15951,17049,RightChestBottom,0,0.9,9.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,10,1,15951,17049,MidChestBottom,0,0.9,9.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,10,1,15951,17049,LeftChestBottom,0,0.9,9.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,10,1,15951,17049,LeftChestCenter,0,0.9,9.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,10,1,15951,17049,MidChestCenter,198,0.9,9.12,1.65,0.18092105263157895
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,10,1,15951,17049,RightChestCenter,3,0.9,9.12,0.025,0.002741228070175439
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,10,1,15951,17049,LeftChestTop,0,0.9,9.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,10,1,15951,17049,MidChestTop,391,0.9,9.12,3.2583333333333333,0.35727339181286555
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,10,1,15951,17049,RightChestTop,124,0.9,9.12,1.0333333333333334,0.11330409356725148
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,10,1,15951,17049,RightFaceBottom,3,0.9,9.12,0.025,0.002741228070175439
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,10,1,15951,17049,MidFaceBottom,3,0.9,9.12,0.025,0.002741228070175439
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,10,1,15951,17049,LeftFaceBottom,0,0.9,9.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,10,1,15951,17049,LeftFaceCenter,0,0.9,9.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,10,1,15951,17049,MidFaceCenter,0,0.9,9.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,10,1,15951,17049,RightFaceCenter,0,0.9,9.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,10,1,15951,17049,LeftFaceTop,0,0.9,9.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,10,1,15951,17049,MidFaceTop,0,0.9,9.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,10,1,15951,17049,RightFaceTop,0,0.9,9.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,10,1,15951,17049,Belly,0,0.9,9.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,10,1,15951,17049,BelowChest,0,0.9,9.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,10,1,15951,17049,LeftSide,0,0.9,9.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,10,1,15951,17049,RightSide,3,0.9,9.12,0.025,0.002741228070175439
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,11,2,17355,18364,RightChestBottom,15,0.9,8.4,0.125,0.01488095238095238
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,11,2,17355,18364,MidChestBottom,2,0.9,8.4,0.016666666666666666,0.001984126984126984
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,11,2,17355,18364,LeftChestBottom,0,0.9,8.4,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,11,2,17355,18364,LeftChestCenter,0,0.9,8.4,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,11,2,17355,18364,MidChestCenter,19,0.9,8.4,0.15833333333333333,0.018849206349206348
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,11,2,17355,18364,RightChestCenter,0,0.9,8.4,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,11,2,17355,18364,LeftChestTop,0,0.9,8.4,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,11,2,17355,18364,MidChestTop,395,0.9,8.4,3.2916666666666665,0.3918650793650793
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,11,2,17355,18364,RightChestTop,0,0.9,8.4,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,11,2,17355,18364,RightFaceBottom,0,0.9,8.4,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,11,2,17355,18364,MidFaceBottom,15,0.9,8.4,0.125,0.01488095238095238
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,11,2,17355,18364,LeftFaceBottom,0,0.9,8.4,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,11,2,17355,18364,LeftFaceCenter,0,0.9,8.4,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,11,2,17355,18364,MidFaceCenter,0,0.9,8.4,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,11,2,17355,18364,RightFaceCenter,0,0.9,8.4,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,11,2,17355,18364,LeftFaceTop,0,0.9,8.4,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,11,2,17355,18364,MidFaceTop,1,0.9,8.4,0.008333333333333333,9.92063492063492e-4
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,11,2,17355,18364,RightFaceTop,0,0.9,8.4,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,11,2,17355,18364,Belly,0,0.9,8.4,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,11,2,17355,18364,BelowChest,19,0.9,8.4,0.15833333333333333,0.018849206349206348
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,11,2,17355,18364,LeftSide,0,0.9,8.4,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,RedRiding_1,reversed,15,11,2,17355,18364,RightSide,0,0.9,8.4,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,12,2,18712,19219,RightChestBottom,0,0.9,4.2,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,12,2,18712,19219,MidChestBottom,0,0.9,4.2,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,12,2,18712,19219,LeftChestBottom,0,0.9,4.2,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,12,2,18712,19219,LeftChestCenter,0,0.9,4.2,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,12,2,18712,19219,MidChestCenter,3,0.9,4.2,0.025,0.005952380952380952
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,12,2,18712,19219,RightChestCenter,0,0.9,4.2,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,12,2,18712,19219,LeftChestTop,0,0.9,4.2,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,12,2,18712,19219,MidChestTop,279,0.9,4.2,2.325,0.5535714285714286
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,12,2,18712,19219,RightChestTop,87,0.9,4.2,0.725,0.17261904761904762
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,12,2,18712,19219,RightFaceBottom,5,0.9,4.2,0.041666666666666664,0.00992063492063492
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,12,2,18712,19219,MidFaceBottom,82,0.9,4.2,0.6833333333333333,0.1626984126984127
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,12,2,18712,19219,LeftFaceBottom,0,0.9,4.2,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,12,2,18712,19219,LeftFaceCenter,0,0.9,4.2,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,12,2,18712,19219,MidFaceCenter,0,0.9,4.2,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,12,2,18712,19219,RightFaceCenter,0,0.9,4.2,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,12,2,18712,19219,LeftFaceTop,0,0.9,4.2,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,12,2,18712,19219,MidFaceTop,0,0.9,4.2,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,12,2,18712,19219,RightFaceTop,0,0.9,4.2,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,12,2,18712,19219,Belly,1,0.9,4.2,0.008333333333333333,0.001984126984126984
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,12,2,18712,19219,BelowChest,1,0.9,4.2,0.008333333333333333,0.001984126984126984
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,12,2,18712,19219,LeftSide,0,0.9,4.2,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,Cinderella_2,reversed,10,12,2,18712,19219,RightSide,0,0.9,4.2,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,13,2,19639,20734,RightChestBottom,0,0.9,9.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,13,2,19639,20734,MidChestBottom,2,0.9,9.12,0.016666666666666666,0.0018274853801169592
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,13,2,19639,20734,LeftChestBottom,0,0.9,9.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,13,2,19639,20734,LeftChestCenter,0,0.9,9.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,13,2,19639,20734,MidChestCenter,44,0.9,9.12,0.36666666666666664,0.0402046783625731
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,13,2,19639,20734,RightChestCenter,1,0.9,9.12,0.008333333333333333,9.137426900584796e-4
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,13,2,19639,20734,LeftChestTop,0,0.9,9.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,13,2,19639,20734,MidChestTop,220,0.9,9.12,1.8333333333333333,0.2010233918128655
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,13,2,19639,20734,RightChestTop,0,0.9,9.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,13,2,19639,20734,RightFaceBottom,0,0.9,9.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,13,2,19639,20734,MidFaceBottom,2,0.9,9.12,0.016666666666666666,0.0018274853801169592
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,13,2,19639,20734,LeftFaceBottom,0,0.9,9.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,13,2,19639,20734,LeftFaceCenter,0,0.9,9.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,13,2,19639,20734,MidFaceCenter,0,0.9,9.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,13,2,19639,20734,RightFaceCenter,1,0.9,9.12,0.008333333333333333,9.137426900584796e-4
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,13,2,19639,20734,LeftFaceTop,0,0.9,9.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,13,2,19639,20734,MidFaceTop,0,0.9,9.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,13,2,19639,20734,RightFaceTop,0,0.9,9.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,13,2,19639,20734,Belly,0,0.9,9.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,13,2,19639,20734,BelowChest,23,0.9,9.12,0.19166666666666668,0.021016081871345033
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,13,2,19639,20734,LeftSide,0,0.9,9.12,0,0
+vi11hi18 11m old girl Adorable GREAT,vi11hi18_1027d,Not Yet Assigned,2,Female,english,KingMidas_1,forward,13,13,2,19639,20734,RightSide,0,0.9,9.12,0,0

@@ -143,6 +143,7 @@ First, a LMM with predictors Language, Direction, and Age, and outcome variable 
 
 Here, some interesting effects (and this model was NOT working with just babies and children!). 
 
+1. *NEED TO UPDATE WRITE-UP...ADDED MORE BABIES* 
 1. Overall group effect of language. CODA kids on average have 0.48 higher FCR than NSE kids, p = 0.0494. 
 1. Significant Language X Direction interaction (p = 0.01). 
 1. No effect of age.
@@ -154,6 +155,7 @@ summary(fcr_lmm)
 
 Let's repeat the LMM with outcome mFCR. Stronger statistical values.  
 
+1. *NEED TO UPDATE WRITE-UP...ADDED MORE BABIES*
 1. Overall group effect of language, p = 0.361. 
 1. Significant Direction effect, p = 0.0485. 
 1. Significant Language X Direction interaction (p = 0.01). 
@@ -172,6 +174,7 @@ What if we did ANCOVAs (C because age would be a covariate). First, FCR as outco
 
 In the LMMs we've run so far, age is always the worst predictor. So we should take that out. 
 
+1. *NEED TO UPDATE WRITE-UP...ADDED MORE BABIES* 
 1. Strong effect of language (p < 0.001)
 1. Significant language x direction interaction (p = 0.02). 
 
@@ -180,7 +183,7 @@ fcr_lmm_noage <- lmer(fcr ~ direction * language + (1|story) + (1|participant), 
 summary(fcr_lmm_noage)
 ```
 
-The mFCR LMM gives us similar results. 
+The mFCR LMM gives us similar results. *NEED TO UPDATE WRITE-UP...ADDED MORE BABIES* 
 
 ```{r}
 mfcr_lmm_noage <- lmer(mfcr ~ direction * language + (1|story) + (1|participant), data = data_mid)
@@ -190,6 +193,8 @@ summary(mfcr_lmm_noage)
 ## Separate for direction
 
 Forward only. Language effect, p < 0.001. (I ran this WITH age, and age was not significant). 
+*NEED TO UPDATE WRITE-UP...ADDED MORE BABIES* 
+
 
 ```{r}
 fcr_lmm_langonly_f <- lmer(fcr ~ language + (1|story) + (1|participant), data = filter(data_mid,direction=="forward"))
@@ -197,6 +202,7 @@ summary(fcr_lmm_langonly_f)
 ```
 
 Reversed only. Slightly weaker language effect, p = 0.008. (I ran this with AGE too and not sig.)
+*NEED TO UPDATE WRITE-UP...ADDED MORE BABIES* 
 
 ```{r}
 fcr_lmm_langonly_r <- lmer(fcr ~ language + (1|story) + (1|participant), data = filter(data_mid,direction=="reversed"))

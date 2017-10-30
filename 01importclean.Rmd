@@ -75,9 +75,14 @@ data <- data %>%
   filter(analysis == "GoodData")
 
 anti_join(alldata, data, by = "participant") %>% 
-  select(participant, analysis, language, group, age) %>% 
+  select(participant, recording, analysis, language, group, age) %>% 
   distinct() %>%
   filter(age > 2.0)
+
+# Add na01pe
+goodkids <- alldata %>%
+  filter(participant == "na01pe06_2013_3.5y")
+data <- rbind(data, goodkids)
 ```
 
 All children saw all trials. Now, we need to remove trials where looking data was collected <25% of the video length. I'm importing a table of clip lengths, see below. The videos were shown at 25 FPS so frames / 25 = seconds. 

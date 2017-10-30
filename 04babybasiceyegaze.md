@@ -1,7 +1,7 @@
 Baby Basic Eye Gaze (study2children)
 ================
 Adam Stone, PhD
-10-27-2017
+10-30-2017
 
 -   [Starting Out](#starting-out)
 -   [Statistical Testing of FCR/mFCR](#statistical-testing-of-fcrmfcr)
@@ -26,8 +26,6 @@ library(tidyverse)
     ## Loading tidyverse: readr
     ## Loading tidyverse: purrr
     ## Loading tidyverse: dplyr
-
-    ## Warning: package 'dplyr' was built under R version 3.4.2
 
     ## Conflicts with tidy packages ----------------------------------------------
 
@@ -67,8 +65,6 @@ library(viridis)
 ``` r
 library(lme4)
 ```
-
-    ## Warning: package 'lme4' was built under R version 3.4.2
 
     ## Loading required package: Matrix
 
@@ -242,48 +238,48 @@ summary(fcr_lmm)
     ## fcr ~ age * language * direction + (1 | story) + (1 | participant)
     ##    Data: data_mid
     ## 
-    ## REML criterion at convergence: 317
+    ## REML criterion at convergence: 365.9
     ## 
     ## Scaled residuals: 
-    ##     Min      1Q  Median      3Q     Max 
-    ## -2.4361 -0.6497  0.0190  0.5997  2.5501 
+    ##      Min       1Q   Median       3Q      Max 
+    ## -2.61494 -0.63288  0.00868  0.62137  2.70917 
     ## 
     ## Random effects:
     ##  Groups      Name        Variance Std.Dev.
-    ##  participant (Intercept) 0.293185 0.54147 
-    ##  story       (Intercept) 0.009478 0.09736 
-    ##  Residual                0.129802 0.36028 
-    ## Number of obs: 286, groups:  participant, 23; story, 8
+    ##  participant (Intercept) 0.264049 0.51386 
+    ##  story       (Intercept) 0.007888 0.08881 
+    ##  Residual                0.135838 0.36856 
+    ## Number of obs: 321, groups:  participant, 26; story, 8
     ## 
     ## Fixed effects:
     ##                                     Estimate Std. Error        df t value
-    ## (Intercept)                         -0.06777    0.41652  20.31000  -0.163
-    ## age                                 -0.15116    0.61206  19.93000  -0.247
-    ## languagesign                        -0.13389    0.68681  20.39000  -0.195
-    ## directionreversed                    0.05351    0.15015 252.55000   0.356
-    ## age:languagesign                     0.73390    0.84035  20.09000   0.873
-    ## age:directionreversed                0.03755    0.21731 252.66000   0.173
-    ## languagesign:directionreversed      -0.21129    0.26168 252.53000  -0.807
-    ## age:languagesign:directionreversed  -0.05166    0.30853 252.57000  -0.167
+    ## (Intercept)                          0.08077    0.37018  23.88000   0.218
+    ## age                                 -0.45383    0.52303  23.31000  -0.868
+    ## languagesign                        -0.27400    0.63970  23.97000  -0.428
+    ## directionreversed                   -0.01239    0.14493 285.88000  -0.085
+    ## age:languagesign                     1.03038    0.75876  23.53000   1.358
+    ## age:directionreversed                0.17949    0.20047 286.13000   0.895
+    ## languagesign:directionreversed      -0.15373    0.26293 285.34000  -0.585
+    ## age:languagesign:directionreversed  -0.18464    0.30073 285.51000  -0.614
     ##                                    Pr(>|t|)
-    ## (Intercept)                           0.872
-    ## age                                   0.807
-    ## languagesign                          0.847
-    ## directionreversed                     0.722
-    ## age:languagesign                      0.393
-    ## age:directionreversed                 0.863
-    ## languagesign:directionreversed        0.420
-    ## age:languagesign:directionreversed    0.867
+    ## (Intercept)                           0.829
+    ## age                                   0.394
+    ## languagesign                          0.672
+    ## directionreversed                     0.932
+    ## age:languagesign                      0.187
+    ## age:directionreversed                 0.371
+    ## languagesign:directionreversed        0.559
+    ## age:languagesign:directionreversed    0.540
     ## 
     ## Correlation of Fixed Effects:
     ##             (Intr) age    lnggsg drctnr ag:lng ag:drc lnggs:
-    ## age         -0.938                                          
-    ## languagesgn -0.602  0.569                                   
-    ## dirctnrvrsd -0.179  0.166  0.108                            
-    ## age:lnggsgn  0.683 -0.728 -0.918 -0.121                     
-    ## ag:drctnrvr  0.169 -0.177 -0.102 -0.940  0.129              
-    ## lnggsgn:drc  0.102 -0.095 -0.188 -0.574  0.166  0.541       
-    ## ag:lnggsgn: -0.119  0.125  0.173  0.662 -0.180 -0.705 -0.921
+    ## age         -0.940                                          
+    ## languagesgn -0.575  0.544                                   
+    ## dirctnrvrsd -0.195  0.180  0.113                            
+    ## age:lnggsgn  0.648 -0.689 -0.920 -0.124                     
+    ## ag:drctnrvr  0.184 -0.190 -0.107 -0.943  0.131              
+    ## lnggsgn:drc  0.108 -0.099 -0.203 -0.552  0.180  0.522       
+    ## ag:lnggsgn: -0.122  0.127  0.187  0.629 -0.193 -0.668 -0.926
 
 Let's repeat the LMM with outcome mFCR. Same thing, although the t values are slightly better.
 
@@ -298,48 +294,48 @@ summary(mfcr_lmm)
     ## mfcr ~ age * language * direction + (1 | story) + (1 | participant)
     ##    Data: data_mid
     ## 
-    ## REML criterion at convergence: 370.2
+    ## REML criterion at convergence: 431.8
     ## 
     ## Scaled residuals: 
-    ##     Min      1Q  Median      3Q     Max 
-    ## -3.1756 -0.5580  0.0836  0.6139  2.5651 
+    ##      Min       1Q   Median       3Q      Max 
+    ## -3.11287 -0.58570  0.04336  0.61866  2.57921 
     ## 
     ## Random effects:
     ##  Groups      Name        Variance Std.Dev.
-    ##  participant (Intercept) 0.250817 0.50082 
-    ##  story       (Intercept) 0.005602 0.07485 
-    ##  Residual                0.166079 0.40753 
-    ## Number of obs: 282, groups:  participant, 23; story, 8
+    ##  participant (Intercept) 0.228368 0.47788 
+    ##  story       (Intercept) 0.005924 0.07697 
+    ##  Residual                0.176262 0.41984 
+    ## Number of obs: 317, groups:  participant, 26; story, 8
     ## 
     ## Fixed effects:
     ##                                      Estimate Std. Error         df
-    ## (Intercept)                          0.009345   0.392155  20.840000
-    ## age                                 -0.191647   0.576034  20.430000
-    ## languagesign                        -0.158897   0.647593  21.050000
-    ## directionreversed                    0.070462   0.172720 248.740000
-    ## age:languagesign                     0.767599   0.791005  20.600000
-    ## age:directionreversed                0.048488   0.248236 248.820000
-    ## languagesign:directionreversed      -0.218679   0.297503 248.560000
-    ## age:languagesign:directionreversed  -0.073115   0.350571 248.610000
+    ## (Intercept)                          0.171463   0.351816  24.740000
+    ## age                                 -0.492422   0.496327  24.010000
+    ## languagesign                        -0.313203   0.608389  24.900000
+    ## directionreversed                    0.005929   0.167733 282.200000
+    ## age:languagesign                     1.062499   0.720129  24.250000
+    ## age:directionreversed                0.156811   0.230585 282.490000
+    ## languagesign:directionreversed      -0.163784   0.300833 281.530000
+    ## age:languagesign:directionreversed  -0.172806   0.343924 281.710000
     ##                                    t value Pr(>|t|)
-    ## (Intercept)                          0.024    0.981
-    ## age                                 -0.333    0.743
-    ## languagesign                        -0.245    0.809
-    ## directionreversed                    0.408    0.684
-    ## age:languagesign                     0.970    0.343
-    ## age:directionreversed                0.195    0.845
-    ## languagesign:directionreversed      -0.735    0.463
-    ## age:languagesign:directionreversed  -0.209    0.835
+    ## (Intercept)                          0.487    0.630
+    ## age                                 -0.992    0.331
+    ## languagesign                        -0.515    0.611
+    ## directionreversed                    0.035    0.972
+    ## age:languagesign                     1.475    0.153
+    ## age:directionreversed                0.680    0.497
+    ## languagesign:directionreversed      -0.544    0.587
+    ## age:languagesign:directionreversed  -0.502    0.616
     ## 
     ## Correlation of Fixed Effects:
     ##             (Intr) age    lnggsg drctnr ag:lng ag:drc lnggs:
-    ## age         -0.939                                          
-    ## languagesgn -0.603  0.569                                   
-    ## dirctnrvrsd -0.223  0.205  0.135                            
-    ## age:lnggsgn  0.684 -0.728 -0.918 -0.149                     
-    ## ag:drctnrvr  0.210 -0.218 -0.127 -0.941  0.159              
-    ## lnggsgn:drc  0.129 -0.119 -0.228 -0.580  0.202  0.547       
-    ## ag:lnggsgn: -0.148  0.154  0.210  0.666 -0.218 -0.708 -0.922
+    ## age         -0.940                                          
+    ## languagesgn -0.575  0.544                                   
+    ## dirctnrvrsd -0.242  0.222  0.140                            
+    ## age:lnggsgn  0.648 -0.689 -0.921 -0.153                     
+    ## ag:drctnrvr  0.228 -0.233 -0.132 -0.944  0.161              
+    ## lnggsgn:drc  0.135 -0.124 -0.246 -0.558  0.219  0.528       
+    ## ag:lnggsgn: -0.153  0.157  0.226  0.633 -0.234 -0.671 -0.926
 
 What if we did ANCOVAs (C because age would be a covariate). First, FCR as outcome.
 
@@ -359,32 +355,32 @@ summary(fcr_lmm_nodir)
     ##     direction)
     ##    Data: data_mid
     ## 
-    ## REML criterion at convergence: 314.3
+    ## REML criterion at convergence: 366.4
     ## 
     ## Scaled residuals: 
     ##      Min       1Q   Median       3Q      Max 
-    ## -2.53207 -0.59821  0.05162  0.55855  2.63521 
+    ## -2.54550 -0.61154  0.03568  0.57066  2.76525 
     ## 
     ## Random effects:
     ##  Groups      Name        Variance Std.Dev.
-    ##  participant (Intercept) 0.293853 0.54208 
-    ##  story       (Intercept) 0.009324 0.09656 
+    ##  participant (Intercept) 0.265161 0.51494 
+    ##  story       (Intercept) 0.007821 0.08843 
     ##  direction   (Intercept) 0.000000 0.00000 
-    ##  Residual                0.131379 0.36246 
-    ## Number of obs: 286, groups:  participant, 23; story, 8; direction, 2
+    ##  Residual                0.138878 0.37266 
+    ## Number of obs: 321, groups:  participant, 26; story, 8; direction, 2
     ## 
     ## Fixed effects:
     ##                  Estimate Std. Error       df t value Pr(>|t|)
-    ## (Intercept)      -0.04225    0.41034 19.03200  -0.103    0.919
-    ## age              -0.13114    0.60320 18.70700  -0.217    0.830
-    ## languagesign     -0.24174    0.67547 18.97700  -0.358    0.724
-    ## age:languagesign  0.71497    0.82777 18.81600   0.864    0.399
+    ## (Intercept)       0.07507    0.36397 22.10000   0.206    0.838
+    ## age              -0.36618    0.51477 21.65300  -0.711    0.484
+    ## languagesign     -0.35468    0.62796 22.03700  -0.565    0.578
+    ## age:languagesign  0.94809    0.74632 21.81100   1.270    0.217
     ## 
     ## Correlation of Fixed Effects:
     ##             (Intr) age    lnggsg
-    ## age         -0.938              
-    ## languagesgn -0.603  0.570       
-    ## age:lnggsgn  0.684 -0.729 -0.917
+    ## age         -0.939              
+    ## languagesgn -0.575  0.544       
+    ## age:lnggsgn  0.648 -0.690 -0.920
 
 And the mFCR, nothing either.
 
@@ -399,32 +395,32 @@ summary(mfcr_lmm_nodir)
     ##     direction)
     ##    Data: data_mid
     ## 
-    ## REML criterion at convergence: 368.3
+    ## REML criterion at convergence: 431.1
     ## 
     ## Scaled residuals: 
-    ##     Min      1Q  Median      3Q     Max 
-    ## -3.0351 -0.5763  0.0479  0.6424  2.4327 
+    ##      Min       1Q   Median       3Q      Max 
+    ## -2.94411 -0.59546  0.01194  0.60875  2.37024 
     ## 
     ## Random effects:
     ##  Groups      Name        Variance Std.Dev.
-    ##  participant (Intercept) 0.250235 0.50023 
-    ##  story       (Intercept) 0.005428 0.07367 
+    ##  participant (Intercept) 0.228666 0.47819 
+    ##  story       (Intercept) 0.005818 0.07628 
     ##  direction   (Intercept) 0.000000 0.00000 
-    ##  Residual                0.168011 0.40989 
-    ## Number of obs: 282, groups:  participant, 23; story, 8; direction, 2
+    ##  Residual                0.178881 0.42294 
+    ## Number of obs: 317, groups:  participant, 26; story, 8; direction, 2
     ## 
     ## Fixed effects:
-    ##                  Estimate Std. Error       df t value Pr(>|t|)
-    ## (Intercept)       0.04483    0.38198 18.82500   0.117    0.908
-    ## age              -0.16812    0.56178 18.54100  -0.299    0.768
-    ## languagesign     -0.27196    0.63004 18.91900  -0.432    0.671
-    ## age:languagesign  0.74010    0.77129 18.68400   0.960    0.350
+    ##                  Estimate Std. Error      df t value Pr(>|t|)
+    ## (Intercept)        0.1762     0.3417 21.9350   0.516    0.611
+    ## age               -0.4176     0.4831 21.4660  -0.864    0.397
+    ## languagesign      -0.4003     0.5904 21.9930  -0.678    0.505
+    ## age:languagesign   0.9879     0.7008 21.6700   1.410    0.173
     ## 
     ## Correlation of Fixed Effects:
     ##             (Intr) age    lnggsg
-    ## age         -0.939              
-    ## languagesgn -0.603  0.569       
-    ## age:lnggsgn  0.684 -0.728 -0.918
+    ## age         -0.940              
+    ## languagesgn -0.575  0.544       
+    ## age:lnggsgn  0.648 -0.689 -0.920
 
 Direction & Language Predictors
 -------------------------------
@@ -443,38 +439,38 @@ summary(fcr_lmm_noage)
     ## Formula: fcr ~ direction * language + (1 | story) + (1 | participant)
     ##    Data: data_mid
     ## 
-    ## REML criterion at convergence: 317.2
+    ## REML criterion at convergence: 366.9
     ## 
     ## Scaled residuals: 
     ##      Min       1Q   Median       3Q      Max 
-    ## -2.43482 -0.64836  0.01973  0.59989  2.55402 
+    ## -2.64278 -0.65096  0.01931  0.60551  2.69211 
     ## 
     ## Random effects:
     ##  Groups      Name        Variance Std.Dev.
-    ##  participant (Intercept) 0.27892  0.52813 
-    ##  story       (Intercept) 0.00953  0.09762 
-    ##  Residual                0.12883  0.35893 
-    ## Number of obs: 286, groups:  participant, 23; story, 8
+    ##  participant (Intercept) 0.258979 0.5089  
+    ##  story       (Intercept) 0.008046 0.0897  
+    ##  Residual                0.135267 0.3678  
+    ## Number of obs: 321, groups:  participant, 26; story, 8
     ## 
     ## Fixed effects:
     ##                                 Estimate Std. Error        df t value
-    ## (Intercept)                     -0.16455    0.14122  24.36000  -1.165
-    ## directionreversed                0.07790    0.05086 254.19000   1.532
-    ## languagesign                     0.47283    0.24832  22.09000   1.904
-    ## directionreversed:languagesign  -0.24913    0.09320 253.92000  -2.673
+    ## (Intercept)                     -0.22253    0.12578  28.07000  -1.769
+    ## directionreversed                0.11004    0.04809 286.17000   2.288
+    ## languagesign                     0.53379    0.23459  25.42000   2.275
+    ## directionreversed:languagesign  -0.28166    0.09338 286.09000  -3.016
     ##                                Pr(>|t|)   
-    ## (Intercept)                       0.255   
-    ## directionreversed                 0.127   
-    ## languagesign                      0.070 . 
-    ## directionreversed:languagesign    0.008 **
+    ## (Intercept)                     0.08774 . 
+    ## directionreversed               0.02286 * 
+    ## languagesign                    0.03156 * 
+    ## directionreversed:languagesign  0.00279 **
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Correlation of Fixed Effects:
     ##             (Intr) drctnr lnggsg
-    ## dirctnrvrsd -0.177              
-    ## languagesgn -0.535  0.100       
-    ## drctnrvrsd:  0.097 -0.543 -0.182
+    ## dirctnrvrsd -0.188              
+    ## languagesgn -0.502  0.101       
+    ## drctnrvrsd:  0.097 -0.513 -0.193
 
 The mFCR LMM gives us similar results.
 
@@ -488,38 +484,38 @@ summary(mfcr_lmm_noage)
     ## Formula: mfcr ~ direction * language + (1 | story) + (1 | participant)
     ##    Data: data_mid
     ## 
-    ## REML criterion at convergence: 370.8
+    ## REML criterion at convergence: 433.1
     ## 
     ## Scaled residuals: 
-    ##     Min      1Q  Median      3Q     Max 
-    ## -3.1775 -0.5764  0.0972  0.6252  2.5884 
+    ##      Min       1Q   Median       3Q      Max 
+    ## -3.10653 -0.57291  0.04485  0.63100  2.51725 
     ## 
     ## Random effects:
     ##  Groups      Name        Variance Std.Dev.
-    ##  participant (Intercept) 0.239730 0.48962 
-    ##  story       (Intercept) 0.005677 0.07535 
-    ##  Residual                0.164839 0.40600 
-    ## Number of obs: 282, groups:  participant, 23; story, 8
+    ##  participant (Intercept) 0.226977 0.47642 
+    ##  story       (Intercept) 0.006088 0.07802 
+    ##  Residual                0.175313 0.41870 
+    ## Number of obs: 317, groups:  participant, 26; story, 8
     ## 
     ## Fixed effects:
     ##                                 Estimate Std. Error        df t value
-    ## (Intercept)                     -0.11360    0.13201  24.04000  -0.861
-    ## directionreversed                0.10217    0.05815 250.37000   1.757
-    ## languagesign                     0.46905    0.23426  22.53000   2.002
-    ## directionreversed:languagesign  -0.27367    0.10575 249.73000  -2.588
-    ##                                Pr(>|t|)  
-    ## (Intercept)                      0.3980  
-    ## directionreversed                0.0801 .
-    ## languagesign                     0.0574 .
-    ## directionreversed:languagesign   0.0102 *
+    ## (Intercept)                     -0.15812    0.11949  28.12000  -1.323
+    ## directionreversed                0.11379    0.05525 282.22000   2.059
+    ## languagesign                     0.51618    0.22384  26.00000   2.306
+    ## directionreversed:languagesign  -0.28723    0.10656 281.96000  -2.695
+    ##                                Pr(>|t|)   
+    ## (Intercept)                     0.19642   
+    ## directionreversed               0.04038 * 
+    ## languagesign                    0.02934 * 
+    ## directionreversed:languagesign  0.00745 **
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Correlation of Fixed Effects:
     ##             (Intr) drctnr lnggsg
-    ## dirctnrvrsd -0.219              
-    ## languagesgn -0.540  0.123       
-    ## drctnrvrsd:  0.120 -0.548 -0.219
+    ## dirctnrvrsd -0.230              
+    ## languagesgn -0.505  0.122       
+    ## drctnrvrsd:  0.119 -0.517 -0.231
 
 Language as only predictor
 --------------------------
@@ -537,28 +533,30 @@ summary(fcr_lmm_langonly)
     ## fcr ~ language + (1 | story) + (1 | participant) + (1 | direction)
     ##    Data: data_mid
     ## 
-    ## REML criterion at convergence: 316.9
+    ## REML criterion at convergence: 369.2
     ## 
     ## Scaled residuals: 
     ##      Min       1Q   Median       3Q      Max 
-    ## -2.53002 -0.60478  0.05811  0.57619  2.63605 
+    ## -2.53990 -0.62217  0.04344  0.57250  2.77627 
     ## 
     ## Random effects:
     ##  Groups      Name        Variance Std.Dev.
-    ##  participant (Intercept) 0.279716 0.52888 
-    ##  story       (Intercept) 0.009346 0.09668 
+    ##  participant (Intercept) 0.259969 0.50987 
+    ##  story       (Intercept) 0.007863 0.08867 
     ##  direction   (Intercept) 0.000000 0.00000 
-    ##  Residual                0.131414 0.36251 
-    ## Number of obs: 286, groups:  participant, 23; story, 8; direction, 2
+    ##  Residual                0.138920 0.37272 
+    ## Number of obs: 321, groups:  participant, 26; story, 8; direction, 2
     ## 
     ## Fixed effects:
-    ##              Estimate Std. Error      df t value Pr(>|t|)
-    ## (Intercept)   -0.1261     0.1391 22.7950  -0.906    0.374
-    ## languagesign   0.3524     0.2446 20.6500   1.441    0.165
+    ##              Estimate Std. Error      df t value Pr(>|t|)  
+    ## (Intercept)   -0.1682     0.1237 26.0250  -1.360   0.1856  
+    ## languagesign   0.3974     0.2308 23.5660   1.722   0.0981 .
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Correlation of Fixed Effects:
     ##             (Intr)
-    ## languagesgn -0.534
+    ## languagesgn -0.502
 
 Forward only. Language effect, p = 0.05.
 
@@ -572,29 +570,29 @@ summary(fcr_lmm_langonly_f)
     ## Formula: fcr ~ language + (1 | story) + (1 | participant)
     ##    Data: filter(data_mid, direction == "forward")
     ## 
-    ## REML criterion at convergence: 164.1
+    ## REML criterion at convergence: 191
     ## 
     ## Scaled residuals: 
     ##      Min       1Q   Median       3Q      Max 
-    ## -2.51930 -0.54504  0.04282  0.57294  2.18405 
+    ## -2.73928 -0.47724  0.06556  0.52480  2.04068 
     ## 
     ## Random effects:
     ##  Groups      Name        Variance Std.Dev.
-    ##  participant (Intercept) 0.27919  0.5284  
-    ##  story       (Intercept) 0.03323  0.1823  
-    ##  Residual                0.10521  0.3244  
-    ## Number of obs: 146, groups:  participant, 23; story, 8
+    ##  participant (Intercept) 0.26666  0.5164  
+    ##  story       (Intercept) 0.02712  0.1647  
+    ##  Residual                0.11283  0.3359  
+    ## Number of obs: 164, groups:  participant, 26; story, 8
     ## 
     ## Fixed effects:
     ##              Estimate Std. Error      df t value Pr(>|t|)  
-    ## (Intercept)   -0.1836     0.1508 24.5920  -1.218   0.2348  
-    ## languagesign   0.5057     0.2472 19.5250   2.046   0.0545 .
+    ## (Intercept)   -0.2393     0.1359 27.0920  -1.760   0.0896 .
+    ## languagesign   0.5628     0.2367 22.5130   2.377   0.0263 *
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Correlation of Fixed Effects:
     ##             (Intr)
-    ## languagesgn -0.498
+    ## languagesgn -0.469
 
 Reversed only. Weaker language effect, p = 0.0131.
 
@@ -608,27 +606,27 @@ summary(fcr_lmm_langonly_r)
     ## Formula: fcr ~ language + (1 | story) + (1 | participant)
     ##    Data: filter(data_mid, direction == "reversed")
     ## 
-    ## REML criterion at convergence: 182.3
+    ## REML criterion at convergence: 209
     ## 
     ## Scaled residuals: 
-    ##      Min       1Q   Median       3Q      Max 
-    ## -2.00342 -0.60450 -0.01042  0.50268  2.73894 
+    ##     Min      1Q  Median      3Q     Max 
+    ## -2.5163 -0.5394 -0.0433  0.5234  2.7001 
     ## 
     ## Random effects:
     ##  Groups      Name        Variance Std.Dev.
-    ##  participant (Intercept) 0.25779  0.5077  
-    ##  story       (Intercept) 0.01843  0.1358  
-    ##  Residual                0.13377  0.3657  
-    ## Number of obs: 140, groups:  participant, 23; story, 8
+    ##  participant (Intercept) 0.22996  0.4795  
+    ##  story       (Intercept) 0.01997  0.1413  
+    ##  Residual                0.14085  0.3753  
+    ## Number of obs: 157, groups:  participant, 26; story, 8
     ## 
     ## Fixed effects:
-    ##              Estimate Std. Error       df t value Pr(>|t|)
-    ## (Intercept)  -0.07774    0.14100 23.17800  -0.551    0.587
-    ## languagesign  0.21359    0.24091 19.80900   0.887    0.386
+    ##              Estimate Std. Error      df t value Pr(>|t|)
+    ## (Intercept)   -0.1084     0.1262 25.9680  -0.859    0.398
+    ## languagesign   0.2504     0.2239 22.5850   1.119    0.275
     ## 
     ## Correlation of Fixed Effects:
     ##             (Intr)
-    ## languagesgn -0.517
+    ## languagesgn -0.475
 
 Let's go ahead and plot boxplots to represent LMMs with only language as an important effect. (We can add in direction too). FaceChest Ratio here.
 

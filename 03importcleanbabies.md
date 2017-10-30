@@ -1,7 +1,7 @@
 Baby Data Import and Cleanup (study2children)
 ================
 Adam Stone, PhD
-10-27-2017
+10-30-2017
 
 -   [Introduction](#introduction)
 -   [Checking for Outliers](#checking-for-outliers)
@@ -23,11 +23,6 @@ Below are all the children that did *not* have GoodData.
 ``` r
 # Libraries
 library(tidyverse)
-```
-
-    ## Warning: package 'dplyr' was built under R version 3.4.2
-
-``` r
 library(feather)
 library(stringr)
 library(RColorBrewer)
@@ -56,25 +51,33 @@ data <- data %>%
   filter(analysis == "GoodData")
 
 anti_join(alldata, data, by = "participant") %>% 
-  select(participant, analysis, language, group, age) %>% 
+  select(participant, recording, analysis, language, group, age) %>% 
   distinct() %>%
   filter(age < 2.0)
 ```
 
-    ## # A tibble: 10 x 5
-    ##                   participant                                  analysis
-    ##                         <chr>                                     <chr>
-    ##  1             AsherCalibOnly                          Calibration_Only
-    ##  2           de02wi15_12m_10d                          Not Yet Assigned
-    ##  3             do09ne07_6m_4d                  Bad_Calibration_Dont_Use
-    ##  4           Em12ad10_14m_24d                  Bad_Calibration_Dont_Use
-    ##  5        ka11es12_7m_MomTerp Crying_Check_For_Eliminating_Bad_Segments
-    ##  6            lo08jo20_6m_14d                          Not Yet Assigned
-    ##  7            boy 6 m SHIFTED                      Good_But_Needs_Shift
-    ##  8        Sara8monthsDeafCODA                       Tired_or_Incomplete
-    ##  9             vi11hi18_1027d                          Not Yet Assigned
-    ## 10 za05da21_6m_15days_Squirmy Crying_Check_For_Eliminating_Bad_Segments
-    ## # ... with 3 more variables: language <chr>, group <int>, age <dbl>
+    ## # A tibble: 10 x 6
+    ##                   participant                              recording
+    ##                         <chr>                                  <chr>
+    ##  1             AsherCalibOnly                      Asher_GREAT_Calib
+    ##  2           de02wi15_12m_10d    de02wi 12m10d Very Good Calibration
+    ##  3             do09ne07_6m_4d               do09ne07 6m4d POOR CALIB
+    ##  4           Em12ad10_14m_24d                      em 15m POOR CALIB
+    ##  5        ka11es12_7m_MomTerp      ka11es12 7m lot of movement fussy
+    ##  6            lo08jo20_6m_14d                      lo08jo 6m14d GOOD
+    ##  7            boy 6 m SHIFTED            Rec 02 shiftupward DONT USE
+    ##  8        Sara8monthsDeafCODA Sara 8m CODA Dont Use Tired GOOD calib
+    ##  9             vi11hi18_1027d   vi11hi18 11m old girl Adorable GREAT
+    ## 10 za05da21_6m_15days_Squirmy    za05da12 6m15d GoodCalibVERYSquirmy
+    ## # ... with 4 more variables: analysis <chr>, language <chr>, group <int>,
+    ## #   age <dbl>
+
+``` r
+# Add de02wi15, lo08jo20, vi11hi18 back in. 
+goodbabies <- alldata %>%
+  filter(participant=="de02wi15_12m_10d" | participant == "lo08jo20_6m_14d" | participant == "vi11hi18_1027d")
+data <- rbind(data, goodbabies)
+```
 
 Next, we want to get a general idea of how many trials each baby saw. The trials column will tell us which babies saw *less* than 16 trials. Okay, just 3 kids and all saw at least half the study. All good.
 
@@ -82,12 +85,13 @@ Next, we want to get a general idea of how many trials each baby saw. The trials
 data %>% group_by(participant) %>% summarise(trials = max(trial)) %>% filter(trials < 16)
 ```
 
-    ## # A tibble: 3 x 2
+    ## # A tibble: 4 x 2
     ##           participant trials
     ##                 <chr>  <dbl>
     ## 1 GemmaF_11_4_13_CODA     15
     ## 2     Gianna_CODA_18m     15
-    ## 3            wyatt 7m     10
+    ## 3      vi11hi18_1027d     13
+    ## 4            wyatt 7m     10
 
 All children saw all trials. Now, we need to remove trials where looking data was collected &lt;25% of the video length. I'm importing a table of clip lengths, see below. The videos were shown at 25 FPS so frames / 25 = seconds.
 
@@ -124,7 +128,7 @@ numtotaltrials = dim(trialcheck)[1]
 percenttakeout = paste(numtotakeout/numtotaltrials * 100, "%", sep = "")
 ```
 
-We removed 88 trials out of 376 (23.4042553191489%). Was there any correlation with the number of trials removed by age, language, or gender? Scatterplot below - looks fine. (Took out one CODA girl that has nearly all trials removed, was skewing the data).
+We removed 98 trials out of 421 (23.2779097387173%). Was there any correlation with the number of trials removed by age, language, or gender? Scatterplot below - looks fine. (Took out one CODA girl that has nearly all trials removed, was skewing the data).
 
 ``` r
 # Grab age/group data we need for scatterplot
@@ -164,21 +168,21 @@ data <- data %>%
 data %>% select(participant, language, trial) %>% distinct() %>% group_by(language, participant) %>% summarise(trials = n()) %>% arrange(trials)
 ```
 
-    ## # A tibble: 24 x 3
+    ## # A tibble: 27 x 3
     ## # Groups:   language [2]
     ##               language         participant trials
     ##                  <chr>               <chr>  <int>
     ##  1      EnglishExposed            wyatt 7m      1
     ##  2      EnglishExposed       Li11hy29_5m_M      6
-    ##  3 SignLanguageExposed         Brooke CODA      7
-    ##  4      EnglishExposed    WY06WE01_10M_17D      8
-    ##  5      EnglishExposed     AB11Mi20_5M_10D      9
-    ##  6 SignLanguageExposed GemmaF_11_4_13_CODA     10
-    ##  7      EnglishExposed   DY10PE27_6m_11d_m     11
-    ##  8      EnglishExposed        ma01wa22_10m     11
-    ##  9      EnglishExposed    pa09ha06_9m_6d_m     11
-    ## 10      EnglishExposed         ca05he16_6m     12
-    ## # ... with 14 more rows
+    ##  3      EnglishExposed     lo08jo20_6m_14d      7
+    ##  4 SignLanguageExposed         Brooke CODA      7
+    ##  5      EnglishExposed    WY06WE01_10M_17D      8
+    ##  6      EnglishExposed     AB11Mi20_5M_10D      9
+    ##  7 SignLanguageExposed GemmaF_11_4_13_CODA     10
+    ##  8      EnglishExposed   DY10PE27_6m_11d_m     11
+    ##  9      EnglishExposed        ma01wa22_10m     11
+    ## 10      EnglishExposed    pa09ha06_9m_6d_m     11
+    ## # ... with 17 more rows
 
 Based on that list, we'll take out Wyatt. (We may want to take out Li11hy29 and Brooke, but let's keep them in for now and see what happens.)
 
@@ -354,7 +358,7 @@ left_join(participants_n, participants_age, by = "language")
     ## # A tibble: 2 x 5
     ##   language Female  Male age_mean age_range
     ##     <fctr>  <int> <int>    <chr>     <chr>
-    ## 1  english      6    10  0.6±0.2 0.4 - 1.1
+    ## 1  english      8    11  0.7±0.2 0.4 - 1.1
     ## 2     sign      5     2  0.9±0.4 0.4 - 1.5
 
 ``` r

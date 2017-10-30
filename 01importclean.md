@@ -1,7 +1,7 @@
 Data Import and Cleanup (study2children)
 ================
 Adam Stone, PhD
-10-27-2017
+10-30-2017
 
 -   [Introduction](#introduction)
 -   [Removing Bad/Irrelevant Data](#removing-badirrelevant-data)
@@ -17,11 +17,6 @@ Great! At this point, I've run a Matlab script on the children's raw data to tal
 ``` r
 # Libraries
 library(tidyverse)
-```
-
-    ## Warning: package 'dplyr' was built under R version 3.4.2
-
-``` r
 library(feather)
 library(stringr)
 #library(cowplot)
@@ -80,17 +75,25 @@ data <- data %>%
   filter(analysis == "GoodData")
 
 anti_join(alldata, data, by = "participant") %>% 
-  select(participant, analysis, language, group, age) %>% 
+  select(participant, recording, analysis, language, group, age) %>% 
   distinct() %>%
   filter(age > 2.0)
 ```
 
-    ## # A tibble: 3 x 5
-    ##           participant             analysis            language group   age
-    ##                 <chr>                <chr>               <chr> <int> <dbl>
-    ## 1  na01pe06_2013_3.5y     Not Yet Assigned      EnglishExposed     2   3.5
-    ## 2 OwenTwin030212_4y2m Good_But_Needs_Shift SignLanguageExposed     2   4.2
-    ## 3 Kiera_8_20_13 3y,5m Good_But_Needs_Shift      EnglishExposed     1   3.4
+    ## # A tibble: 3 x 6
+    ##           participant                 recording             analysis
+    ##                 <chr>                     <chr>                <chr>
+    ## 1  na01pe06_2013_3.5y       na01pe06 3.5y GREAT     Not Yet Assigned
+    ## 2 OwenTwin030212_4y2m Owen twin 4y2m POOR CALIB Good_But_Needs_Shift
+    ## 3 Kiera_8_20_13 3y,5m    Rec 08 little SHRUNKEN Good_But_Needs_Shift
+    ## # ... with 3 more variables: language <chr>, group <int>, age <dbl>
+
+``` r
+# Add na01pe
+goodkids <- alldata %>%
+  filter(participant == "na01pe06_2013_3.5y")
+data <- rbind(data, goodkids)
+```
 
 All children saw all trials. Now, we need to remove trials where looking data was collected &lt;25% of the video length. I'm importing a table of clip lengths, see below. The videos were shown at 25 FPS so frames / 25 = seconds.
 
@@ -145,7 +148,7 @@ numtotaltrials = dim(trialcheck)[1]
 percenttakeout = paste(numtotakeout/numtotaltrials * 100, "%", sep = "")
 ```
 
-We removed 84 trials out of 480 (17.5%). Was there any correlation with the number of trials removed by age, language, or gender? Scatterplot below - looks fine. (Took out one CODA girl that has nearly all trials removed, was skewing the data).
+We removed 89 trials out of 496 (17.9435483870968%). Was there any correlation with the number of trials removed by age, language, or gender? Scatterplot below - looks fine. (Took out one CODA girl that has nearly all trials removed, was skewing the data).
 
 ``` r
 # Grab age/group data we need for scatterplot
@@ -350,5 +353,5 @@ left_join(participants_n, participants_age, by = "language")
     ## # A tibble: 2 x 5
     ##   language Female  Male age_mean age_range
     ##     <fctr>  <int> <int>    <chr>     <chr>
-    ## 1  english      8     5  5.2±1.5 2.7 - 8.3
+    ## 1  english      8     6    5±1.5 2.7 - 8.3
     ## 2     sign      8     8  5.1±1.3 3.5 - 7.3
