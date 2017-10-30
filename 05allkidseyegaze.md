@@ -9,6 +9,7 @@ Adam Stone, PhD
     -   [Direction & Language Predictors](#direction-language-predictors)
     -   [Separate for direction](#separate-for-direction)
 -   [Are Babies and Children Different?](#are-babies-and-children-different)
+-   [Means and SEs](#means-and-ses)
 
 All Children!
 =============
@@ -734,3 +735,62 @@ summary(nse_lmm)
     ## agegropchld -0.628              
     ## dirctnrvrsd -0.221  0.149       
     ## aggrpchld:d  0.144 -0.232 -0.647
+
+Means and SEs
+=============
+
+FCR = Face-Chest Ratio
+
+``` r
+data_mid_fcr <- data_mid %>%
+  group_by(agegroup, language, participant, direction) %>%
+  summarise(fcr_mean_subj = mean(fcr, na.rm=TRUE)) %>%
+  group_by(agegroup, language, direction) %>%
+  summarise(fcr_mean = mean(fcr_mean_subj, na.rm=TRUE),
+            fcr_sd = sd(fcr_mean_subj, na.rm=TRUE),
+            fcr_n = n()) %>%
+  ungroup() %>%
+  mutate(fcr_se = fcr_sd/sqrt(fcr_n))
+
+data_mid_fcr
+```
+
+    ## # A tibble: 8 x 7
+    ##   agegroup language direction    fcr_mean    fcr_sd fcr_n     fcr_se
+    ##      <chr>   <fctr>    <fctr>       <dbl>     <dbl> <int>      <dbl>
+    ## 1     baby  english   forward -0.21931876 0.5508220    19 0.12636724
+    ## 2     baby  english  reversed -0.10158943 0.4984357    19 0.11434898
+    ## 3     baby     sign   forward  0.32632006 0.5542215     7 0.20947605
+    ## 4     baby     sign  reversed  0.13988720 0.5908592     7 0.22332379
+    ## 5    child  english   forward -0.04601778 0.5128310    14 0.13705984
+    ## 6    child  english  reversed -0.09296720 0.5259968    14 0.14057856
+    ## 7    child     sign   forward  0.41461425 0.2814525    16 0.07036313
+    ## 8    child     sign  reversed  0.31189983 0.2882795    16 0.07206987
+
+mFCR = Middle-Middle Face-Chest Ratio
+
+``` r
+data_mid_mfcr <- data_mid %>%
+  group_by(agegroup, language, participant, direction) %>%
+  summarise(fcr_mean_subj = mean(mfcr, na.rm=TRUE)) %>%
+  group_by(agegroup, language, direction) %>%
+  summarise(fcr_mean = mean(fcr_mean_subj, na.rm=TRUE),
+            fcr_sd = sd(fcr_mean_subj, na.rm=TRUE),
+            fcr_n = n()) %>%
+  ungroup() %>%
+  mutate(fcr_se = fcr_sd/sqrt(fcr_n))
+
+data_mid_mfcr
+```
+
+    ## # A tibble: 8 x 7
+    ##   agegroup language direction    fcr_mean    fcr_sd fcr_n     fcr_se
+    ##      <chr>   <fctr>    <fctr>       <dbl>     <dbl> <int>      <dbl>
+    ## 1     baby  english   forward -0.14960679 0.5216557    19 0.11967603
+    ## 2     baby  english  reversed -0.03582799 0.4578598    19 0.10504023
+    ## 3     baby     sign   forward  0.36802270 0.5704882     7 0.21562426
+    ## 4     baby     sign  reversed  0.18253494 0.5896765     7 0.22287677
+    ## 5    child  english   forward  0.03297344 0.5298127    14 0.14159841
+    ## 6    child  english  reversed  0.01985989 0.5622754    14 0.15027441
+    ## 7    child     sign   forward  0.47268061 0.2661491    16 0.06653727
+    ## 8    child     sign  reversed  0.35318443 0.2414770    16 0.06036926

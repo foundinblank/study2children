@@ -322,3 +322,35 @@ data_nse <- data_mid %>%
 nse_lmm <- lmer(fcr ~ agegroup * direction + (1|story) + (1|participant), data = data_nse)
 summary(nse_lmm)
 ```
+
+# Means and SEs 
+
+FCR = Face-Chest Ratio 
+```{r}
+data_mid_fcr <- data_mid %>%
+  group_by(agegroup, language, participant, direction) %>%
+  summarise(fcr_mean_subj = mean(fcr, na.rm=TRUE)) %>%
+  group_by(agegroup, language, direction) %>%
+  summarise(fcr_mean = mean(fcr_mean_subj, na.rm=TRUE),
+            fcr_sd = sd(fcr_mean_subj, na.rm=TRUE),
+            fcr_n = n()) %>%
+  ungroup() %>%
+  mutate(fcr_se = fcr_sd/sqrt(fcr_n))
+
+data_mid_fcr
+```
+
+mFCR = Middle-Middle Face-Chest Ratio
+```{r}
+data_mid_mfcr <- data_mid %>%
+  group_by(agegroup, language, participant, direction) %>%
+  summarise(fcr_mean_subj = mean(mfcr, na.rm=TRUE)) %>%
+  group_by(agegroup, language, direction) %>%
+  summarise(fcr_mean = mean(fcr_mean_subj, na.rm=TRUE),
+            fcr_sd = sd(fcr_mean_subj, na.rm=TRUE),
+            fcr_n = n()) %>%
+  ungroup() %>%
+  mutate(fcr_se = fcr_sd/sqrt(fcr_n))
+
+data_mid_mfcr
+```
