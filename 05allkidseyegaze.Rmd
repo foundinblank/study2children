@@ -58,7 +58,7 @@ Looks like by far most of the activity is along the Mid** AOIs. Let's look close
 
 ```{r}
 data_mid <- data %>%
-  filter(str_detect(aoi,"Mid"))
+  filter(str_detect(aoi,"Mid") | aoi == "BelowChest")
 
 ggplot(data_mid, aes(x = aoi, y = percent, fill = direction)) + 
   geom_boxplot() + theme(axis.text.x = element_text(angle=45, hjust = 1)) +
@@ -81,8 +81,8 @@ I am not observing big differences for direction. And not strong patterns across
 
 What if we defined a Face-Chest Ratio (FCR) such that:
 
-1. MidFaceTop, MidFaceCenter, MidFaceBottom = Face
-1. MidChestTop, MidChestCenter, MidChestBottom = Chest
+1. MidFaceCenter, MidFaceBottom = Face
+1. MidChestTop, MidChestCenter, MidChestBottom, BelowChest = Chest
 1. FCR = face - chest / face + chest
 
 Let's try that. Let's also try only MidFaceBottom vs. MidChestTop too, and call that MFCR (for middle-middle).
@@ -93,8 +93,8 @@ data_mid <- data_mid %>%
   select(-secs, -hits) %>%
   spread(aoi,percent) %>%
   group_by(participant, trial) %>%
-  mutate(face = sum(MidFaceTop, MidFaceCenter, MidFaceBottom, na.rm = TRUE),
-         chest = sum(MidChestTop, MidChestCenter, MidChestBottom, na.rm = TRUE),
+  mutate(face = sum(MidFaceCenter, MidFaceBottom, na.rm = TRUE),
+         chest = sum(MidChestTop, MidChestCenter, MidChestBottom, BelowChest, na.rm = TRUE),
          fcr = (face - chest) / (face + chest),
          mfcr = (MidFaceBottom - MidChestTop) / (MidFaceBottom + MidChestTop))
 
@@ -115,14 +115,14 @@ So this is rad! Such obvious group differences should also be reflected in a hea
 data_mid_heat <- data_mid %>%
   ungroup() %>%
   select(-face, -chest, -fcr, -mfcr) %>%
-  gather(aoi, percent, MidChestBottom:MidFaceTop) %>%
+  gather(aoi, percent, BelowChest:MidFaceTop) %>%
   group_by(language, participant, direction, aoi) %>%
   summarise(percent = mean(percent, na.rm = TRUE)) %>%
   group_by(language, direction, aoi) %>%
   summarise(percent = mean(percent, na.rm = TRUE)) %>%
   group_by(language, aoi) %>%
   summarise(percent = mean(percent, na.rm = TRUE)) %>%
-  mutate(aoi = factor(aoi, levels = c("MidChestBottom", "MidChestCenter", "MidChestTop",
+  mutate(aoi = factor(aoi, levels = c("BelowChest", "MidChestBottom", "MidChestCenter", "MidChestTop",
                                       "MidFaceBottom", "MidFaceCenter", "MidFaceTop")))
 
 ggplot(data_mid_heat, aes(x = language, y = aoi)) +
