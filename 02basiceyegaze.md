@@ -4,6 +4,7 @@ Adam Stone, PhD
 10-31-2017
 
 -   [Starting Out](#starting-out)
+-   [Heat Maps](#heat-maps)
 -   [Statistical Testing of FCR/mFCR](#statistical-testing-of-fcrmfcr)
     -   [Language, Direction, & Age Predictors](#language-direction-age-predictors)
     -   [Direction & Language Predictors](#direction-language-predictors)
@@ -120,6 +121,9 @@ ggplot(data_mid, aes(x = age, y = mfcr, color = direction)) + geom_point(alpha =
 
 ![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-6-1.png)
 
+Heat Maps
+=========
+
 So this is rad! Such obvious group differences should also be reflected in a heat map that is collapsed across age and direction. And the heat map below shows that CODAs really focus on the MidFaceBottom AOI, while English-exposed children are a bit more spread out, looking much more at the chest.
 
 ``` r
@@ -144,6 +148,37 @@ ggplot(data_mid_heat, aes(x = language, y = aoi)) +
 ```
 
 ![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-7-1.png)
+
+``` r
+data_mid_heat <- data_mid %>%
+  ungroup() %>%
+  select(-face, -chest, -fcr, -mfcr) %>%
+  gather(aoi, percent, BelowChest:MidFaceTop) %>%
+  group_by(language, participant, direction, aoi) %>%
+  summarise(percent = mean(percent, na.rm = TRUE)) %>%
+  group_by(language, direction, aoi) %>%
+  summarise(percent = mean(percent, na.rm = TRUE)) %>%
+  mutate(aoi = factor(aoi, levels = c("BelowChest", "MidChestBottom", "MidChestCenter", "MidChestTop",
+                                      "MidFaceBottom", "MidFaceCenter", "MidFaceTop")))
+
+ggplot(data_mid_heat, aes(x = language, y = aoi)) +
+  geom_tile(aes(fill=percent),color="lightgray",na.rm=TRUE) + 
+  scale_fill_viridis(option = "viridis", direction=-1, limits = c(0,1)) +
+  theme(axis.text.x=element_text(angle=45,hjust=1)) +
+  ylab("") + xlab("") + ggtitle("Eye Gaze Heat Map by Direction") + facet_wrap("direction")
+```
+
+![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-8-1.png)
+
+``` r
+ggplot(data_mid_heat, aes(x = direction, y = aoi)) +
+  geom_tile(aes(fill=percent),color="lightgray",na.rm=TRUE) + 
+  scale_fill_viridis(option = "viridis", direction=-1, limits = c(0,1)) +
+  theme(axis.text.x=element_text(angle=45,hjust=1)) +
+  ylab("") + xlab("") + ggtitle("Eye Gaze Heat Map by Group") + facet_wrap("language")
+```
+
+![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-8-2.png) \`\`\`
 
 Statistical Testing of FCR/mFCR
 ===============================
@@ -481,13 +516,13 @@ Let's go ahead and plot boxplots to represent LMMs with only language as an impo
 ggplot(data_mid, aes(x = language, y = fcr, fill = language)) + geom_boxplot() + scale_fill_brewer(palette = "Dark2") + ylab("FaceChest Ratio") + ggtitle("FaceChest Ratio by Language")
 ```
 
-![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-15-1.png)
+![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-16-1.png)
 
 ``` r
 ggplot(data_mid, aes(x = language, y = fcr, fill = direction)) + geom_boxplot() + ylab("FaceChest Ratio") + ggtitle("FaceChest Ratio by Language & Direction")
 ```
 
-![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-15-2.png)
+![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-16-2.png)
 
 And Middle-Middle FaceChest Ratio here.
 
@@ -497,7 +532,7 @@ ggplot(data_mid, aes(x = language, y = mfcr, fill = language)) + geom_boxplot() 
 
     ## Warning: Removed 6 rows containing non-finite values (stat_boxplot).
 
-![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-16-1.png)
+![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-17-1.png)
 
 ``` r
 ggplot(data_mid, aes(x = language, y = mfcr, fill = direction)) + geom_boxplot() + ylab("M-FaceChest Ratio") + ggtitle("Middle-Middle FaceChest Ratio by Language & Direction")
@@ -505,7 +540,7 @@ ggplot(data_mid, aes(x = language, y = mfcr, fill = direction)) + geom_boxplot()
 
     ## Warning: Removed 6 rows containing non-finite values (stat_boxplot).
 
-![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-16-2.png)
+![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-17-2.png)
 
 Could Age be Polynomial?
 ========================
@@ -517,7 +552,7 @@ ggplot(data_mid, aes(x = age, y = fcr, color = direction)) + geom_point(alpha = 
   geom_smooth(method = "loess", span = 5) + facet_wrap("language") + ggtitle("FaceChest Ratio")
 ```
 
-![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-17-1.png)
+![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-18-1.png)
 
 ``` r
 ggplot(data_mid, aes(x = age, y = mfcr, color = direction)) + geom_point(alpha = 0.25) +
@@ -528,7 +563,7 @@ ggplot(data_mid, aes(x = age, y = mfcr, color = direction)) + geom_point(alpha =
 
     ## Warning: Removed 6 rows containing missing values (geom_point).
 
-![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-17-2.png)
+![](02basiceyegaze_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-18-2.png)
 
 How Young Can We Go?
 ====================

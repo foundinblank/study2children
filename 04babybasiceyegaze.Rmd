@@ -109,6 +109,8 @@ ggplot(data_mid, aes(x = age, y = mfcr, color = direction)) + geom_point(alpha =
 
 So this is rad! Such obvious group differences should also be reflected in a heat map that is collapsed across age and direction. And the heat map below shows that CODAs really focus on the MidFaceBottom AOI, while English-exposed children are a bit more spread out, looking much more at the chest. 
 
+# Heat Maps
+
 ```{r}
 data_mid_heat <- data_mid %>%
   ungroup() %>%
@@ -128,6 +130,31 @@ ggplot(data_mid_heat, aes(x = language, y = aoi)) +
   scale_fill_viridis(option = "viridis", direction=-1, limits = c(0,1)) +
   theme(axis.text.x=element_text(angle=45,hjust=1)) +
   ylab("") + xlab("") + ggtitle("Eye Gaze Heat Map")
+```
+
+```{r}
+data_mid_heat <- data_mid %>%
+  ungroup() %>%
+  select(-face, -chest, -fcr, -mfcr) %>%
+  gather(aoi, percent, BelowChest:MidFaceTop) %>%
+  group_by(language, participant, direction, aoi) %>%
+  summarise(percent = mean(percent, na.rm = TRUE)) %>%
+  group_by(language, direction, aoi) %>%
+  summarise(percent = mean(percent, na.rm = TRUE)) %>%
+  mutate(aoi = factor(aoi, levels = c("BelowChest", "MidChestBottom", "MidChestCenter", "MidChestTop",
+                                      "MidFaceBottom", "MidFaceCenter", "MidFaceTop")))
+
+ggplot(data_mid_heat, aes(x = language, y = aoi)) +
+  geom_tile(aes(fill=percent),color="lightgray",na.rm=TRUE) + 
+  scale_fill_viridis(option = "viridis", direction=-1, limits = c(0,1)) +
+  theme(axis.text.x=element_text(angle=45,hjust=1)) +
+  ylab("") + xlab("") + ggtitle("Eye Gaze Heat Map by Direction") + facet_wrap("direction")
+
+ggplot(data_mid_heat, aes(x = direction, y = aoi)) +
+  geom_tile(aes(fill=percent),color="lightgray",na.rm=TRUE) + 
+  scale_fill_viridis(option = "viridis", direction=-1, limits = c(0,1)) +
+  theme(axis.text.x=element_text(angle=45,hjust=1)) +
+  ylab("") + xlab("") + ggtitle("Eye Gaze Heat Map by Group") + facet_wrap("language")
 ```
 
 
