@@ -84,7 +84,7 @@ data %>% group_by(participant) %>% summarise(trials = max(trial)) %>% filter(tri
     ## 3      vi11hi18_1027d     13
     ## 4            wyatt 7m     10
 
-All children saw all trials. Now, we need to remove trials where looking data was collected &lt;25% of the video length. I'm importing a table of clip lengths, see below. The videos were shown at 25 FPS so frames / 25 = seconds.
+Now, we need to remove trials where looking data was collected &lt;25% of the video length. I'm importing a table of clip lengths, see below. The videos were shown at 25 FPS so frames / 25 = seconds.
 
 ``` r
 cliplength <- read_csv("cliplengths.csv") %>%
@@ -151,7 +151,7 @@ trialcheck <- trialcheck %>%
   filter(lessthan25 == TRUE) %>% 
   select(participant, trial)
 
-# Now remove all bad trials. Also Jelena too. 
+# Now remove all bad trials.
 data <- data %>%
   anti_join(trialcheck, by = c("participant","trial"))
 

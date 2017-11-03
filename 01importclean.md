@@ -167,10 +167,34 @@ trialcheck <- trialcheck %>%
   filter(lessthan25 == TRUE) %>% 
   select(participant, trial)
 
-# Now remove all bad trials. Also Jelena too. 
+# Now remove all bad trials.
 data <- data %>%
-  anti_join(trialcheck, by = c("participant","trial")) %>%
-  filter(participant != "JelenaCODAhearing_4y2m")
+  anti_join(trialcheck, by = c("participant","trial"))
+
+# Table of trials per baby
+data %>% select(participant, language, trial) %>% distinct() %>% group_by(language, participant) %>% summarise(trials = n()) %>% arrange(trials)
+```
+
+    ## # A tibble: 31 x 3
+    ## # Groups:   language [2]
+    ##               language              participant trials
+    ##                  <chr>                    <chr>  <int>
+    ##  1 SignLanguageExposed   JelenaCODAhearing_4y2m      2
+    ##  2 SignLanguageExposed                   sophia      9
+    ##  3      EnglishExposed  Elizabeth 11_17_11_4y1m     10
+    ##  4 SignLanguageExposed                JuliaCoda     10
+    ##  5      EnglishExposed       na01pe06_2013_3.5y     11
+    ##  6      EnglishExposed     Timothy_7_18_09_6.5y     11
+    ##  7 SignLanguageExposed            Cyrus_SE_3.5y     11
+    ##  8 SignLanguageExposed                    Gavin     11
+    ##  9 SignLanguageExposed Isabella 5 year old Deaf     11
+    ## 10 SignLanguageExposed      emmet_12_10_12_CODA     12
+    ## # ... with 21 more rows
+
+So based on that, we're removing Jelena.
+
+``` r
+data <- data %>% filter(participant != "JelenaCODAhearing_4y2m")
 ```
 
 Checking for Outliers
@@ -210,25 +234,25 @@ data_rr <- data %>% filter(str_detect(story, "RedRiding"), percent > 0.04)
 ggplot(data_ci, aes(x = percent)) + geom_histogram() + facet_grid(aoi ~ story) + theme(strip.text.y = element_text(angle = 0), axis.text.y = element_blank(), axis.ticks = element_blank()) + ylab("")
 ```
 
-![](01importclean_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-8-1.png)
+![](01importclean_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-9-1.png)
 
 ``` r
 ggplot(data_km, aes(x = percent)) + geom_histogram() + facet_grid(aoi ~ story) + theme(strip.text.y = element_text(angle = 0), axis.text.y = element_blank(), axis.ticks = element_blank()) + ylab("")
 ```
 
-![](01importclean_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-8-2.png)
+![](01importclean_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-9-2.png)
 
 ``` r
 ggplot(data_3b, aes(x = percent)) + geom_histogram() + facet_grid(aoi ~ story) + theme(strip.text.y = element_text(angle = 0), axis.text.y = element_blank(), axis.ticks = element_blank()) + ylab("")
 ```
 
-![](01importclean_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-8-3.png)
+![](01importclean_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-9-3.png)
 
 ``` r
 ggplot(data_rr, aes(x = percent)) + geom_histogram() + facet_grid(aoi ~ story) + theme(strip.text.y = element_text(angle = 0), axis.text.y = element_blank(), axis.ticks = element_blank()) + ylab("")
 ```
 
-![](01importclean_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-8-4.png)
+![](01importclean_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-9-4.png)
 
 Based on these histograms, I sent to Rain on 26 Oct 2017 this table. Plus I asked about Jelena (CODA) who had very little data in 14 out of 16 trials so she was thrown out entirely from the dataset. I wrote to Rain:
 

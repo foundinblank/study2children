@@ -143,10 +143,18 @@ trialcheck <- trialcheck %>%
   filter(lessthan25 == TRUE) %>% 
   select(participant, trial)
 
-# Now remove all bad trials. Also Jelena too. 
+# Now remove all bad trials.
 data <- data %>%
-  anti_join(trialcheck, by = c("participant","trial")) %>%
-  filter(participant != "JelenaCODAhearing_4y2m")
+  anti_join(trialcheck, by = c("participant","trial"))
+
+# Table of trials per baby
+data %>% select(participant, language, trial) %>% distinct() %>% group_by(language, participant) %>% summarise(trials = n()) %>% arrange(trials)
+```
+
+So based on that, we're removing Jelena. 
+
+```{r}
+data <- data %>% filter(participant != "JelenaCODAhearing_4y2m")
 ```
 
 # Checking for Outliers 
