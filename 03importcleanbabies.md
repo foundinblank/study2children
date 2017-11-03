@@ -1,7 +1,7 @@
 Baby Data Import and Cleanup (study2children)
 ================
 Adam Stone, PhD
-10-30-2017
+11-03-2017
 
 -   [Introduction](#introduction)
 -   [Checking for Outliers](#checking-for-outliers)
@@ -13,12 +13,7 @@ Introduction
 
 Let's repeat [01importclean](01importclean.nb.html) but this time, select ONLY babies. YES!
 
-In this order:
-
-1.  "Children" are ages 2 and below so remove all &gt; 2 yrs
-2.  Keep only those that have "GoodData"
-
-Below are all the children that did *not* have GoodData.
+First, get rid of all older than 2 years old. Then we're going to remove specific babies for various reasons, here's a list of who we removed.
 
 ``` r
 # Libraries
@@ -48,7 +43,13 @@ data <- data %>% left_join(ages, by = "participant")
 alldata <- data
 data <- data %>%
   filter(age < 2.0) %>%
-  filter(analysis == "GoodData")
+  filter(participant != "AsherCalibOnly") %>%
+  filter(participant != "do09ne07_6m_4d") %>%
+  filter(participant != "Em12ad10_14m_24d") %>%
+  filter(participant != "ka11es12_7m_MomTerp") %>%
+  filter(participant != "boy 6 m SHIFTED") %>%
+  filter(participant != "Sara8monthsDeafCODA") %>%
+  filter(participant != "za05da21_6m_15days_Squirmy")
 
 anti_join(alldata, data, by = "participant") %>% 
   select(participant, recording, analysis, language, group, age) %>% 
@@ -56,28 +57,18 @@ anti_join(alldata, data, by = "participant") %>%
   filter(age < 2.0)
 ```
 
-    ## # A tibble: 10 x 6
-    ##                   participant                              recording
-    ##                         <chr>                                  <chr>
-    ##  1             AsherCalibOnly                      Asher_GREAT_Calib
-    ##  2           de02wi15_12m_10d    de02wi 12m10d Very Good Calibration
-    ##  3             do09ne07_6m_4d               do09ne07 6m4d POOR CALIB
-    ##  4           Em12ad10_14m_24d                      em 15m POOR CALIB
-    ##  5        ka11es12_7m_MomTerp      ka11es12 7m lot of movement fussy
-    ##  6            lo08jo20_6m_14d                      lo08jo 6m14d GOOD
-    ##  7            boy 6 m SHIFTED            Rec 02 shiftupward DONT USE
-    ##  8        Sara8monthsDeafCODA Sara 8m CODA Dont Use Tired GOOD calib
-    ##  9             vi11hi18_1027d   vi11hi18 11m old girl Adorable GREAT
-    ## 10 za05da21_6m_15days_Squirmy    za05da12 6m15d GoodCalibVERYSquirmy
+    ## # A tibble: 7 x 6
+    ##                  participant                              recording
+    ##                        <chr>                                  <chr>
+    ## 1             AsherCalibOnly                      Asher_GREAT_Calib
+    ## 2             do09ne07_6m_4d               do09ne07 6m4d POOR CALIB
+    ## 3           Em12ad10_14m_24d                      em 15m POOR CALIB
+    ## 4        ka11es12_7m_MomTerp      ka11es12 7m lot of movement fussy
+    ## 5            boy 6 m SHIFTED            Rec 02 shiftupward DONT USE
+    ## 6        Sara8monthsDeafCODA Sara 8m CODA Dont Use Tired GOOD calib
+    ## 7 za05da21_6m_15days_Squirmy    za05da12 6m15d GoodCalibVERYSquirmy
     ## # ... with 4 more variables: analysis <chr>, language <chr>, group <int>,
     ## #   age <dbl>
-
-``` r
-# Add de02wi15, lo08jo20, vi11hi18 back in. 
-goodbabies <- alldata %>%
-  filter(participant=="de02wi15_12m_10d" | participant == "lo08jo20_6m_14d" | participant == "vi11hi18_1027d")
-data <- rbind(data, goodbabies)
-```
 
 Next, we want to get a general idea of how many trials each baby saw. The trials column will tell us which babies saw *less* than 16 trials. Okay, just 3 kids and all saw at least half the study. All good.
 

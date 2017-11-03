@@ -1,7 +1,7 @@
 Data Import and Cleanup (study2children)
 ================
 Adam Stone, PhD
-10-30-2017
+11-03-2017
 
 -   [Introduction](#introduction)
 -   [Removing Bad/Irrelevant Data](#removing-badirrelevant-data)
@@ -61,18 +61,14 @@ data %>% select(participant,language,age) %>%
 Removing Bad/Irrelevant Data
 ============================
 
-In this order:
-
-1.  "Children" are ages 2 and up so remove all &lt; 2 yrs
-2.  Keep only those that have "GoodData"
-
-Below are all the children that did *not* have GoodData.
+First, let's get rid of all below 2 years old. Then we're going to remove specific children for various reasons, here's a list of who we removed.
 
 ``` r
 alldata <- data
 data <- data %>%
   filter(age > 2.0) %>%
-  filter(analysis == "GoodData")
+  filter(participant != "OwenTwin030212_4y2m") %>%
+  filter(participant != "Kiera_8_20_13 3y,5m")
 
 anti_join(alldata, data, by = "participant") %>% 
   select(participant, recording, analysis, language, group, age) %>% 
@@ -80,20 +76,12 @@ anti_join(alldata, data, by = "participant") %>%
   filter(age > 2.0)
 ```
 
-    ## # A tibble: 3 x 6
+    ## # A tibble: 2 x 6
     ##           participant                 recording             analysis
     ##                 <chr>                     <chr>                <chr>
-    ## 1  na01pe06_2013_3.5y       na01pe06 3.5y GREAT     Not Yet Assigned
-    ## 2 OwenTwin030212_4y2m Owen twin 4y2m POOR CALIB Good_But_Needs_Shift
-    ## 3 Kiera_8_20_13 3y,5m    Rec 08 little SHRUNKEN Good_But_Needs_Shift
+    ## 1 OwenTwin030212_4y2m Owen twin 4y2m POOR CALIB Good_But_Needs_Shift
+    ## 2 Kiera_8_20_13 3y,5m    Rec 08 little SHRUNKEN Good_But_Needs_Shift
     ## # ... with 3 more variables: language <chr>, group <int>, age <dbl>
-
-``` r
-# Add na01pe
-goodkids <- alldata %>%
-  filter(participant == "na01pe06_2013_3.5y")
-data <- rbind(data, goodkids)
-```
 
 All children saw all trials. Now, we need to remove trials where looking data was collected &lt;25% of the video length. I'm importing a table of clip lengths, see below. The videos were shown at 25 FPS so frames / 25 = seconds.
 

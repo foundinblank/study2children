@@ -20,13 +20,7 @@ output:
 
 Let's repeat [01importclean](01importclean.nb.html) but this time, select ONLY babies. YES!
 
-In this order: 
-
-1. "Children" are ages 2 and below so remove all > 2 yrs
-1. Keep only those that have "GoodData"
-
-Below are all the children that did *not* have GoodData. 
-
+First, get rid of all older than 2 years old. Then we're going to remove specific babies for various reasons, here's a list of who we removed. 
 
 ```{r message=FALSE}
 # Libraries
@@ -56,17 +50,18 @@ data <- data %>% left_join(ages, by = "participant")
 alldata <- data
 data <- data %>%
   filter(age < 2.0) %>%
-  filter(analysis == "GoodData")
+  filter(participant != "AsherCalibOnly") %>%
+  filter(participant != "do09ne07_6m_4d") %>%
+  filter(participant != "Em12ad10_14m_24d") %>%
+  filter(participant != "ka11es12_7m_MomTerp") %>%
+  filter(participant != "boy 6 m SHIFTED") %>%
+  filter(participant != "Sara8monthsDeafCODA") %>%
+  filter(participant != "za05da21_6m_15days_Squirmy")
 
 anti_join(alldata, data, by = "participant") %>% 
   select(participant, recording, analysis, language, group, age) %>% 
   distinct() %>%
   filter(age < 2.0)
-
-# Add de02wi15, lo08jo20, vi11hi18 back in. 
-goodbabies <- alldata %>%
-  filter(participant=="de02wi15_12m_10d" | participant == "lo08jo20_6m_14d" | participant == "vi11hi18_1027d")
-data <- rbind(data, goodbabies)
 ```
 
 Next, we want to get a general idea of how many trials each baby saw. The trials column will tell us which babies saw *less* than 16 trials. Okay, just 3 kids and all saw at least half the study. All good. 

@@ -70,7 +70,7 @@ globalmedian = data_stats$median
 ```
 
 # Aubrey
-```{r}
+```{r message=FALSE}
 aubrey <- read_csv("../Child Data/_twopuppies/Aubrey_Rec 02_TwoPuppiesData.csv") %>%
   mutate(puppy = case_when(
     mark == 1 ~ "chihuahua",
@@ -99,7 +99,7 @@ Aubrey's data needs to be shifted RIGHT by 88 and UP by 15.
 
 # Owen
 Owen's data is misaligned. See below: 
-```{r}
+```{r message=FALSE}
 owen <- read_csv("../Child Data/_twopuppies/Owen twin 4y2m POOR CALIB_TwoPuppiesData.csv") %>%
   mutate(puppy = case_when(
     mark == 1 ~ "chihuahua",
