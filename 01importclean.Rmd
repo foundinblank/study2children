@@ -61,14 +61,15 @@ data %>% select(participant,language,age) %>%
 
 # Removing Bad/Irrelevant Data
 
-First, let's get rid of all below 2 years old. Then we're going to remove specific children for various reasons, here's a list of who we removed. 
+First, let's get rid of all below 2 years old (those are babies and [are dealt with later](03importcleanbabies.nb.html)). Then we're going to remove specific children for various reasons, here's a list of who we removed. 
 
 ```{r}
 alldata <- data
 data <- data %>%
   filter(age > 2.0) %>%
   filter(participant != "OwenTwin030212_4y2m") %>%
-  filter(participant != "Kiera_8_20_13 3y,5m")
+  filter(participant != "Kiera_8_20_13 3y,5m") %>%
+  filter(participant != "Isabella 5 year old Deaf")
 
 anti_join(alldata, data, by = "participant") %>% 
   select(participant, recording, analysis, language, group, age) %>% 

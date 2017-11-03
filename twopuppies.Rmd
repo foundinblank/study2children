@@ -125,3 +125,93 @@ owen_stats %>% group_by(axis) %>% summarise(offset = mean(offset))
 ```
 
 Owen's data needs to be shifted RIGHT by 53 and DOWN by 73. 
+
+# Lyla
+I wanted to check Lyla's data. Becaues when I was checking for AOI outliers, I noticed Lyla had a lot of high AOI %'s on the chest. 
+```{r message=FALSE}
+lyla <- read_csv("../Child Data/_twopuppies/Rec 09 Lyla GREAT_TwoPuppiesData.csv") %>%
+  mutate(puppy = case_when(
+    mark == 1 ~ "chihuahua",
+    mark == 2 ~ "frisby"
+  )) %>%
+  rename(x = xpos, y = ypos) %>%
+  gather(axis, pos, x:y)
+
+ggplot(lyla, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
+
+lyla_stats <- lyla %>%
+  group_by(puppy, axis) %>%
+  summarise(mean = mean(pos, na.rm=TRUE),
+         median = median(pos, na.rm=TRUE)) %>%
+  ungroup() %>%
+  mutate(offset = median - globalmedian)
+lyla_stats
+```
+
+I don't like her data for Chihuahua (seems scattered) so let's only use Frisby to calculate offset 
+
+Lyla's offsets are approximately: 
+```{r}
+lyla_stats %>% filter(puppy=='frisby') %>% select(axis, offset)
+```
+
+Lyla's data needs to be shifted LEFT by 7 and UP by 68. That sounds just about right! I would just move it up vertically by 68, and not worry about horizontal offsets. 
+
+# Mason
+I wanted to check Mason's data because I noticed he had a lot of high MidFaceCenter AOI percentages.
+```{r message=FALSE}
+mason <- read_csv("../Child Data/_twopuppies/Mason_CODA_6y_GOOD_TwoPuppiesData.csv") %>%
+  mutate(puppy = case_when(
+    mark == 1 ~ "chihuahua",
+    mark == 2 ~ "frisby"
+  )) %>%
+  rename(x = xpos, y = ypos) %>%
+  gather(axis, pos, x:y)
+
+ggplot(mason, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
+
+mason_stats <- mason %>%
+  group_by(puppy, axis) %>%
+  summarise(mean = mean(pos, na.rm=TRUE),
+         median = median(pos, na.rm=TRUE)) %>%
+  ungroup() %>%
+  mutate(offset = median - globalmedian)
+mason_stats
+```
+
+Mason's offsets are approximately: 
+```{r}
+mason_stats %>% group_by(axis) %>% summarise(offset = mean(offset))
+```
+
+Mason's data needs to be shifted LEFT by 34 and UP by 10. Mabye that's peanuts and we can leave it alone. At the most, the x-offset seems consistent so maybe we should correct horizontal offset? While the y-offset appears to be zero and we can leave it alone. 
+
+
+# Ainsley
+I wanted to check Ainsley's data as an example of a GOOD kid...what kind of offsets would we see? 
+```{r message=FALSE}
+ainsley <- read_csv("../Child Data/_twopuppies/Ainsely 5y1m GREAT_TwoPuppiesData.csv") %>%
+  mutate(puppy = case_when(
+    mark == 1 ~ "chihuahua",
+    mark == 2 ~ "frisby"
+  )) %>%
+  rename(x = xpos, y = ypos) %>%
+  gather(axis, pos, x:y)
+
+ggplot(ainsley, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
+
+ainsley_stats <- ainsley %>%
+  group_by(puppy, axis) %>%
+  summarise(mean = mean(pos, na.rm=TRUE),
+         median = median(pos, na.rm=TRUE)) %>%
+  ungroup() %>%
+  mutate(offset = median - globalmedian)
+ainsley_stats
+```
+
+Ainsley's offsets are approximately: 
+```{r}
+ainsley_stats %>% group_by(axis) %>% summarise(offset = mean(offset))
+```
+
+Ainsley's data needs to be shifted RIGHT by 13 and UP by 15. Which is nothing, so yes, it's well-calibrated. 
