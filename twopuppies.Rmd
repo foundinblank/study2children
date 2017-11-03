@@ -1,0 +1,127 @@
+---
+title: "TwoPuppies (study2children)"
+author: "Adam Stone, PhD" 
+date: '`r format(Sys.Date(), "%m-%d-%Y")`'
+output:
+  github_document:
+    toc: yes
+    toc_depth: 2
+  html_notebook:
+    code_folding: hide
+    theme: spacelab
+    highlight: tango
+    toc: yes
+    toc_depth: 2
+    toc_float: yes
+    df_print: paged
+---
+
+```{r eval=FALSE, include=FALSE}
+# This is to get all kids' _processed_ TwoPuppies data into one single file. Should only run when needed. 
+library(tidyverse)
+library(feather)
+
+csvpath = "../Child Data/_twopuppies/"
+#csvpath = "~/Desktop/"
+files <- dir(path = csvpath, pattern = "_TwoPuppiesData")
+files <- paste(csvpath, files, sep="")
+data <- files %>%
+  map(read_csv) %>%
+  reduce(rbind)
+write_feather(data, "twopuppies.feather")
+```
+
+Let's get all the puppy data and see histograms. 
+
+```{r message=FALSE}
+# Libraries
+library(tidyverse)
+library(feather)
+#library(stringr)
+#library(cowplot)
+
+# Import data 
+data <- read_feather("twopuppies.feather") %>%
+  mutate(puppy = case_when(
+    mark == 1 ~ "chihuahua",
+    mark == 2 ~ "frisby"
+  ))
+
+# Get ages
+# ages <- read_csv("childrenages.csv")
+# data <- data %>% left_join(ages, by = "participant")
+# data %>% select(participant,language,age) %>% distinct() # print data table
+
+# Histogram of ages
+data <- data %>% rename(x = xpos, y = ypos) %>%
+  gather(axis, pos, x:y)
+
+ggplot(data, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
+```
+
+And let's get mean and medians
+```{r}
+data_stats <- data %>%
+  group_by(puppy, axis) %>%
+  summarise(mean = mean(pos, na.rm=TRUE),
+         median = median(pos, na.rm=TRUE))
+data_stats
+globalmedian = data_stats$median
+```
+
+# Aubrey
+```{r}
+aubrey <- read_csv("../Child Data/_twopuppies/Aubrey_Rec 02_TwoPuppiesData.csv") %>%
+  mutate(puppy = case_when(
+    mark == 1 ~ "chihuahua",
+    mark == 2 ~ "frisby"
+  )) %>%
+  rename(x = xpos, y = ypos) %>%
+  gather(axis, pos, x:y)
+
+ggplot(aubrey, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
+
+aubrey_stats <- aubrey %>%
+  group_by(puppy, axis) %>%
+  summarise(mean = mean(pos, na.rm=TRUE),
+         median = median(pos, na.rm=TRUE)) %>%
+  ungroup() %>%
+  mutate(offset = median - globalmedian)
+aubrey_stats
+```
+
+Aubrey's offsets are approximately: 
+```{r}
+aubrey_stats %>% group_by(axis) %>% summarise(offset = mean(offset))
+```
+
+Aubrey's data needs to be shifted RIGHT by 88 and UP by 15.
+
+# Owen
+Owen's data is misaligned. See below: 
+```{r}
+owen <- read_csv("../Child Data/_twopuppies/Owen twin 4y2m POOR CALIB_TwoPuppiesData.csv") %>%
+  mutate(puppy = case_when(
+    mark == 1 ~ "chihuahua",
+    mark == 2 ~ "frisby"
+  )) %>%
+  rename(x = xpos, y = ypos) %>%
+  gather(axis, pos, x:y)
+
+ggplot(owen, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
+
+owen_stats <- owen %>%
+  group_by(puppy, axis) %>%
+  summarise(mean = mean(pos, na.rm=TRUE),
+         median = median(pos, na.rm=TRUE)) %>%
+  ungroup() %>%
+  mutate(offset = median - globalmedian)
+owen_stats
+```
+
+Owen's offsets are approximately: 
+```{r}
+owen_stats %>% group_by(axis) %>% summarise(offset = mean(offset))
+```
+
+Owen's data needs to be shifted RIGHT by 53 and DOWN by 73. 
