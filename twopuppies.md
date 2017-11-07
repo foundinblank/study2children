@@ -1,13 +1,18 @@
 TwoPuppies (study2children)
 ================
 Adam Stone, PhD
-11-03-2017
+11-07-2017
 
 -   [Aubrey](#aubrey)
 -   [Owen](#owen)
 -   [Lyla](#lyla)
 -   [Mason](#mason)
 -   [Ainsley](#ainsley)
+-   [CR03TA11](#cr03ta11)
+-   [Desmond](#desmond)
+-   [LA11BA11](#la11ba11)
+-   [MA01WA22](#ma01wa22)
+-   [NI12GO05](#ni12go05)
 
 Let's get all the puppy data and see histograms.
 
@@ -316,3 +321,258 @@ ainsley_stats %>% group_by(axis) %>% summarise(offset = mean(offset))
     ## 2     y   15.0
 
 Ainsley's data needs to be shifted RIGHT by 13 and UP by 15. Which is nothing, so yes, it's well-calibrated.
+
+CR03TA11
+========
+
+Checking CR03 - some high belly looking.
+
+``` r
+cr03 <- read_csv("../Child Data/_twopuppies/CR03TA11_13m no calib obtained_TwoPuppiesData.csv") %>%
+  mutate(puppy = case_when(
+    mark == 1 ~ "chihuahua",
+    mark == 2 ~ "frisby"
+  )) %>%
+  rename(x = xpos, y = ypos) %>%
+  gather(axis, pos, x:y)
+
+ggplot(cr03, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
+```
+
+![](twopuppies_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-14-1.png)
+
+``` r
+cr03_stats <- cr03 %>%
+  group_by(puppy, axis) %>%
+  summarise(mean = mean(pos, na.rm=TRUE),
+         median = median(pos, na.rm=TRUE)) %>%
+  ungroup() %>%
+  mutate(offset = median - globalmedian)
+cr03_stats
+```
+
+    ## # A tibble: 4 x 5
+    ##       puppy  axis     mean median offset
+    ##       <chr> <chr>    <dbl>  <dbl>  <dbl>
+    ## 1 chihuahua     x 278.7754    276     35
+    ## 2 chihuahua     y 276.0479    309     29
+    ## 3    frisby     x 224.4883    234     22
+    ## 4    frisby     y 122.9202    122    -27
+
+CR03's offsets are approximately:
+
+``` r
+cr03_stats %>% group_by(axis) %>% summarise(offset = mean(offset))
+```
+
+    ## # A tibble: 2 x 2
+    ##    axis offset
+    ##   <chr>  <dbl>
+    ## 1     x   28.5
+    ## 2     y    1.0
+
+Maybe a slight x axis offset to the right. But probably nothing to worry about.
+
+Desmond
+=======
+
+Checking Desmond - some high LeftChestBottom looking
+
+``` r
+desmond <- read_csv("../Child Data/_twopuppies/Desmond GOOD_TwoPuppiesData.csv") %>%
+  mutate(puppy = case_when(
+    mark == 1 ~ "chihuahua",
+    mark == 2 ~ "frisby"
+  )) %>%
+  rename(x = xpos, y = ypos) %>%
+  gather(axis, pos, x:y)
+
+ggplot(desmond, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
+```
+
+![](twopuppies_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-16-1.png)
+
+``` r
+desmond_stats <- desmond %>%
+  group_by(puppy, axis) %>%
+  summarise(mean = mean(pos, na.rm=TRUE),
+         median = median(pos, na.rm=TRUE)) %>%
+  ungroup() %>%
+  mutate(offset = median - globalmedian)
+desmond_stats
+```
+
+    ## # A tibble: 4 x 5
+    ##       puppy  axis     mean median offset
+    ##       <chr> <chr>    <dbl>  <dbl>  <dbl>
+    ## 1 chihuahua     x 228.5113  225.0  -16.0
+    ## 2 chihuahua     y 278.4567  274.0   -6.0
+    ## 3    frisby     x 220.3882  225.5   13.5
+    ## 4    frisby     y 128.6000  140.0   -9.0
+
+Desmond's offsets are approximately:
+
+``` r
+desmond_stats %>% group_by(axis) %>% summarise(offset = mean(offset))
+```
+
+    ## # A tibble: 2 x 2
+    ##    axis offset
+    ##   <chr>  <dbl>
+    ## 1     x  -1.25
+    ## 2     y  -7.50
+
+Nothing to worry about.
+
+LA11BA11
+========
+
+Checking LA11BA11 - some high MidChestBottom looking
+
+``` r
+la11 <- read_csv("../Child Data/_twopuppies/LA11BA11_5M_24D_GOOD_TwoPuppiesData.csv") %>%
+  mutate(puppy = case_when(
+    mark == 1 ~ "chihuahua",
+    mark == 2 ~ "frisby"
+  )) %>%
+  rename(x = xpos, y = ypos) %>%
+  gather(axis, pos, x:y)
+
+ggplot(la11, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
+```
+
+![](twopuppies_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-18-1.png)
+
+``` r
+la11_stats <- la11 %>%
+  group_by(puppy, axis) %>%
+  summarise(mean = mean(pos, na.rm=TRUE),
+         median = median(pos, na.rm=TRUE)) %>%
+  ungroup() %>%
+  mutate(offset = median - globalmedian)
+la11_stats
+```
+
+    ## # A tibble: 4 x 5
+    ##       puppy  axis     mean median offset
+    ##       <chr> <chr>    <dbl>  <dbl>  <dbl>
+    ## 1 chihuahua     x 238.7714    239     -2
+    ## 2 chihuahua     y 338.3800    349     69
+    ## 3    frisby     x 214.7174    220      8
+    ## 4    frisby     y 179.5870    181     32
+
+LA11's offsets are approximately:
+
+``` r
+la11_stats %>% group_by(axis) %>% summarise(offset = mean(offset))
+```
+
+    ## # A tibble: 2 x 2
+    ##    axis offset
+    ##   <chr>  <dbl>
+    ## 1     x    3.0
+    ## 2     y   50.5
+
+Maybe y-axis should be looked at.
+
+MA01WA22
+========
+
+Checking MA01WA22 - several high MidFaceCenter and MidFaceTop looking
+
+``` r
+ma01 <- read_csv("../Child Data/_twopuppies/ma01wa22 10m GOOD_TwoPuppiesData.csv") %>%
+  mutate(puppy = case_when(
+    mark == 1 ~ "chihuahua",
+    mark == 2 ~ "frisby"
+  )) %>%
+  rename(x = xpos, y = ypos) %>%
+  gather(axis, pos, x:y)
+
+ggplot(ma01, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
+```
+
+![](twopuppies_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-20-1.png)
+
+``` r
+ma01_stats <- ma01 %>%
+  group_by(puppy, axis) %>%
+  summarise(mean = mean(pos, na.rm=TRUE),
+         median = median(pos, na.rm=TRUE)) %>%
+  ungroup() %>%
+  mutate(offset = median - globalmedian) %>%
+  print()
+```
+
+    ## # A tibble: 4 x 5
+    ##       puppy  axis     mean median offset
+    ##       <chr> <chr>    <dbl>  <dbl>  <dbl>
+    ## 1 chihuahua     x 216.4828  213.0  -28.0
+    ## 2 chihuahua     y 182.9847  189.0  -91.0
+    ## 3    frisby     x 201.4250  208.5   -3.5
+    ## 4    frisby     y  46.5250   45.5 -103.5
+
+MA01's offsets are approximately:
+
+``` r
+ma01_stats %>% group_by(axis) %>% summarise(offset = mean(offset))
+```
+
+    ## # A tibble: 2 x 2
+    ##    axis offset
+    ##   <chr>  <dbl>
+    ## 1     x -15.75
+    ## 2     y -97.25
+
+Yeah look at the y-axis.
+
+NI12GO05
+========
+
+Lots of high midchestcenter and midchestbottom
+
+``` r
+ni12 <- read_csv("../Child Data/_twopuppies/NI12GO05_5M_4D_GOOD_TwoPuppiesData.csv") %>%
+  mutate(puppy = case_when(
+    mark == 1 ~ "chihuahua",
+    mark == 2 ~ "frisby"
+  )) %>%
+  rename(x = xpos, y = ypos) %>%
+  gather(axis, pos, x:y)
+
+ggplot(ni12, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
+```
+
+![](twopuppies_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-22-1.png)
+
+``` r
+ni12_stats <- ni12 %>%
+  group_by(puppy, axis) %>%
+  summarise(mean = mean(pos, na.rm=TRUE),
+         median = median(pos, na.rm=TRUE)) %>%
+  ungroup() %>%
+  mutate(offset = median - globalmedian) %>%
+  print()
+```
+
+    ## # A tibble: 4 x 5
+    ##       puppy  axis     mean median offset
+    ##       <chr> <chr>    <dbl>  <dbl>  <dbl>
+    ## 1 chihuahua     x 199.0826    188    -53
+    ## 2 chihuahua     y 328.5826    317     37
+    ## 3    frisby     x 198.9205    198    -14
+    ## 4    frisby     y 186.8838    201     52
+
+NI12's offsets are approximately:
+
+``` r
+ni12_stats %>% group_by(axis) %>% summarise(offset = mean(offset))
+```
+
+    ## # A tibble: 2 x 2
+    ##    axis offset
+    ##   <chr>  <dbl>
+    ## 1     x  -33.5
+    ## 2     y   44.5
+
+Should at least fix the y-axis.

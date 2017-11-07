@@ -29,7 +29,7 @@ end
 gender = alldata.x_Gender_Value{1};
 language = alldata.x_Language_Value{1};
 analysis = alldata.x_Analysis_Value{1};
-participant = alldata.ParticipantName{1};
+participant = alldata.x___ParticipantName{1};
 
 % Replace all NA with '' 
 %alldata = standardizeMissing(alldata,'NA');

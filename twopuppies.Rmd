@@ -215,3 +215,147 @@ ainsley_stats %>% group_by(axis) %>% summarise(offset = mean(offset))
 ```
 
 Ainsley's data needs to be shifted RIGHT by 13 and UP by 15. Which is nothing, so yes, it's well-calibrated. 
+
+# CR03TA11
+Checking CR03 - some high belly looking. 
+```{r message=FALSE}
+cr03 <- read_csv("../Child Data/_twopuppies/CR03TA11_13m no calib obtained_TwoPuppiesData.csv") %>%
+  mutate(puppy = case_when(
+    mark == 1 ~ "chihuahua",
+    mark == 2 ~ "frisby"
+  )) %>%
+  rename(x = xpos, y = ypos) %>%
+  gather(axis, pos, x:y)
+
+ggplot(cr03, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
+
+cr03_stats <- cr03 %>%
+  group_by(puppy, axis) %>%
+  summarise(mean = mean(pos, na.rm=TRUE),
+         median = median(pos, na.rm=TRUE)) %>%
+  ungroup() %>%
+  mutate(offset = median - globalmedian)
+cr03_stats
+```
+
+CR03's offsets are approximately: 
+```{r}
+cr03_stats %>% group_by(axis) %>% summarise(offset = mean(offset))
+```
+
+Maybe a slight x axis offset to the right. But probably nothing to worry about. 
+
+# Desmond
+Checking Desmond - some high LeftChestBottom looking 
+```{r message=FALSE}
+desmond <- read_csv("../Child Data/_twopuppies/Desmond GOOD_TwoPuppiesData.csv") %>%
+  mutate(puppy = case_when(
+    mark == 1 ~ "chihuahua",
+    mark == 2 ~ "frisby"
+  )) %>%
+  rename(x = xpos, y = ypos) %>%
+  gather(axis, pos, x:y)
+
+ggplot(desmond, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
+
+desmond_stats <- desmond %>%
+  group_by(puppy, axis) %>%
+  summarise(mean = mean(pos, na.rm=TRUE),
+         median = median(pos, na.rm=TRUE)) %>%
+  ungroup() %>%
+  mutate(offset = median - globalmedian)
+desmond_stats
+```
+
+Desmond's offsets are approximately: 
+```{r}
+desmond_stats %>% group_by(axis) %>% summarise(offset = mean(offset))
+```
+
+Nothing to worry about. 
+
+# LA11BA11
+Checking LA11BA11 - some high MidChestBottom looking 
+```{r message=FALSE}
+la11 <- read_csv("../Child Data/_twopuppies/LA11BA11_5M_24D_GOOD_TwoPuppiesData.csv") %>%
+  mutate(puppy = case_when(
+    mark == 1 ~ "chihuahua",
+    mark == 2 ~ "frisby"
+  )) %>%
+  rename(x = xpos, y = ypos) %>%
+  gather(axis, pos, x:y)
+
+ggplot(la11, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
+
+la11_stats <- la11 %>%
+  group_by(puppy, axis) %>%
+  summarise(mean = mean(pos, na.rm=TRUE),
+         median = median(pos, na.rm=TRUE)) %>%
+  ungroup() %>%
+  mutate(offset = median - globalmedian)
+la11_stats
+```
+
+LA11's offsets are approximately: 
+```{r}
+la11_stats %>% group_by(axis) %>% summarise(offset = mean(offset))
+```
+
+Maybe y-axis should be looked at.
+
+
+# MA01WA22
+Checking MA01WA22 - several high MidFaceCenter and MidFaceTop looking 
+```{r message=FALSE}
+ma01 <- read_csv("../Child Data/_twopuppies/ma01wa22 10m GOOD_TwoPuppiesData.csv") %>%
+  mutate(puppy = case_when(
+    mark == 1 ~ "chihuahua",
+    mark == 2 ~ "frisby"
+  )) %>%
+  rename(x = xpos, y = ypos) %>%
+  gather(axis, pos, x:y)
+
+ggplot(ma01, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
+
+ma01_stats <- ma01 %>%
+  group_by(puppy, axis) %>%
+  summarise(mean = mean(pos, na.rm=TRUE),
+         median = median(pos, na.rm=TRUE)) %>%
+  ungroup() %>%
+  mutate(offset = median - globalmedian) %>%
+  print()
+```
+
+MA01's offsets are approximately: 
+```{r}
+ma01_stats %>% group_by(axis) %>% summarise(offset = mean(offset))
+```
+Yeah look at the y-axis. 
+
+# NI12GO05
+Lots of high midchestcenter and midchestbottom
+```{r message=FALSE}
+ni12 <- read_csv("../Child Data/_twopuppies/NI12GO05_5M_4D_GOOD_TwoPuppiesData.csv") %>%
+  mutate(puppy = case_when(
+    mark == 1 ~ "chihuahua",
+    mark == 2 ~ "frisby"
+  )) %>%
+  rename(x = xpos, y = ypos) %>%
+  gather(axis, pos, x:y)
+
+ggplot(ni12, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
+
+ni12_stats <- ni12 %>%
+  group_by(puppy, axis) %>%
+  summarise(mean = mean(pos, na.rm=TRUE),
+         median = median(pos, na.rm=TRUE)) %>%
+  ungroup() %>%
+  mutate(offset = median - globalmedian) %>%
+  print()
+```
+
+NI12's offsets are approximately: 
+```{r}
+ni12_stats %>% group_by(axis) %>% summarise(offset = mean(offset))
+```
+Should at least fix the y-axis.

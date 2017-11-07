@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>AMApplicationBuild</key>
-	<string>428</string>
+	<string>444.1</string>
 	<key>AMApplicationVersion</key>
-	<string>2.7</string>
+	<string>2.8</string>
 	<key>AMDocumentVersion</key>
 	<string>2</string>
 	<key>actions</key>
@@ -98,8 +98,6 @@
 				</array>
 				<key>OutputUUID</key>
 				<string>0A97A6A1-6831-4436-B8F8-847CCDECFE8F</string>
-				<key>StartAction</key>
-				<false/>
 				<key>UUID</key>
 				<string>0B9E9C12-B05E-4D13-8685-1C5629F047BC</string>
 				<key>UnlocalizedApplications</key>
@@ -161,12 +159,10 @@
 						<string>3</string>
 					</dict>
 				</dict>
-				<key>conversionLabel</key>
-				<integer>0</integer>
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>309.000000:158.000000</string>
+				<string>309.000000:210.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Ask for Finder Items.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
@@ -223,7 +219,7 @@
 				<key>CFBundleVersion</key>
 				<string>1.0.2</string>
 				<key>CanShowSelectedItemsWhenRun</key>
-				<true/>
+				<false/>
 				<key>CanShowWhenRun</key>
 				<true/>
 				<key>Category</key>
@@ -263,12 +259,10 @@
 						<string>0</string>
 					</dict>
 				</dict>
-				<key>conversionLabel</key>
-				<integer>0</integer>
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>309.000000:258.000000</string>
+				<string>309.000000:362.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Get Folder Contents.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
@@ -346,16 +340,16 @@
 				<key>Class Name</key>
 				<string>AMAppleScriptAction</string>
 				<key>InputUUID</key>
-				<string>5F516E7A-61BA-4AB9-B163-AC51FF51EDDD</string>
+				<string>DE1FAA99-14F3-4AF4-8147-211CC20D9B49</string>
 				<key>Keywords</key>
 				<array>
 					<string>save</string>
 					<string>save as</string>
 				</array>
 				<key>OutputUUID</key>
-				<string>13FC55E7-2D4A-4A26-9883-14E583F77B2E</string>
+				<string>21FAC244-29AB-451F-A1B2-A3C18EC6EAFA</string>
 				<key>UUID</key>
-				<string>873A8916-4BB9-4D8F-8B6F-552506FCF684</string>
+				<string>33B0172A-F43E-4FFD-B6F4-BC8CD0A8E3B0</string>
 				<key>UnlocalizedApplications</key>
 				<array>
 					<string>Microsoft Excel</string>
@@ -381,7 +375,7 @@
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>309.000000:363.000000</string>
+				<string>309.000000:647.000000</string>
 				<key>nibPath</key>
 				<string>/Library/Automator/Convert Format of Excel Files.action/Contents/Resources/en.lproj/main.nib</string>
 			</dict>
@@ -391,19 +385,19 @@
 	</array>
 	<key>connectors</key>
 	<dict>
-		<key>DFE71D13-D657-4DE8-AB11-49898C0FE213</key>
+		<key>A45705AF-F828-46F6-AA26-F028B8987523</key>
 		<dict>
 			<key>from</key>
 			<string>0B9E9C12-B05E-4D13-8685-1C5629F047BC - 0B9E9C12-B05E-4D13-8685-1C5629F047BC</string>
 			<key>to</key>
 			<string>754A96A0-1A03-49B4-B257-1C96E1326024 - 754A96A0-1A03-49B4-B257-1C96E1326024</string>
 		</dict>
-		<key>EA93602E-5A83-4EF3-AEDC-1C89B32C9F71</key>
+		<key>A60817B7-6C2A-4FB4-8AD5-8932F3E22886</key>
 		<dict>
 			<key>from</key>
 			<string>754A96A0-1A03-49B4-B257-1C96E1326024 - 754A96A0-1A03-49B4-B257-1C96E1326024</string>
 			<key>to</key>
-			<string>873A8916-4BB9-4D8F-8B6F-552506FCF684 - 873A8916-4BB9-4D8F-8B6F-552506FCF684</string>
+			<string>33B0172A-F43E-4FFD-B6F4-BC8CD0A8E3B0 - 33B0172A-F43E-4FFD-B6F4-BC8CD0A8E3B0</string>
 		</dict>
 	</dict>
 	<key>variables</key>
