@@ -188,31 +188,6 @@ ggplot(data_rr, aes(x = percent)) + geom_histogram() + facet_grid(aoi ~ story) +
 
 ```
 
-Based on these histograms, I sent to Rain on 26 Oct 2017 this table. Plus I asked about Jelena (CODA) who had very little data in 14 out of 16 trials so she was thrown out entirely from the dataset. I wrote to Rain: 
-
-> Alright, here's what I found. Good news, I'm not seeing any really BAD kids! Yay. Just two that may need to be looked at. Attached is the list of all kids/stories I flagged for having way too much looking in that AOI. The trial column indicates which clip out of 16 (so 5 means 5th clip in the sequence). Most kids on the list are fine really, I think, and, yes, these AOIs were flagged for having weirdly high percentages but what probably happened was that they zoned out during that particular clip or stared at something interesting/idiosyncratic. I would especially review the static gaze plot/scatterplot images for these kids: 
-
-> Lyla (Group 1) - A lot of chest looking. Calibration may have been shifted down. 
-
-> Mason (Group 2) - VERY focused on MidFaceCenter across several stories (that's usually a low AOI). It could be that his calibration is shifted up; all other kids look at MidFaceBottom, not MidFaceCenter). Or it could just be his idiosyncratic looking behavior. Give it a look. 
-
-> Isabella (Group 1) - I know we're not using her for this paper, but FYI her eye gaze was kinda random for a few stories. Might be something interesting there. I don't think it's mis-shifted or anything, though. 
-
-```{r}
-outliers <- read_csv("outliers.csv") %>%
-  separate(outlier, into = letters[seq( from = 1, to = 9 )]) %>%
-  select(-a, -c, -h) %>%
-  rename(participant = b,
-         group = d,
-         trial = g,
-         aoi = i) %>%
-  unite(col = "story", e:f, sep = "_") %>%
-  select(group, participant, story, trial, aoi) %>%
-  arrange(group, participant)
-
-outliers
-write_csv(outliers, "outlierkids.csv")
-```
 
 # Save!
 Great. Let's save this as `cleanedchildeyedata.csv'. 

@@ -136,7 +136,7 @@ ggplot(trialcheck2, aes(x = age, y = trialsremoved, color = gender)) + geom_poin
   
 ```
 
-We'll also take out Jelena (very low looking rate overall) in addition to taking out all the bad trials, using the code block below.
+Now take out bad trials - and let's check how many good trials each child has. 
 
 ```{r}
 # Select only bad trials to use in an anti_join

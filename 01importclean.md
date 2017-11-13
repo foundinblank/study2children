@@ -1,7 +1,7 @@
 Data Import and Cleanup (study2children)
 ================
 Adam Stone, PhD
-11-03-2017
+11-13-2017
 
 -   [Introduction](#introduction)
 -   [Removing Bad/Irrelevant Data](#removing-badirrelevant-data)
@@ -34,7 +34,7 @@ data <- data %>% left_join(ages, by = "participant")
 data %>% select(participant,language,age) %>% distinct() # print data table
 ```
 
-    ## # A tibble: 67 x 3
+    ## # A tibble: 68 x 3
     ##            participant            language   age
     ##                  <chr>               <chr> <dbl>
     ##  1        Ab07ov09_32m      EnglishExposed   2.7
@@ -45,9 +45,9 @@ data %>% select(participant,language,age) %>% distinct() # print data table
     ##  6         an06he01_6m      EnglishExposed   0.5
     ##  7 Annika_3_24_10_CODA SignLanguageExposed   6.0
     ##  8      AsherCalibOnly      EnglishExposed   0.0
-    ##  9  Aveline CODA 6y,1m SignLanguageExposed   5.1
-    ## 10         ca05he16_6m      EnglishExposed   0.5
-    ## # ... with 57 more rows
+    ##  9     aubrey CODA 11m SignLanguageExposed   0.9
+    ## 10  Aveline CODA 6y,1m SignLanguageExposed   5.1
+    ## # ... with 58 more rows
 
 ``` r
 # Histogram of ages
@@ -61,14 +61,15 @@ data %>% select(participant,language,age) %>%
 Removing Bad/Irrelevant Data
 ============================
 
-First, let's get rid of all below 2 years old. Then we're going to remove specific children for various reasons, here's a list of who we removed.
+First, let's get rid of all below 2 years old (those are babies and [are dealt with later](03importcleanbabies.nb.html)). Then we're going to remove specific children for various reasons, here's a list of who we removed.
 
 ``` r
 alldata <- data
 data <- data %>%
   filter(age > 2.0) %>%
   filter(participant != "OwenTwin030212_4y2m") %>%
-  filter(participant != "Kiera_8_20_13 3y,5m")
+  filter(participant != "Kiera_8_20_13 3y,5m") %>%
+  filter(participant != "Isabella 5 year old Deaf")
 
 anti_join(alldata, data, by = "participant") %>% 
   select(participant, recording, analysis, language, group, age) %>% 
@@ -76,12 +77,14 @@ anti_join(alldata, data, by = "participant") %>%
   filter(age > 2.0)
 ```
 
-    ## # A tibble: 2 x 6
-    ##           participant                 recording             analysis
-    ##                 <chr>                     <chr>                <chr>
-    ## 1 OwenTwin030212_4y2m Owen twin 4y2m POOR CALIB Good_But_Needs_Shift
-    ## 2 Kiera_8_20_13 3y,5m    Rec 08 little SHRUNKEN Good_But_Needs_Shift
-    ## # ... with 3 more variables: language <chr>, group <int>, age <dbl>
+    ## # A tibble: 3 x 6
+    ##                participant
+    ##                      <chr>
+    ## 1 Isabella 5 year old Deaf
+    ## 2      OwenTwin030212_4y2m
+    ## 3      Kiera_8_20_13 3y,5m
+    ## # ... with 5 more variables: recording <chr>, analysis <chr>,
+    ## #   language <chr>, group <int>, age <dbl>
 
 All children saw all trials. Now, we need to remove trials where looking data was collected &lt;25% of the video length. I'm importing a table of clip lengths, see below. The videos were shown at 25 FPS so frames / 25 = seconds.
 
@@ -136,7 +139,7 @@ numtotaltrials = dim(trialcheck)[1]
 percenttakeout = paste(numtotakeout/numtotaltrials * 100, "%", sep = "")
 ```
 
-We removed 89 trials out of 496 (17.9435483870968%). Was there any correlation with the number of trials removed by age, language, or gender? Scatterplot below - looks fine. (Took out one CODA girl that has nearly all trials removed, was skewing the data).
+We removed 84 trials out of 480 (17.5%). Was there any correlation with the number of trials removed by age, language, or gender? Scatterplot below - looks fine. (Took out one CODA girl that has nearly all trials removed, was skewing the data).
 
 ``` r
 # Grab age/group data we need for scatterplot
@@ -159,7 +162,7 @@ ggplot(trialcheck2, aes(x = age, y = trialsremoved, color = gender)) + geom_poin
 
 ![](01importclean_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-6-1.png)
 
-We'll also take out Jelena (very low looking rate overall) in addition to taking out all the bad trials, using the code block below.
+Now take out bad trials - and let's check how many good trials each child has.
 
 ``` r
 # Select only bad trials to use in an anti_join
@@ -175,21 +178,21 @@ data <- data %>%
 data %>% select(participant, language, trial) %>% distinct() %>% group_by(language, participant) %>% summarise(trials = n()) %>% arrange(trials)
 ```
 
-    ## # A tibble: 31 x 3
+    ## # A tibble: 30 x 3
     ## # Groups:   language [2]
-    ##               language              participant trials
-    ##                  <chr>                    <chr>  <int>
-    ##  1 SignLanguageExposed   JelenaCODAhearing_4y2m      2
-    ##  2 SignLanguageExposed                   sophia      9
-    ##  3      EnglishExposed  Elizabeth 11_17_11_4y1m     10
-    ##  4 SignLanguageExposed                JuliaCoda     10
-    ##  5      EnglishExposed       na01pe06_2013_3.5y     11
-    ##  6      EnglishExposed     Timothy_7_18_09_6.5y     11
-    ##  7 SignLanguageExposed            Cyrus_SE_3.5y     11
-    ##  8 SignLanguageExposed                    Gavin     11
-    ##  9 SignLanguageExposed Isabella 5 year old Deaf     11
-    ## 10 SignLanguageExposed      emmet_12_10_12_CODA     12
-    ## # ... with 21 more rows
+    ##               language             participant trials
+    ##                  <chr>                   <chr>  <int>
+    ##  1 SignLanguageExposed  JelenaCODAhearing_4y2m      2
+    ##  2 SignLanguageExposed                  sophia      9
+    ##  3      EnglishExposed Elizabeth 11_17_11_4y1m     10
+    ##  4 SignLanguageExposed               JuliaCoda     10
+    ##  5      EnglishExposed      na01pe06_2013_3.5y     11
+    ##  6      EnglishExposed    Timothy_7_18_09_6.5y     11
+    ##  7 SignLanguageExposed           Cyrus_SE_3.5y     11
+    ##  8 SignLanguageExposed                   Gavin     11
+    ##  9 SignLanguageExposed     emmet_12_10_12_CODA     12
+    ## 10 SignLanguageExposed                   Mason     12
+    ## # ... with 20 more rows
 
 So based on that, we're removing Jelena.
 
@@ -231,25 +234,29 @@ data_km <- data %>% filter(str_detect(story, "KingMidas"), percent > 0.04)
 data_3b <- data %>% filter(str_detect(story, "ThreeBears"), percent > 0.04)
 data_rr <- data %>% filter(str_detect(story, "RedRiding"), percent > 0.04)
 
-ggplot(data_ci, aes(x = percent)) + geom_histogram() + facet_grid(aoi ~ story) + theme(strip.text.y = element_text(angle = 0), axis.text.y = element_blank(), axis.ticks = element_blank()) + ylab("")
+ggplot(data_ci, aes(x = percent)) + geom_histogram() + facet_grid(aoi ~ story) + theme(strip.text.y = element_text(angle = 0), axis.text.y = element_blank(), axis.ticks = element_blank()) + ylab("") +
+  scale_x_continuous(breaks=seq(0, 1, .1))
 ```
 
 ![](01importclean_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-9-1.png)
 
 ``` r
-ggplot(data_km, aes(x = percent)) + geom_histogram() + facet_grid(aoi ~ story) + theme(strip.text.y = element_text(angle = 0), axis.text.y = element_blank(), axis.ticks = element_blank()) + ylab("")
+ggplot(data_km, aes(x = percent)) + geom_histogram() + facet_grid(aoi ~ story) + theme(strip.text.y = element_text(angle = 0), axis.text.y = element_blank(), axis.ticks = element_blank()) + ylab("") +
+  scale_x_continuous(breaks=seq(0, 1, .1))
 ```
 
 ![](01importclean_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-9-2.png)
 
 ``` r
-ggplot(data_3b, aes(x = percent)) + geom_histogram() + facet_grid(aoi ~ story) + theme(strip.text.y = element_text(angle = 0), axis.text.y = element_blank(), axis.ticks = element_blank()) + ylab("")
+ggplot(data_3b, aes(x = percent)) + geom_histogram() + facet_grid(aoi ~ story) + theme(strip.text.y = element_text(angle = 0), axis.text.y = element_blank(), axis.ticks = element_blank()) + ylab("") +
+  scale_x_continuous(breaks=seq(0, 1, .1))
 ```
 
 ![](01importclean_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-9-3.png)
 
 ``` r
-ggplot(data_rr, aes(x = percent)) + geom_histogram() + facet_grid(aoi ~ story) + theme(strip.text.y = element_text(angle = 0), axis.text.y = element_blank(), axis.ticks = element_blank()) + ylab("")
+ggplot(data_rr, aes(x = percent)) + geom_histogram() + facet_grid(aoi ~ story) + theme(strip.text.y = element_text(angle = 0), axis.text.y = element_blank(), axis.ticks = element_blank()) + ylab("") +
+  scale_x_continuous(breaks=seq(0, 1, .1))
 ```
 
 ![](01importclean_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-9-4.png)
@@ -366,4 +373,4 @@ left_join(participants_n, participants_age, by = "language")
     ##   language Female  Male age_mean age_range
     ##     <fctr>  <int> <int>    <chr>     <chr>
     ## 1  english      8     6    5±1.5 2.7 - 8.3
-    ## 2     sign      8     8  5.1±1.3 3.5 - 7.3
+    ## 2     sign      7     8  5.2±1.3 3.5 - 7.3

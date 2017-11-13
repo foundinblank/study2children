@@ -1,7 +1,7 @@
 Baby Data Import and Cleanup (study2children)
 ================
 Adam Stone, PhD
-11-03-2017
+11-13-2017
 
 -   [Introduction](#introduction)
 -   [Checking for Outliers](#checking-for-outliers)
@@ -119,7 +119,7 @@ numtotaltrials = dim(trialcheck)[1]
 percenttakeout = paste(numtotakeout/numtotaltrials * 100, "%", sep = "")
 ```
 
-We removed 98 trials out of 421 (23.2779097387173%). Was there any correlation with the number of trials removed by age, language, or gender? Scatterplot below - looks fine. (Took out one CODA girl that has nearly all trials removed, was skewing the data).
+We removed 98 trials out of 437 (22.4256292906178%). Was there any correlation with the number of trials removed by age, language, or gender? Scatterplot below - looks fine. (Took out one CODA girl that has nearly all trials removed, was skewing the data).
 
 ``` r
 # Grab age/group data we need for scatterplot
@@ -159,7 +159,7 @@ data <- data %>%
 data %>% select(participant, language, trial) %>% distinct() %>% group_by(language, participant) %>% summarise(trials = n()) %>% arrange(trials)
 ```
 
-    ## # A tibble: 27 x 3
+    ## # A tibble: 28 x 3
     ## # Groups:   language [2]
     ##               language         participant trials
     ##                  <chr>               <chr>  <int>
@@ -173,7 +173,7 @@ data %>% select(participant, language, trial) %>% distinct() %>% group_by(langua
     ##  8      EnglishExposed   DY10PE27_6m_11d_m     11
     ##  9      EnglishExposed        ma01wa22_10m     11
     ## 10      EnglishExposed    pa09ha06_9m_6d_m     11
-    ## # ... with 17 more rows
+    ## # ... with 18 more rows
 
 Based on that list, we'll take out Wyatt. (We may want to take out Li11hy29 and Brooke, but let's keep them in for now and see what happens.)
 
@@ -215,79 +215,32 @@ data_km <- data %>% filter(str_detect(story, "KingMidas"), percent > 0.04)
 data_3b <- data %>% filter(str_detect(story, "ThreeBears"), percent > 0.04)
 data_rr <- data %>% filter(str_detect(story, "RedRiding"), percent > 0.04)
 
-ggplot(data_ci, aes(x = percent)) + geom_histogram() + facet_grid(aoi ~ story) + theme(strip.text.y = element_text(angle = 0), axis.text.y = element_blank(), axis.ticks = element_blank()) + ylab("")
+ggplot(data_ci, aes(x = percent)) + geom_histogram() + facet_grid(aoi ~ story) + theme(strip.text.y = element_text(angle = 0), axis.text.y = element_blank(), axis.ticks = element_blank()) + ylab("") +
+  scale_x_continuous(breaks=seq(0, 1, .1))
 ```
 
 ![](03importcleanbabies_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-7-1.png)
 
 ``` r
-ggplot(data_km, aes(x = percent)) + geom_histogram() + facet_grid(aoi ~ story) + theme(strip.text.y = element_text(angle = 0), axis.text.y = element_blank(), axis.ticks = element_blank()) + ylab("")
+ggplot(data_km, aes(x = percent)) + geom_histogram() + facet_grid(aoi ~ story) + theme(strip.text.y = element_text(angle = 0), axis.text.y = element_blank(), axis.ticks = element_blank()) + ylab("") +
+  scale_x_continuous(breaks=seq(0, 1, .1))
 ```
 
 ![](03importcleanbabies_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-7-2.png)
 
 ``` r
-ggplot(data_3b, aes(x = percent)) + geom_histogram() + facet_grid(aoi ~ story) + theme(strip.text.y = element_text(angle = 0), axis.text.y = element_blank(), axis.ticks = element_blank()) + ylab("")
+ggplot(data_3b, aes(x = percent)) + geom_histogram() + facet_grid(aoi ~ story) + theme(strip.text.y = element_text(angle = 0), axis.text.y = element_blank(), axis.ticks = element_blank()) + ylab("") +
+  scale_x_continuous(breaks=seq(0, 1, .1))
 ```
 
 ![](03importcleanbabies_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-7-3.png)
 
 ``` r
-ggplot(data_rr, aes(x = percent)) + geom_histogram() + facet_grid(aoi ~ story) + theme(strip.text.y = element_text(angle = 0), axis.text.y = element_blank(), axis.ticks = element_blank()) + ylab("")
+ggplot(data_rr, aes(x = percent)) + geom_histogram() + facet_grid(aoi ~ story) + theme(strip.text.y = element_text(angle = 0), axis.text.y = element_blank(), axis.ticks = element_blank()) + ylab("") +
+  scale_x_continuous(breaks=seq(0, 1, .1))
 ```
 
 ![](03importcleanbabies_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-7-4.png)
-
-Based on these histograms, I sent to Rain on 26 Oct 2017 this table. Plus I asked about Jelena (CODA) who had very little data in 14 out of 16 trials so she was thrown out entirely from the dataset. I wrote to Rain:
-
-> Alright, here's what I found. Good news, I'm not seeing any really BAD kids! Yay. Just two that may need to be looked at. Attached is the list of all kids/stories I flagged for having way too much looking in that AOI. The trial column indicates which clip out of 16 (so 5 means 5th clip in the sequence). Most kids on the list are fine really, I think, and, yes, these AOIs were flagged for having weirdly high percentages but what probably happened was that they zoned out during that particular clip or stared at something interesting/idiosyncratic. I would especially review the static gaze plot/scatterplot images for these kids:
-
-> Lyla (Group 1) - A lot of chest looking. Calibration may have been shifted down.
-
-> Mason (Group 2) - VERY focused on MidFaceCenter across several stories (that's usually a low AOI). It could be that his calibration is shifted up; all other kids look at MidFaceBottom, not MidFaceCenter). Or it could just be his idiosyncratic looking behavior. Give it a look.
-
-> Isabella (Group 1) - I know we're not using her for this paper, but FYI her eye gaze was kinda random for a few stories. Might be something interesting there. I don't think it's mis-shifted or anything, though.
-
-``` r
-outliers <- read_csv("outliers.csv") %>%
-  separate(outlier, into = letters[seq( from = 1, to = 9 )]) %>%
-  select(-a, -c, -h) %>%
-  rename(participant = b,
-         group = d,
-         trial = g,
-         aoi = i) %>%
-  unite(col = "story", e:f, sep = "_") %>%
-  select(group, participant, story, trial, aoi) %>%
-  arrange(group, participant)
-```
-
-    ## Parsed with column specification:
-    ## cols(
-    ##   outlier = col_character()
-    ## )
-
-``` r
-outliers
-```
-
-    ## # A tibble: 37 x 5
-    ##    group participant        story trial              aoi
-    ##    <chr>       <chr>        <chr> <chr>            <chr>
-    ##  1     1     Ainsely Cinderella_2     9  leftchestbottom
-    ##  2     1     Ainsely  KingMidas_1    15   midchestbottom
-    ##  3     1     Ainsely  RedRiding_1    10            belly
-    ##  4     1    al10pa24 Cinderella_1    15       belowchest
-    ##  5     1      Annika ThreeBears_1     6 rightchestbottom
-    ##  6     1       dylan Cinderella_2     1    midfacecenter
-    ##  7     1       Isiah Cinderella_1     5         leftside
-    ##  8     1       Isiah Cinderella_1     5 rightchestcenter
-    ##  9     1       Isiah  KingMidas_2     4            belly
-    ## 10     1       Isiah ThreeBears_1    14            belly
-    ## # ... with 27 more rows
-
-``` r
-write_csv(outliers, "outlierkids.csv")
-```
 
 Save!
 =====
@@ -350,7 +303,7 @@ left_join(participants_n, participants_age, by = "language")
     ##   language Female  Male age_mean age_range
     ##     <fctr>  <int> <int>    <chr>     <chr>
     ## 1  english      8    11  0.7±0.2 0.4 - 1.1
-    ## 2     sign      5     2  0.9±0.4 0.4 - 1.5
+    ## 2     sign      6     2  0.9±0.4 0.4 - 1.5
 
 ``` r
 data %>% select(participant, age, language) %>% distinct() %>% ggplot(aes(x = age, fill = language)) + geom_histogram() + facet_grid(language ~ .) + scale_fill_brewer(palette = "Accent")
@@ -358,4 +311,4 @@ data %>% select(participant, age, language) %>% distinct() %>% ggplot(aes(x = ag
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](03importcleanbabies_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-10-1.png)
+![](03importcleanbabies_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-9-1.png)
