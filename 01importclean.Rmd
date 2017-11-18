@@ -28,6 +28,49 @@ data <- files %>%
   map(read_csv) %>%
   reduce(rbind)
 write_feather(data, "childrawdata.feather")
+
+# Add Cinderella2_FW BelowChest AOI Information for Group 1
+cinderella2fw_from_matlab <- read_csv("../Child Data/Cinderella2FW_BelowChest_aoidata.csv") 
+
+sums <- cinderella2fw_from_matlab %>% 
+  group_by(participant,repetition) %>%
+  summarise(BelowChest = sum(BelowChest)) %>% 
+  filter(participant != "Lyla 11 20 11_5y,3m") # Already has that info in main dataset
+
+participant_info <- cinderella2fw_from_matlab %>%
+  select(-BelowChest) %>%
+  distinct()
+
+cinderella2fw <- sums %>% 
+  left_join(participant_info, by = c("participant","repetition")) %>%
+  ungroup() %>%
+  add_column(aoi = rep("sum_AOI_BelowChest_Hit",dim(sums)[1])) %>%
+  rename(hits = BelowChest)
+
+data <- read_feather("childrawdata.feather") %>%
+  filter(participant %in% cinderella2fw$participant) %>%
+  filter(condition == "Cinderella_2_FW_xvid.avi") %>%
+  select(-aoi, -hits) %>%
+  distinct()
+
+thejoinedone <- cinderella2fw %>%
+  select(-recording, -story, -direction) %>%
+  left_join(data, by = c("participant","repetition")) %>%
+  filter(!is.na(analysis))
+
+# Fix two kids' data
+data <- read_feather("childrawdata.feather") %>%
+  bind_rows(thejoinedone) %>% 
+  mutate(participant = case_when(
+    participant == "Ab07ov09_22m" ~ "Ab07ov09_32m",
+    TRUE ~ participant
+  )) %>%
+  mutate(language = case_when(
+    participant == "OwenTwin030212_4y2m" ~ "EnglishExposed",
+    TRUE ~ language
+  ))
+
+write_feather(data, "childrawdata.feather")
 ```
 
 # Introduction
@@ -41,12 +84,8 @@ library(feather)
 library(stringr)
 #library(cowplot)
 
-# Import data (and fix one participant name)
-data <- read_feather("childrawdata.feather") %>%
-  mutate(participant = case_when(
-    participant == "Ab07ov09_22m" ~ "Ab07ov09_32m",
-    TRUE ~ participant
-  ))
+# Import data
+data <- read_feather("childrawdata.feather")
 
 # Get ages
 ages <- read_csv("childrenages.csv")

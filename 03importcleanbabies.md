@@ -1,7 +1,7 @@
 Baby Data Import and Cleanup (study2children)
 ================
 Adam Stone, PhD
-11-13-2017
+11-18-2017
 
 -   [Introduction](#introduction)
 -   [Checking for Outliers](#checking-for-outliers)
@@ -23,12 +23,8 @@ library(stringr)
 library(RColorBrewer)
 #library(cowplot)
 
-# Import data (and fix one participant name)
-data <- read_feather("childrawdata.feather") %>%
-  mutate(participant = case_when(
-    participant == "Ab07ov09_22m" ~ "Ab07ov09_32m",
-    TRUE ~ participant
-  ))
+# Import data 
+data <- read_feather("childrawdata.feather") 
 
 # Get ages
 ages <- read_csv("childrenages.csv")

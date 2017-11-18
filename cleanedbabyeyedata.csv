@@ -7413,3 +7413,25 @@ WY06WE01_10.5m GREAT looksAtMomALot,WY06WE01_10M_17D,GoodData,1,Male,english,Cin
 WY06WE01_10.5m GREAT looksAtMomALot,WY06WE01_10M_17D,GoodData,1,Male,english,Cinderella_1,forward,1,13,2,30257,31313,BelowChest,22,0.9,8.44,0.18333333333333332,0.021721958925750396
 WY06WE01_10.5m GREAT looksAtMomALot,WY06WE01_10M_17D,GoodData,1,Male,english,Cinderella_1,forward,1,13,2,30257,31313,LeftSide,0,0.9,8.44,0,0
 WY06WE01_10.5m GREAT looksAtMomALot,WY06WE01_10M_17D,GoodData,1,Male,english,Cinderella_1,forward,1,13,2,30257,31313,RightSide,33,0.9,8.44,0.275,0.032582938388625596
+AB11M120_5m_Excellent,AB11Mi20_5M_10D,GoodData,1,Female,english,Cinderella_2,forward,2,1,1,1201,1707,BelowChest,4,0.4,4.2,0.03333333333333333,0.007936507936507936
+an06he01_6m_5d GREAT,an06he01_6m,GoodData,1,Male,english,Cinderella_2,forward,2,1,1,1798,2306,BelowChest,0,0.5,4.2,0,0
+an06he01_6m_5d GREAT,an06he01_6m,GoodData,1,Male,english,Cinderella_2,forward,2,9,2,13051,13554,BelowChest,0,0.5,4.2,0,0
+Rec 01 BAD CALIBRATION,Brooke CODA,GoodData,1,Female,sign,Cinderella_2,forward,2,1,1,2379,2883,BelowChest,0,0.4,4.2,0,0
+ca05he16 6m GOOD,ca05he16_6m,GoodData,1,Male,english,Cinderella_2,forward,2,1,1,2127,2632,BelowChest,0,0.5,4.2,0,0
+ca05he16 6m GOOD,ca05he16_6m,GoodData,1,Male,english,Cinderella_2,forward,2,9,2,16056,16562,BelowChest,0,0.5,4.2,0,0
+CR03TA11_13m no calib obtained,CR03TA11_12M_29D,GoodData,1,Male,english,Cinderella_2,forward,2,1,1,445,950,BelowChest,3,1.1,4.2,0.025,0.005952380952380952
+CR03TA11_13m no calib obtained,CR03TA11_12M_29D,GoodData,1,Male,english,Cinderella_2,forward,2,9,2,10820,11325,BelowChest,0,1.1,4.2,0,0
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,1,1,1543,2047,BelowChest,61,1,4.2,0.5083333333333333,0.12103174603174602
+de02wi 12m10d Very Good Calibration,de02wi15_12m_10d,Not Yet Assigned,1,Male,english,Cinderella_2,forward,2,9,2,12614,13121,BelowChest,0,1,4.2,0,0
+Gemma_15m_SE great,GemmaF_11_4_13_CODA,GoodData,1,Female,sign,Cinderella_2,forward,2,1,1,1295,1801,BelowChest,0,1.1,4.2,0,0
+Gemma_15m_SE great,GemmaF_11_4_13_CODA,GoodData,1,Female,sign,Cinderella_2,forward,2,9,2,13012,13519,BelowChest,1,1.1,4.2,0.008333333333333333,0.001984126984126984
+Hannah CODA 7m,Hannah_CODA_7m,GoodData,1,Female,sign,Cinderella_2,forward,2,1,1,1875,2382,BelowChest,0,0.6,4.2,0,0
+Hannah CODA 7m,Hannah_CODA_7m,GoodData,1,Female,sign,Cinderella_2,forward,2,9,2,12449,12953,BelowChest,0,0.6,4.2,0,0
+LA11BA11_5M_24D_GOOD,LA11BA11_5M_24D,GoodData,1,Female,english,Cinderella_2,forward,2,9,2,23359,23864,BelowChest,47,0.5,4.2,0.39166666666666666,0.09325396825396826
+Rec 14 miles GREAT,Miles_14m_SE,GoodData,1,Male,sign,Cinderella_2,forward,2,1,1,1696,2201,BelowChest,2,1.2,4.2,0.016666666666666666,0.003968253968253968
+Rec 14 miles GREAT,Miles_14m_SE,GoodData,1,Male,sign,Cinderella_2,forward,2,9,2,12935,13441,BelowChest,3,1.2,4.2,0.025,0.005952380952380952
+Rec 03,ri03es08_boy_5.5m,GoodData,1,Male,english,Cinderella_2,forward,2,1,1,2555,3062,BelowChest,211,0.5,4.2,1.7583333333333333,0.4186507936507936
+Rec 03,ri03es08_boy_5.5m,GoodData,1,Male,english,Cinderella_2,forward,2,9,2,13357,13863,BelowChest,0,0.5,4.2,0,0
+TH05FL18_10M_21D_CryingAtEnd_No calib obtained,TH05FL18_10M_21D_M,GoodData,1,Female,english,Cinderella_2,forward,2,1,1,1416,1921,BelowChest,0,0.9,4.2,0,0
+TH05FL18_10M_21D_CryingAtEnd_No calib obtained,TH05FL18_10M_21D_M,GoodData,1,Female,english,Cinderella_2,forward,2,9,2,12289,12795,BelowChest,0,0.9,4.2,0,0
+WY06WE01_10.5m GREAT looksAtMomALot,WY06WE01_10M_17D,GoodData,1,Male,english,Cinderella_2,forward,2,1,1,1917,2459,BelowChest,0,0.9,4.2,0,0
