@@ -164,7 +164,7 @@ Now that we've found something interesting with FCR and mFCR, let's see if it ho
 
 ## Language, Direction, & Age Predictors
 
-First, a LMM with predictors Language, Direction, and Age, and outcome variable FCR. Nothing significant.
+First, a LMM with predictors Language, Direction, and Age, and outcome variable FCR. Nothing significant (same with children).
 
 ```{r}
 fcr_lmm <- lmer(fcr ~ age * language * direction + (1|story) + (1|participant), data = data_mid)

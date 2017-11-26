@@ -106,7 +106,6 @@ First, let's get rid of all below 2 years old (those are babies and [are dealt w
 alldata <- data
 data <- data %>%
   filter(age > 2.0) %>%
-  filter(participant != "OwenTwin030212_4y2m") %>%
   filter(participant != "Kiera_8_20_13 3y,5m") %>%
   filter(participant != "Isabella 5 year old Deaf")
 

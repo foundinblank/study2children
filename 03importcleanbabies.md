@@ -1,7 +1,7 @@
 Baby Data Import and Cleanup (study2children)
 ================
 Adam Stone, PhD
-11-18-2017
+11-26-2017
 
 -   [Introduction](#introduction)
 -   [Checking for Outliers](#checking-for-outliers)
@@ -44,6 +44,7 @@ data <- data %>%
   filter(participant != "Em12ad10_14m_24d") %>%
   filter(participant != "ka11es12_7m_MomTerp") %>%
   filter(participant != "boy 6 m SHIFTED") %>%
+  filter(participant != "ma01wa22_10m") %>%
   filter(participant != "Sara8monthsDeafCODA") %>%
   filter(participant != "za05da21_6m_15days_Squirmy")
 
@@ -53,16 +54,17 @@ anti_join(alldata, data, by = "participant") %>%
   filter(age < 2.0)
 ```
 
-    ## # A tibble: 7 x 6
+    ## # A tibble: 8 x 6
     ##                  participant                              recording
     ##                        <chr>                                  <chr>
     ## 1             AsherCalibOnly                      Asher_GREAT_Calib
     ## 2             do09ne07_6m_4d               do09ne07 6m4d POOR CALIB
     ## 3           Em12ad10_14m_24d                      em 15m POOR CALIB
     ## 4        ka11es12_7m_MomTerp      ka11es12 7m lot of movement fussy
-    ## 5            boy 6 m SHIFTED            Rec 02 shiftupward DONT USE
-    ## 6        Sara8monthsDeafCODA Sara 8m CODA Dont Use Tired GOOD calib
-    ## 7 za05da21_6m_15days_Squirmy    za05da12 6m15d GoodCalibVERYSquirmy
+    ## 5               ma01wa22_10m                      ma01wa22 10m GOOD
+    ## 6            boy 6 m SHIFTED            Rec 02 shiftupward DONT USE
+    ## 7        Sara8monthsDeafCODA Sara 8m CODA Dont Use Tired GOOD calib
+    ## 8 za05da21_6m_15days_Squirmy    za05da12 6m15d GoodCalibVERYSquirmy
     ## # ... with 4 more variables: analysis <chr>, language <chr>, group <int>,
     ## #   age <dbl>
 
@@ -115,7 +117,7 @@ numtotaltrials = dim(trialcheck)[1]
 percenttakeout = paste(numtotakeout/numtotaltrials * 100, "%", sep = "")
 ```
 
-We removed 98 trials out of 437 (22.4256292906178%). Was there any correlation with the number of trials removed by age, language, or gender? Scatterplot below - looks fine. (Took out one CODA girl that has nearly all trials removed, was skewing the data).
+We removed 93 trials out of 421 (22.0902612826603%). Was there any correlation with the number of trials removed by age, language, or gender? Scatterplot below - looks fine. (Took out one CODA girl that has nearly all trials removed, was skewing the data).
 
 ``` r
 # Grab age/group data we need for scatterplot
@@ -155,7 +157,7 @@ data <- data %>%
 data %>% select(participant, language, trial) %>% distinct() %>% group_by(language, participant) %>% summarise(trials = n()) %>% arrange(trials)
 ```
 
-    ## # A tibble: 28 x 3
+    ## # A tibble: 27 x 3
     ## # Groups:   language [2]
     ##               language         participant trials
     ##                  <chr>               <chr>  <int>
@@ -167,9 +169,9 @@ data %>% select(participant, language, trial) %>% distinct() %>% group_by(langua
     ##  6      EnglishExposed     AB11Mi20_5M_10D      9
     ##  7 SignLanguageExposed GemmaF_11_4_13_CODA     10
     ##  8      EnglishExposed   DY10PE27_6m_11d_m     11
-    ##  9      EnglishExposed        ma01wa22_10m     11
-    ## 10      EnglishExposed    pa09ha06_9m_6d_m     11
-    ## # ... with 18 more rows
+    ##  9      EnglishExposed    pa09ha06_9m_6d_m     11
+    ## 10      EnglishExposed         ca05he16_6m     12
+    ## # ... with 17 more rows
 
 Based on that list, we'll take out Wyatt. (We may want to take out Li11hy29 and Brooke, but let's keep them in for now and see what happens.)
 
@@ -298,7 +300,7 @@ left_join(participants_n, participants_age, by = "language")
     ## # A tibble: 2 x 5
     ##   language Female  Male age_mean age_range
     ##     <fctr>  <int> <int>    <chr>     <chr>
-    ## 1  english      8    11  0.7±0.2 0.4 - 1.1
+    ## 1  english      7    11  0.7±0.2 0.4 - 1.1
     ## 2     sign      6     2  0.9±0.4 0.4 - 1.5
 
 ``` r

@@ -51,6 +51,7 @@ data <- data %>%
   filter(participant != "Em12ad10_14m_24d") %>%
   filter(participant != "ka11es12_7m_MomTerp") %>%
   filter(participant != "boy 6 m SHIFTED") %>%
+  filter(participant != "ma01wa22_10m") %>%
   filter(participant != "Sara8monthsDeafCODA") %>%
   filter(participant != "za05da21_6m_15days_Squirmy")
 

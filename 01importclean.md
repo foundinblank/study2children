@@ -1,7 +1,7 @@
 Data Import and Cleanup (study2children)
 ================
 Adam Stone, PhD
-11-18-2017
+11-26-2017
 
 -   [Introduction](#introduction)
 -   [Removing Bad/Irrelevant Data](#removing-badirrelevant-data)
@@ -63,7 +63,6 @@ First, let's get rid of all below 2 years old (those are babies and [are dealt w
 alldata <- data
 data <- data %>%
   filter(age > 2.0) %>%
-  filter(participant != "OwenTwin030212_4y2m") %>%
   filter(participant != "Kiera_8_20_13 3y,5m") %>%
   filter(participant != "Isabella 5 year old Deaf")
 
@@ -73,12 +72,11 @@ anti_join(alldata, data, by = "participant") %>%
   filter(age > 2.0)
 ```
 
-    ## # A tibble: 3 x 6
+    ## # A tibble: 2 x 6
     ##                participant
     ##                      <chr>
     ## 1 Isabella 5 year old Deaf
-    ## 2      OwenTwin030212_4y2m
-    ## 3      Kiera_8_20_13 3y,5m
+    ## 2      Kiera_8_20_13 3y,5m
     ## # ... with 5 more variables: recording <chr>, analysis <chr>,
     ## #   language <chr>, group <int>, age <dbl>
 
@@ -135,7 +133,7 @@ numtotaltrials = dim(trialcheck)[1]
 percenttakeout = paste(numtotakeout/numtotaltrials * 100, "%", sep = "")
 ```
 
-We removed 84 trials out of 480 (17.5%). Was there any correlation with the number of trials removed by age, language, or gender? Scatterplot below - looks fine. (Took out one CODA girl that has nearly all trials removed, was skewing the data).
+We removed 86 trials out of 496 (17.3387096774194%). Was there any correlation with the number of trials removed by age, language, or gender? Scatterplot below - looks fine. (Took out one CODA girl that has nearly all trials removed, was skewing the data).
 
 ``` r
 # Grab age/group data we need for scatterplot
@@ -174,7 +172,7 @@ data <- data %>%
 data %>% select(participant, language, trial) %>% distinct() %>% group_by(language, participant) %>% summarise(trials = n()) %>% arrange(trials)
 ```
 
-    ## # A tibble: 30 x 3
+    ## # A tibble: 31 x 3
     ## # Groups:   language [2]
     ##               language             participant trials
     ##                  <chr>                   <chr>  <int>
@@ -188,7 +186,7 @@ data %>% select(participant, language, trial) %>% distinct() %>% group_by(langua
     ##  8 SignLanguageExposed                   Gavin     11
     ##  9 SignLanguageExposed     emmet_12_10_12_CODA     12
     ## 10 SignLanguageExposed                   Mason     12
-    ## # ... with 20 more rows
+    ## # ... with 21 more rows
 
 So based on that, we're removing Jelena.
 
@@ -368,5 +366,5 @@ left_join(participants_n, participants_age, by = "language")
     ## # A tibble: 2 x 5
     ##   language Female  Male age_mean age_range
     ##     <fctr>  <int> <int>    <chr>     <chr>
-    ## 1  english      8     6    5±1.5 2.7 - 8.3
+    ## 1  english      8     7    5±1.4 2.7 - 8.3
     ## 2     sign      7     8  5.2±1.3 3.5 - 7.3
