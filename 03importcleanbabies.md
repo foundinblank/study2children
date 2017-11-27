@@ -1,7 +1,7 @@
 Baby Data Import and Cleanup (study2children)
 ================
 Adam Stone, PhD
-11-26-2017
+11-27-2017
 
 -   [Introduction](#introduction)
 -   [Checking for Outliers](#checking-for-outliers)
@@ -13,7 +13,7 @@ Introduction
 
 Let's repeat [01importclean](01importclean.nb.html) but this time, select ONLY babies. YES!
 
-First, get rid of all older than 2 years old. Then we're going to remove specific babies for various reasons, here's a list of who we removed.
+First, get rid of all older than two years old. Then we're going to remove specific babies for various reasons, here's a list of who we removed.
 
 ``` r
 # Libraries

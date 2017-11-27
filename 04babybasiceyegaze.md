@@ -1,7 +1,7 @@
 Baby Basic Eye Gaze (study2children)
 ================
 Adam Stone, PhD
-11-26-2017
+11-27-2017
 
 -   [Starting Out](#starting-out)
 -   [Heat Maps](#heat-maps)
@@ -13,7 +13,7 @@ Adam Stone, PhD
 Starting Out
 ============
 
-We've cleaned up the data in [03importcleanbabies](03importcleanbabies.nb.html). So we're importing it here. Let's get a chart of how old our babies are.
+We've cleaned up the data in [03importcleanbabies](03importcleanbabies.nb.html). So we're importing it here. Let's get a chart of how old our babies are (all less than 2 yrs).
 
 ``` r
 # Libraries

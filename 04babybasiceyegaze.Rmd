@@ -18,7 +18,7 @@ output:
 
 # Starting Out
 
-We've cleaned up the data in [03importcleanbabies](03importcleanbabies.nb.html). So we're importing it here. Let's get a chart of how old our babies are.
+We've cleaned up the data in [03importcleanbabies](03importcleanbabies.nb.html). So we're importing it here. Let's get a chart of how old our babies are (all less than 2 yrs).
 
 ```{r}
 # Libraries
