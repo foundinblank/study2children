@@ -75,7 +75,7 @@ data_mid <- data_mid %>%
          fcr = (face - chest) / (face + chest),
          mfcr = (MidFaceBottom - MidChestTop) / (MidFaceBottom + MidChestTop))
 data_mid <- data_mid %>%
-  filter(language=="sign") %>%
+  filter(language=="english") %>%
   select(participant, trial, fcr)
 
 original <- original %>%
