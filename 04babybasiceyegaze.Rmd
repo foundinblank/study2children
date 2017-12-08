@@ -3,9 +3,6 @@ title: "Baby Basic Eye Gaze (study2children)"
 author: "Adam Stone, PhD" 
 date: '`r format(Sys.Date(), "%m-%d-%Y")`'
 output:
-  github_document:
-    toc: yes
-    toc_depth: 2
   html_notebook:
     code_folding: hide
     theme: spacelab
@@ -34,6 +31,28 @@ library(RColorBrewer)
 
 # Import data that's been cleaned up from 01importclean
 data <- read_feather("cleanedbabyeyedata.feather")
+
+participants <- data %>%
+  select(participant, gender, language, age) %>%
+  distinct()
+
+participants_n <- participants %>%
+  count(gender, language) %>%
+  spread(gender, n)
+
+participants_age <- participants %>%
+  group_by(language) %>%
+  summarise(age_m = round(mean(age), 1), 
+            age_sd = round(sd(age), 1),
+            age_min = range(age)[1],
+            age_max = range(age)[2]) %>%
+  mutate(age_range = paste(age_min, age_max, sep = " - ")) %>%
+  select(-age_min, -age_max) %>%
+  mutate(age_mean = paste(age_m, age_sd, sep = "±")) %>%
+  select(-age_m, -age_sd) %>%
+  select(language, age_mean, age_range)
+
+left_join(participants_n, participants_age, by = "language")
 
 data_ages <- data %>%
   select(participant, language, age, group) %>%

@@ -3,9 +3,6 @@ title: "TwoPuppies (study2children)"
 author: "Adam Stone, PhD" 
 date: '`r format(Sys.Date(), "%m-%d-%Y")`'
 output:
-  github_document:
-    toc: yes
-    toc_depth: 2
   html_notebook:
     code_folding: hide
     theme: spacelab
@@ -359,3 +356,31 @@ NI12's offsets are approximately:
 ni12_stats %>% group_by(axis) %>% summarise(offset = mean(offset))
 ```
 Should at least fix the y-axis.
+
+# Brooke
+Lots of high midchestcenter and midchestbottom
+```{r message=FALSE}
+brooke <- read_csv("../Child Data/_twopuppies/Rec 01 BAD CALIBRATION_TwoPuppiesData.csv") %>%
+  mutate(puppy = case_when(
+    mark == 1 ~ "chihuahua",
+    mark == 2 ~ "frisby"
+  )) %>%
+  rename(x = xpos, y = ypos) %>%
+  gather(axis, pos, x:y)
+
+ggplot(brooke, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
+
+brooke_stats <- brooke %>%
+  group_by(puppy, axis) %>%
+  summarise(mean = mean(pos, na.rm=TRUE),
+         median = median(pos, na.rm=TRUE)) %>%
+  ungroup() %>%
+  mutate(offset = median - globalmedian) %>%
+  print()
+```
+
+Brooke's offsets are approximately: 
+```{r}
+brooke_stats %>% group_by(axis) %>% summarise(offset = mean(offset))
+```
+

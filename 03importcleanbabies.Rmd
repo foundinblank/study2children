@@ -3,9 +3,6 @@ title: "Baby Data Import and Cleanup (study2children)"
 author: "Adam Stone, PhD" 
 date: '`r format(Sys.Date(), "%m-%d-%Y")`'
 output:
-  github_document:
-    toc: yes
-    toc_depth: 2
   html_notebook:
     code_folding: hide
     theme: spacelab
@@ -20,7 +17,7 @@ output:
 
 Let's repeat [01importclean](01importclean.nb.html) but this time, select ONLY babies. YES!
 
-First, get rid of all older than two years old. Then we're going to remove specific babies for various reasons, here's a list of who we removed.
+First, get rid of all older than two years old. Then we're going to remove specific babies for various reasons (usually bad calibration or weird-looking data), here's a list of who we removed.
 
 ```{r message=FALSE}
 # Libraries
@@ -52,6 +49,7 @@ data <- data %>%
   filter(participant != "ka11es12_7m_MomTerp") %>%
   filter(participant != "boy 6 m SHIFTED") %>%
   filter(participant != "ma01wa22_10m") %>%
+  filter(participant != "NI12GO05_5M_4D") %>%
   filter(participant != "Sara8monthsDeafCODA") %>%
   filter(participant != "za05da21_6m_15days_Squirmy")
 
@@ -130,13 +128,17 @@ data <- data %>%
   anti_join(trialcheck, by = c("participant","trial"))
 
 # Table of trials per baby
-data %>% select(participant, language, trial) %>% distinct() %>% group_by(language, participant) %>% summarise(trials = n()) %>% arrange(trials)
+numtrials <- data %>% select(participant, language, trial) %>% distinct() %>% group_by(language, participant) %>% summarise(trials = n()) %>% arrange(trials)
+
+numtrials
 ```
 
-Based on that list, we'll take out Wyatt. (We may want to take out Li11hy29 and Brooke, but let's keep them in for now and see what happens.)
+Based on that list and our criteria of 50% (babies must have 8 or more valid trials), we'll take out Wyatt, Li11, lo08, and Brooke.
 
 ```{r}
-data <- data %>% filter(participant != "wyatt 7m")
+# Remove all babies with less than 50% (that's 8) valid trials
+numtrials <- numtrials %>% ungroup() %>% filter(trials < 8) %>% select(participant)
+data <- anti_join(data, numtrials, by = "participant")
 ```
 
 # Checking for Outliers 

@@ -1,7 +1,7 @@
 TwoPuppies (study2children)
 ================
 Adam Stone, PhD
-11-07-2017
+12-07-2017
 
 -   [Aubrey](#aubrey)
 -   [Owen](#owen)
@@ -13,6 +13,7 @@ Adam Stone, PhD
 -   [LA11BA11](#la11ba11)
 -   [MA01WA22](#ma01wa22)
 -   [NI12GO05](#ni12go05)
+-   [Brooke](#brooke)
 
 Let's get all the puppy data and see histograms.
 
@@ -42,7 +43,7 @@ data <- data %>% rename(x = xpos, y = ypos) %>%
 ggplot(data, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
 ```
 
-![](twopuppies_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-2-1.png)
+![](twopuppies_files/figure-markdown_github/unnamed-chunk-2-1.png)
 
 And let's get mean and medians
 
@@ -82,7 +83,7 @@ aubrey <- read_csv("../Child Data/_twopuppies/Aubrey_Rec 02_TwoPuppiesData.csv")
 ggplot(aubrey, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
 ```
 
-![](twopuppies_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-4-1.png)
+![](twopuppies_files/figure-markdown_github/unnamed-chunk-4-1.png)
 
 ``` r
 aubrey_stats <- aubrey %>%
@@ -133,7 +134,7 @@ owen <- read_csv("../Child Data/_twopuppies/Owen twin 4y2m POOR CALIB_TwoPuppies
 ggplot(owen, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
 ```
 
-![](twopuppies_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-6-1.png)
+![](twopuppies_files/figure-markdown_github/unnamed-chunk-6-1.png)
 
 ``` r
 owen_stats <- owen %>%
@@ -184,7 +185,7 @@ lyla <- read_csv("../Child Data/_twopuppies/Rec 09 Lyla GREAT_TwoPuppiesData.csv
 ggplot(lyla, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
 ```
 
-![](twopuppies_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-8-1.png)
+![](twopuppies_files/figure-markdown_github/unnamed-chunk-8-1.png)
 
 ``` r
 lyla_stats <- lyla %>%
@@ -237,7 +238,7 @@ mason <- read_csv("../Child Data/_twopuppies/Mason_CODA_6y_GOOD_TwoPuppiesData.c
 ggplot(mason, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
 ```
 
-![](twopuppies_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-10-1.png)
+![](twopuppies_files/figure-markdown_github/unnamed-chunk-10-1.png)
 
 ``` r
 mason_stats <- mason %>%
@@ -288,7 +289,7 @@ ainsley <- read_csv("../Child Data/_twopuppies/Ainsely 5y1m GREAT_TwoPuppiesData
 ggplot(ainsley, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
 ```
 
-![](twopuppies_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-12-1.png)
+![](twopuppies_files/figure-markdown_github/unnamed-chunk-12-1.png)
 
 ``` r
 ainsley_stats <- ainsley %>%
@@ -339,7 +340,7 @@ cr03 <- read_csv("../Child Data/_twopuppies/CR03TA11_13m no calib obtained_TwoPu
 ggplot(cr03, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
 ```
 
-![](twopuppies_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-14-1.png)
+![](twopuppies_files/figure-markdown_github/unnamed-chunk-14-1.png)
 
 ``` r
 cr03_stats <- cr03 %>%
@@ -390,7 +391,7 @@ desmond <- read_csv("../Child Data/_twopuppies/Desmond GOOD_TwoPuppiesData.csv")
 ggplot(desmond, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
 ```
 
-![](twopuppies_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-16-1.png)
+![](twopuppies_files/figure-markdown_github/unnamed-chunk-16-1.png)
 
 ``` r
 desmond_stats <- desmond %>%
@@ -441,7 +442,7 @@ la11 <- read_csv("../Child Data/_twopuppies/LA11BA11_5M_24D_GOOD_TwoPuppiesData.
 ggplot(la11, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
 ```
 
-![](twopuppies_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-18-1.png)
+![](twopuppies_files/figure-markdown_github/unnamed-chunk-18-1.png)
 
 ``` r
 la11_stats <- la11 %>%
@@ -492,7 +493,7 @@ ma01 <- read_csv("../Child Data/_twopuppies/ma01wa22 10m GOOD_TwoPuppiesData.csv
 ggplot(ma01, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
 ```
 
-![](twopuppies_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-20-1.png)
+![](twopuppies_files/figure-markdown_github/unnamed-chunk-20-1.png)
 
 ``` r
 ma01_stats <- ma01 %>%
@@ -543,7 +544,7 @@ ni12 <- read_csv("../Child Data/_twopuppies/NI12GO05_5M_4D_GOOD_TwoPuppiesData.c
 ggplot(ni12, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
 ```
 
-![](twopuppies_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-22-1.png)
+![](twopuppies_files/figure-markdown_github/unnamed-chunk-22-1.png)
 
 ``` r
 ni12_stats <- ni12 %>%
@@ -576,3 +577,52 @@ ni12_stats %>% group_by(axis) %>% summarise(offset = mean(offset))
     ## 2     y   44.5
 
 Should at least fix the y-axis.
+
+Brooke
+======
+
+Lots of high midchestcenter and midchestbottom
+
+``` r
+brooke <- read_csv("../Child Data/_twopuppies/Rec 01 BAD CALIBRATION_TwoPuppiesData.csv") %>%
+  mutate(puppy = case_when(
+    mark == 1 ~ "chihuahua",
+    mark == 2 ~ "frisby"
+  )) %>%
+  rename(x = xpos, y = ypos) %>%
+  gather(axis, pos, x:y)
+
+ggplot(brooke, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
+```
+
+![](twopuppies_files/figure-markdown_github/unnamed-chunk-24-1.png)
+
+``` r
+brooke_stats <- brooke %>%
+  group_by(puppy, axis) %>%
+  summarise(mean = mean(pos, na.rm=TRUE),
+         median = median(pos, na.rm=TRUE)) %>%
+  ungroup() %>%
+  mutate(offset = median - globalmedian) %>%
+  print()
+```
+
+    ## # A tibble: 4 x 5
+    ##       puppy  axis     mean median offset
+    ##       <chr> <chr>    <dbl>  <dbl>  <dbl>
+    ## 1 chihuahua     x 282.5227  284.5   43.5
+    ## 2 chihuahua     y 268.0909  271.5   -8.5
+    ## 3    frisby     x 215.9167  212.5    0.5
+    ## 4    frisby     y 113.7500  116.0  -33.0
+
+Brooke's offsets are approximately:
+
+``` r
+brooke_stats %>% group_by(axis) %>% summarise(offset = mean(offset))
+```
+
+    ## # A tibble: 2 x 2
+    ##    axis offset
+    ##   <chr>  <dbl>
+    ## 1     x  22.00
+    ## 2     y -20.75
