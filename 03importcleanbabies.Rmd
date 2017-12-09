@@ -50,7 +50,8 @@ data <- data %>%
   filter(participant != "boy 6 m SHIFTED") %>%
   filter(participant != "ma01wa22_10m") %>%
   filter(participant != "NI12GO05_5M_4D") %>%
-  filter(participant != "Sara8monthsDeafCODA") 
+  filter(participant != "Sara8monthsDeafCODA")  %>%
+  filter(participant != "Gianna_CODA_18m")
 
 anti_join(alldata, data, by = "participant") %>% 
   select(participant, recording, analysis, language, group, age) %>% 
