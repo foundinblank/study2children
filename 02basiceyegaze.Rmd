@@ -184,17 +184,18 @@ Now that we've found something interesting with FCR and mFCR, let's see if it ho
 
 ## Language, Direction, & Age Predictors
 
-First, a LMM with predictors Language, Direction, and Age, and outcome variable FCR. Nothing significant, or even close to it! I'm surprised. 
+First, a LMM with predictors Language, Direction, and Age (no interaction), and outcome variable FCR.
 
 ```{r}
-fcr_lmm <- lmer(fcr ~ age * language * direction + (1|story) + (1|participant), data = data_mid)
+fcr_lmm <- lmer(fcr ~ age + language * direction + (1|story) + (1|participant), data = data_mid)
+fcr_lmm_children <- fcr_lmm
 summary(fcr_lmm)
 ```
 
-Let's repeat the LMM with outcome mFCR. Same thing, although the t values are slightly better.
+Let's repeat the LMM with outcome mFCR.
 
 ```{r}
-mfcr_lmm <- lmer(mfcr ~ age * language * direction + (1|story) + (1|participant), data = data_mid)
+mfcr_lmm <- lmer(mfcr ~ age + language * direction + (1|story) + (1|participant), data = data_mid)
 summary(mfcr_lmm)
 ```
 
@@ -202,16 +203,14 @@ What if we did ANCOVAs (C because age would be a covariate). First, FCR as outco
 
 ## Direction & Language Predictors
 
-In the LMMs we've run so far, age is always the worst predictor. So we should have taken that out first, anyway.
-
-**OLD TEXT** Alright, we got a very significant effect of language (p = 0.003). Signing kids have a much higher FCR than non-signing kids. 
+In the LMMs we've run so far, age is always the worst predictor. What happens when we take it out?
 
 ```{r}
 fcr_lmm_noage <- lmer(fcr ~ direction * language + (1|story) + (1|participant), data = data_mid)
 summary(fcr_lmm_noage)
 ```
 
-The mFCR LMM gives us similar results - strong effect of language (p = 0.006). 
+The mFCR LMM gives us similar results.
 
 ```{r}
 mfcr_lmm_noage <- lmer(mfcr ~ direction * language + (1|story) + (1|participant), data = data_mid)
@@ -220,27 +219,49 @@ summary(mfcr_lmm_noage)
 
 ## Language as only predictor
 
-Same thing here. So it's not age or direction, but language, that has the effect. And that's good! I want to look at forward v. reversed separately next. 
+What if only language? I want to look at forward v. reversed separately next. 
 ```{r}
 fcr_lmm_langonly <- lmer(fcr ~  language + (1|story) + (1|participant) + (1|direction), data = data_mid)
 summary(fcr_lmm_langonly)
 ```
 
-Forward only. Language effect, p = 0.004. 
+Forward only.  
 
 ```{r}
 fcr_lmm_langonly_f <- lmer(fcr ~  language + (1|story) + (1|participant), data = filter(data_mid,direction=="forward"))
 summary(fcr_lmm_langonly_f)
 ```
 
-Reversed only. Weaker language effect, p = 0.0131. 
+Reversed only. 
 
 ```{r}
 fcr_lmm_langonly_r <- lmer(fcr ~  language + (1|story) + (1|participant), data = filter(data_mid,direction=="reversed"))
 summary(fcr_lmm_langonly_r)
 ```
 
-Let's go ahead and plot boxplots to represent LMMs with only language as an important effect. (We can add in direction too). FaceChest Ratio here. 
+# Figures
+
+First an error bar chart. 
+```{r}
+data_mid_error_child <- data_mid %>%
+  group_by(language, direction, participant) %>%
+  summarise(fcr = mean(fcr)) %>%
+  group_by(language, direction) %>%
+  summarise(fcr_mean = mean(fcr),
+            sd = sd(fcr),
+            n = n(),
+            se = sd/sqrt(n))
+
+ggplot(data_mid_error_child, aes(x = language, y = fcr_mean, fill = direction)) +
+  geom_bar(stat = "identity", position = position_dodge()) + 
+  geom_errorbar(aes(ymin = fcr_mean-se, ymax = fcr_mean+se), position = position_dodge(0.9), width = 0.2) +
+  scale_y_continuous(limits = c(-0.5, 0.5)) + 
+  theme_linedraw()
+```
+
+
+
+Let's go ahead and plot boxplots. FaceChest Ratio here. 
 
 ```{r}
 ggplot(data_mid, aes(x = language, y = fcr, fill = language)) + geom_boxplot() + scale_fill_brewer(palette = "Dark2") + ylab("FaceChest Ratio") + ggtitle("FaceChest Ratio by Language")
