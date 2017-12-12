@@ -3,9 +3,6 @@ title: "Data Import and Cleanup (study2children)"
 author: "Adam Stone, PhD" 
 date: '`r format(Sys.Date(), "%m-%d-%Y")`'
 output:
-  github_document:
-    toc: yes
-    toc_depth: 2
   html_notebook:
     code_folding: hide
     theme: spacelab

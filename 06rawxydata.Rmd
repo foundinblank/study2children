@@ -3,9 +3,6 @@ title: "Raw XY Data (study2children)"
 author: "Adam Stone, PhD" 
 date: '`r format(Sys.Date(), "%m-%d-%Y")`'
 output:
-  github_document:
-    toc: yes
-    toc_depth: 2
   html_notebook:
     code_folding: hide
     theme: spacelab
@@ -20,40 +17,13 @@ output:
 # This is to get all kids' _processed_ XY data into one single file. Should only run when needed. 
 library(tidyverse)
 library(feather)
-library(lme4)
-library(png)
-library(grid)
 
 csvpath = "../Child Data/_xydata/"
 files <- dir(path = csvpath, pattern = "_xydata")
 files <- paste(csvpath, files, sep="")
 data <- files %>%
   map(read_csv) %>%
-  reduce(rbind)
-write_feather(data, "../Child Data/childxydata.feather")
-```
-
-# Introduction
-
-Great! At this point, I've run a Matlab script on the children's raw data to collect XY gaze data for each video/trial they viewed. We start with 68 children. 
-
-Right now, I'm putting ALL those kids. **Later, I should probably throw out those that were NOT in our AOI analysis. That's a simple thing to do.** 
-
-Also, a few of them need to have their xy data corrected because of large offsets. 
-
-For now here's **all** our data. 
-
-```{r message=FALSE}
-# Libraries
-library(tidyverse)
-library(feather)
-library(lme4)
-library(grid)
-library(png)
-#library(cowplot)
-
-# Import data (and fix one participant name, and fix Owen as EnglishExposed)
-data <- read_feather("../Child Data/childxydata.feather") %>%
+  reduce(rbind) %>%
   mutate(participant = case_when(
     participant == "Ab07ov09_22m" ~ "Ab07ov09_32m",
     TRUE ~ participant
@@ -62,69 +32,130 @@ data <- read_feather("../Child Data/childxydata.feather") %>%
     participant == "OwenTwin030212_4y2m" ~ "EnglishExposed",
     TRUE ~ language
   ))
+write_feather(data, "../Child Data/childxydata.feather")
+```
+
+# Participants
+
+Great! At this point, I've run a Matlab script on the children's raw data to collect XY gaze data for each video/trial they viewed. We start with 68 children. Here they are. 
+
+```{r message=FALSE}
+# Libraries
+library(tidyverse)
+library(feather)
+library(lme4)
+library(grid)
+library(png)
+library(lmerTest)
+#library(cowplot)
+
+# Import data (and fix one participant name, and fix Owen as EnglishExposed)
+data <- read_feather("../Child Data/childxydata.feather")
 
 # Get ages
 ages <- read_csv("childrenages.csv")
 data <- data %>% left_join(ages, by = "participant")
 data %>% select(participant,language,age) %>% distinct() # print data table
+```
 
+## Removing Excluded Kids
+
+I excluded all kids that were not included in the AOI analysis. Here is a list of all of 'em!
+
+```{r echo=TRUE}
+# Load included babies and children lists
+included_babies <- read_feather("cleanedbabyeyedata.feather") %>%
+  select(participant) %>% 
+  distinct()
+included_children <- read_feather("cleanedchildeyedata.feather") %>%
+  select(participant) %>%
+  distinct()
+included <- rbind(included_babies, included_children)
+
+# Use antijoin to see excluded kids
+excluded <- anti_join(data, included, by = "participant") %>% 
+  select(participant, language, age) %>% 
+  distinct()
+
+# Print table
+excluded
+
+# Remove excluded kids from main dataset
+data <- semi_join(data, included, by = "participant")
+```
+
+## Participant Tables and Charts
+
+Let's see a histogram of ages! After this I'll add "baby" and "child" variables so all < 2.0 are identified as babies. 
+
+```{r}
 # Histogram of ages
 data %>% select(participant,language,age) %>% 
   distinct() %>% 
-  ggplot(aes(x = age)) + geom_histogram(fill = "royalblue") + ggtitle("Ages in Full Dataset")
+  ggplot(aes(x = age)) + geom_histogram(fill = "royalblue", binwidth = 0.25) + ggtitle("Ages in Full Dataset")
+
+# Add baby/child agegroup column
+data <- data %>% 
+  mutate(agegroup = age < 2.0) 
+data$agegroup <- as.factor(data$agegroup)
+data$agegroup <- fct_recode(data$agegroup, baby = "TRUE", child = "FALSE")
 ```
 
-# Removing Discarded Kids (to come)
+And our participant table. 
+```{r}
+participants_b <- data %>%
+  filter(agegroup=="baby") %>%
+  select(participant, gender, language, age) %>%
+  distinct()
 
-This is the part where I want to remove all children that were not included in the AOI analysis. But I haven't written the code yet, so. 
+participants_b_n <- participants_b %>%
+  count(gender, language) %>%
+  spread(gender, n)
 
-```{r eval=FALSE, include=FALSE}
-alldata <- data
-data <- data %>%
-  filter(age > 2.0) %>%
-  filter(participant != "OwenTwin030212_4y2m") %>%
-  filter(participant != "Kiera_8_20_13 3y,5m") %>%
-  filter(participant != "Isabella 5 year old Deaf")
+participants_b_age <- participants_b %>%
+  group_by(language) %>%
+  summarise(age_m = round(mean(age), 1), 
+            age_sd = round(sd(age), 1),
+            age_min = range(age)[1],
+            age_max = range(age)[2]) %>%
+  mutate(age_range = paste(age_min, age_max, sep = " - ")) %>%
+  select(-age_min, -age_max) %>%
+  mutate(age_mean = paste(age_m, age_sd, sep = "±")) %>%
+  select(-age_m, -age_sd) %>%
+  select(language, age_mean, age_range)
 
-anti_join(alldata, data, by = "participant") %>% 
-  select(participant, recording, analysis, language, group, age) %>% 
-  distinct() %>%
-  filter(age > 2.0)
+participants_table_b <- left_join(participants_b_n, participants_b_age, by = "language") %>%
+  add_column(agegroup = "baby")
+
+participants_c <- data %>%
+  filter(agegroup=="child") %>%
+  select(participant, gender, language, age) %>%
+  distinct()
+
+participants_c_n <- participants_c %>%
+  count(gender, language) %>%
+  spread(gender, n)
+
+participants_c_age <- participants_c %>%
+  group_by(language) %>%
+  summarise(age_m = round(mean(age), 1), 
+            age_sd = round(sd(age), 1),
+            age_min = range(age)[1],
+            age_max = range(age)[2]) %>%
+  mutate(age_range = paste(age_min, age_max, sep = " - ")) %>%
+  select(-age_min, -age_max) %>%
+  mutate(age_mean = paste(age_m, age_sd, sep = "±")) %>%
+  select(-age_m, -age_sd) %>%
+  select(language, age_mean, age_range)
+
+participants_table_c <- left_join(participants_c_n, participants_c_age, by = "language") %>%
+  add_column(agegroup = "child")
+
+rbind(participants_table_b, participants_table_c) %>% 
+  select(language, agegroup, Female, Male, age_mean, age_range)
 ```
 
-# Shifting Data (to come)
-Then there are some kids whose data needs to be corrected because of large offsets which we detected via [twopuppies.nb.html](twopuppies.nb.html). I should list those kids here, too. 
-
-```{r eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
-
-# Now let's add cliplengths again, but this time to data, and calculate percentage looking times
-data <- data %>%
-  left_join(cliplength, by = "story") %>%
-  select(-frames) %>%
-  mutate(secs = hits/120,
-         percent = secs/clip_sec)
-
-# Histogram!
-data_ci <- data %>% filter(str_detect(story, "Cinderella"), percent > 0.04)
-data_km <- data %>% filter(str_detect(story, "KingMidas"), percent > 0.04)
-data_3b <- data %>% filter(str_detect(story, "ThreeBears"), percent > 0.04)
-data_rr <- data %>% filter(str_detect(story, "RedRiding"), percent > 0.04)
-
-ggplot(data_ci, aes(x = percent)) + geom_histogram() + facet_grid(aoi ~ story) + theme(strip.text.y = element_text(angle = 0), axis.text.y = element_blank(), axis.ticks = element_blank()) + ylab("") +
-  scale_x_continuous(breaks=seq(0, 1, .1))
-
-ggplot(data_km, aes(x = percent)) + geom_histogram() + facet_grid(aoi ~ story) + theme(strip.text.y = element_text(angle = 0), axis.text.y = element_blank(), axis.ticks = element_blank()) + ylab("") +
-  scale_x_continuous(breaks=seq(0, 1, .1))
-
-ggplot(data_3b, aes(x = percent)) + geom_histogram() + facet_grid(aoi ~ story) + theme(strip.text.y = element_text(angle = 0), axis.text.y = element_blank(), axis.ticks = element_blank()) + ylab("") +
-  scale_x_continuous(breaks=seq(0, 1, .1))
-
-ggplot(data_rr, aes(x = percent)) + geom_histogram() + facet_grid(aoi ~ story) + theme(strip.text.y = element_text(angle = 0), axis.text.y = element_blank(), axis.ticks = element_blank()) + ylab("") +
-  scale_x_continuous(breaks=seq(0, 1, .1))
-
-```
-
-# Save!
+## Save!
 Great. Let's save this as `cleanedchildxydata.csv'. 
 
 ```{r}
@@ -141,8 +172,8 @@ data <- data %>%
     direction == "ER" ~ "reversed"
   )) %>%
   mutate(language = case_when(
-    language == "SignLanguageExposed" ~ "sign",
-    language == "EnglishExposed" ~ "english"
+    language == "SignLanguageExposed" ~ "SE",
+    language == "EnglishExposed" ~ "NSE"
   )) %>%
   mutate(group = as.factor(group),
          gender = as.factor(gender),
@@ -155,35 +186,10 @@ write_csv(data,"../Child Data/cleanedchildxydata.csv")
 write_feather(data,"../Child Data/cleanedchildxydata.feather")
 ```
 
-# Participant Table
+## Any other data cleanup?? 
+Do we need to do any other cleanup? I don't think so. 
 
-Now we can present the following table about our participants. 
-
-```{r}
-participants <- data %>%
-  select(participant, gender, language, age) %>%
-  distinct()
-
-participants_n <- participants %>%
-  count(gender, language) %>%
-  spread(gender, n)
-
-participants_age <- participants %>%
-  group_by(language) %>%
-  summarise(age_m = round(mean(age), 1), 
-            age_sd = round(sd(age), 1),
-            age_min = range(age)[1],
-            age_max = range(age)[2]) %>%
-  mutate(age_range = paste(age_min, age_max, sep = " - ")) %>%
-  select(-age_min, -age_max) %>%
-  mutate(age_mean = paste(age_m, age_sd, sep = "±")) %>%
-  select(-age_m, -age_sd) %>%
-  select(language, age_mean, age_range)
-
-left_join(participants_n, participants_age, by = "language")
-```
-
-# Analysis Time!
+# Means vs Medians
 
 First, let's trim each participant's data, getting rid of the first 60 samples (0.5 secs). Then we'll get the the mean x and y coordinate for each story for each participant.
 
@@ -195,23 +201,240 @@ data <- data %>%
   group_by(participant,trial) %>%
   slice(60:n())
 
-means <- data %>%
-  group_by(participant,trial) %>%
-  summarise(x = mean(x,na.rm=TRUE),
-            y = mean(y,na.rm=TRUE))
-head(means,10)
+data_central_tendencies <- data %>%
+  group_by(language, agegroup, participant, trial) %>%
+  summarise(mean_x = mean(x,na.rm=TRUE),
+            mean_y = mean(y,na.rm=TRUE),
+            median_x = median(x, na.rm=TRUE),
+            median_y = median(y, na.rm=TRUE),
+            diff_x = mean_x - median_x,
+            diff_y = mean_y - median_y)
+
+means <- data_central_tendencies %>%
+  group_by(language, agegroup, participant) %>%
+  summarise(mean_x = mean(mean_x, na.rm = TRUE),
+            mean_y = mean(mean_y, na.rm = TRUE)) %>%
+  group_by(language, agegroup) %>%
+  summarise(sd_x = sd(mean_x),
+            sd_y = sd(mean_y),
+            n = n(),
+            mean_x = mean(mean_x),
+            mean_y = mean(mean_y)*-1,
+            se_x = sd_x/sqrt(n),
+            se_y = sd_y/sqrt(n))
+
+means
+
+means_error <- means %>%
+  select(-n, -sd_x, -sd_y) %>%
+  gather(measure, value, mean_x:se_y) %>%
+  separate(measure, into = c("measure","axis")) %>%
+  spread(measure, value)
+
+means_error %>%
+  filter(axis == "x") %>%
+  ggplot(aes(x = agegroup, y = mean, color = language, group = language)) + 
+  geom_point(position = position_dodge(width = 0.4)) +
+  geom_errorbar(aes(ymin = mean-se, ymax = mean+se), 
+                position = position_dodge(width = 0.4), width = 0.25, size = 0.5) + 
+  scale_y_continuous(limits = c(0,1080)) +
+  coord_flip() + 
+  labs(y = "mean along x axis", title = "X-Axis Means")
+
+means_error %>%
+  filter(axis == "y") %>%
+  ggplot(aes(x = agegroup, y = mean, color = language, group = language)) + 
+  geom_point(position = position_dodge(width = 0.4)) +
+  geom_errorbar(aes(ymin = mean-se, ymax = mean+se), 
+                position = position_dodge(width = 0.4), width = 0.25, size = 0.5) + 
+  scale_y_continuous(limits = c(-720,0)) +
+  labs(y = "mean along y axis", title = "Y-Axis Means")
 ```
 
-And I can get x or y plots of one participant across 4 stories. Let's do Emmet. We'll set the x and y limits to the whole width of the Tobii monitor (1600x1200). But because Tobii considers (0,0) to be the upper left corner (and not the bottom left corner), we also need to flip the y axis. 
+
+## Skewness
+But is the data skewed? I've been wondering if we should be using MEDIANS because there can be some extreme x and y values. But Rain said there's been criticism of using medians and that means are better overall. Let's have a look. 
+
+The first chart shows the difference between the mean and the median for each participant and trial. Positive means the mean is bigger than the median, negative means the median is bigger. It shows there is some skew for the y-axis...but the vast majority of differences is less than 50 px so maybe it's okay. 
+
+The second chart shows the means and medians themselves. And the spread is pretty similar between mean and median so maybe using means is fine.
+
+```{r}
+data_central_tendencies %>%
+  gather(measure, value, diff_x:diff_y) %>%
+  ggplot(aes(x = value)) + geom_histogram() + facet_grid(. ~ measure)
+
+data_central_tendencies %>%
+  gather(measure, value, mean_x:median_y) %>%
+  separate(measure, into = c("measure","axis")) %>%
+  ggplot(aes(x = value)) + geom_histogram() + facet_grid(measure ~ axis)
+```
+
+## Testing the Means
+Let's run a LMM on the means. First, x means for babies. 
+```{r}
+means <- data %>%
+  group_by(language, agegroup, participant, age, story, direction, trial, repetition) %>%
+  summarise(x = mean(x, na.rm = TRUE),
+            y = mean(y, na.rm = TRUE))
+
+means$repetition = as.factor(means$repetition)
+means$trial = as.factor(means$trial)
+
+lmm_baby_mean_x <- lmer(x ~ language * direction + age + 
+                          (1|story) + (1|participant) + (1|repetition) + (1|trial), 
+                        data = filter(means, agegroup == "baby"))
+summary(lmm_baby_mean_x)
+```
+
+Y means for babies
+```{r}
+lmm_baby_mean_y <- lmer(y ~ language * direction + age + 
+                          (1|story) + (1|participant) + (1|repetition) + (1|trial), 
+                        data = filter(means, agegroup == "baby"))
+summary(lmm_baby_mean_y)
+```
+
+X means for children
+```{r}
+lmm_child_mean_x <- lmer(x ~ language * direction + age + 
+                          (1|story) + (1|participant) + (1|repetition) + (1|trial), 
+                        data = filter(means, agegroup == "child"))
+summary(lmm_child_mean_x)
+```
+
+Y means for children
+```{r}
+lmm_child_mean_y <- lmer(y ~ language * direction + age + 
+                          (1|story) + (1|participant) + (1|repetition) + (1|trial), 
+                        data = filter(means, agegroup == "child"))
+summary(lmm_child_mean_y)
+```
+
+Let's try it with both kids and babies. 
+```{r}
+lmm_all_mean_x <- lmer(x ~ language * direction * agegroup + 
+                          (1|story) + (1|participant) + (1|repetition) + (1|trial), 
+                        data = means)
+summary(lmm_all_mean_x)
+lmm_all_mean_y <- lmer(y ~ language * direction * agegroup + 
+                          (1|story) + (1|participant) + (1|repetition) + (1|trial), 
+                        data = means)
+summary(lmm_all_mean_y)
+```
+
+## Summary
+No difference in the mean looking position for x or y in children or babies! But if we put children and babies in the same dataset we get a significant main effect of children vs. babies. Okay. 
+
+# Plotting One Kid
+
+And I can get x or y plots of one participant across 8 stories. Let's do Emmet. We'll set the x and y limits to the whole width of the Tobii monitor (1600x1200...or is it now 1080x720). But because Tobii considers (0,0) to be the upper left corner (and not the bottom left corner), we also need to flip the y axis. 
 
 ```{r}
 emmet <- filter(data,participant=="emmet_12_10_12_CODA") %>% mutate(y = y*-1)
-ggplot(emmet,aes(x=x,y=y,color=story)) + geom_point(size=0.1) + geom_path() + facet_wrap("story",ncol=4,nrow=2) + guides(color="none") + scale_x_continuous(limit=c(0,1600)) + scale_y_continuous(limit=c(-1200,0))
+ggplot(emmet,aes(x=x,y=y,color=story)) + geom_point(size=0.1) + geom_path() + facet_grid(repetition ~ story) + guides(color="none") + scale_x_continuous(limit=c(0,1080)) + scale_y_continuous(limit=c(-720,0))
 ```
 
 Cool, yeah? 
 
-# IQR 
+# Viewing Space (SD)
+To measure viewing space, we can use standard deviation or IQR. Generally, if we're using means, we should use standard deviations. If we're using medians, we should use IQR. That's my thinking, anyway. 
+
+We'll try SDs first. Let's try the first SD, which is the middle 68% of the data. 
+
+```{r}
+sd <- data %>%
+  group_by(participant, trial) %>%
+  summarise(mean_x = mean(x, na.rm = TRUE),
+            mean_y = mean(y, na.rm = TRUE),
+            sd_x = sd(x, na.rm = TRUE),
+            sd_y = sd(y, na.rm = TRUE)) %>%
+  ungroup()
+head(sd,10)
+
+# join participant info back
+participantinfo <- data %>%
+  select(participant, trial, age, group, agegroup, gender, language, story, direction, mark, repetition) %>%
+  distinct()
+sd <- left_join(sd, participantinfo, by = c("participant","trial"))
+```
+
+And check out the histograms. I truncated the y-axis at 50 counts to better see outliers. 
+
+```{r}
+sd %>% 
+  gather(axis,sd,sd_x:sd_y) %>%
+  ggplot(aes(x=sd,fill=axis)) + geom_histogram() + facet_grid(axis~.) + 
+  coord_cartesian(ylim = c(0,50))
+```
+
+So there are some really high outliers where the SD is 150 or 200 pixels in one direction (so a spread of as high as 400 pixels, which is a lot! I want to see those cases to see if they should be taken out or if we don't need to worry about them. 
+
+> It may be useful to think about getting rid of outliers. We should keep this in mind...
+
+```{r}
+
+xoutliers <- sd %>%
+  arrange(desc(sd_x)) %>%
+  slice(1:20)
+youtliers <- sd %>%
+  arrange(desc(sd_y)) %>%
+  slice(1:20)
+xoutliers
+youtliers
+
+```
+
+## Testing
+First, does reversal and language experience have an effect on the SD? Babies, x-axis first. 
+
+```{r}
+sd$trial <- as.factor(sd$trial)
+sd$repetition <- as.factor(sd$repetition)
+
+sd_x_baby <- lmer(sd_x ~ direction * language + age + (1|participant) + (1|story) + (1|repetition) + (1|trial), data = filter(sd, agegroup == "baby"))
+summary(sd_x_baby)
+```
+
+That's fine, we're not exactly predicting changes along the x-axis. The y-axis is what we are really interested in! :) 
+```{r}
+sd_y_baby <- lmer(sd_y ~ direction * language + age + (1|participant) + (1|story) + (1|repetition) + (1|trial), data = filter(sd, agegroup == "baby"))
+summary(sd_y_baby)
+```
+
+Now children, x-axis
+```{r}
+sd_x_child <- lmer(sd_x ~ direction * language + age + (1|participant) + (1|story) + (1|repetition) + (1|trial), data = filter(sd, agegroup == "child"))
+summary(sd_x_child)
+```
+
+And children, y-axis
+```{r}
+sd_y_child <- lmer(sd_y ~ direction * language + age + (1|participant) + (1|story) + (1|repetition) + (1|trial), data = filter(sd, agegroup == "child"))
+summary(sd_y_child)
+```
+
+And now all babies/children, x axis
+```{r}
+sd_x_all <- lmer(sd_x ~ direction * language * agegroup + (1|participant) + (1|story) + (1|repetition) + (1|trial), data = sd)
+summary(sd_x_all)
+```
+
+```{r}
+sd_y_all <- lmer(sd_y*2 ~ direction * language * agegroup + (1|participant) + (1|story) + (1|repetition) + (1|trial), data = sd)
+summary(sd_y_all)
+```
+
+## Summary
+So there is no effect of language or direction (or interactions) on the standard deviation. Among babies, there seems to be an effect of age on y-axis viewing space such that it narrows the older the baby is (p = 0.046). 
+
+When we put babies and children together, we see age group differences for sd_x and sd_y, not surprisingly. 
+
+
+# Everything after this needs to be updated.
+
+# Viewing Space (IQR)
+
 Now let's get the middle 50% (aka the IQR) of x and y for each participant's story (we've already trimmed the first 60 samples). That should also take care of further weird outliers. And we are defining "viewing space" as the IQR of the x and y axis. 
 
 ```{r}
