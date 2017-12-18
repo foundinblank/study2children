@@ -251,6 +251,22 @@ means_error %>%
   labs(y = "mean along y axis", title = "Y-Axis Means")
 ```
 
+## Distribution
+But is the y-value distribution unimodal, bimodal, normal, what? Do the means represent the only peak? Let's get histograms.
+
+```{r}
+ggplot(data, aes(x = y)) + geom_histogram(binwidth = 10) + facet_grid(agegroup ~ language) +
+  ggtitle("Histograms of all y-values in all stories")
+```
+
+Maybe the mixture of stories and directions throws off the histograms. Let's break it down by "mark" which is an unique number I assigned to each story/direction. 
+
+```{r fig.height=12}
+ggplot(data, aes(x = y)) + geom_histogram(binwidth = 10) + facet_grid(mark ~ agegroup) +
+  ggtitle("Histograms of all y-values by each story/mark")
+```
+
+Still seems mostly unimodal (that means one peak, right?). 
 
 ## Skewness
 But is the data skewed? I've been wondering if we should be using MEDIANS because there can be some extreme x and y values. But Rain said there's been criticism of using medians and that means are better overall. Let's have a look. 
