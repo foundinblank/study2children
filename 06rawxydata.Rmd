@@ -37,7 +37,7 @@ write_feather(data, "../Child Data/childxydata.feather")
 
 # Participants
 
-Great! At this point, I've run a Matlab script on the children's raw data to collect XY gaze data for each video/trial they viewed. We start with 68 children. Here they are. 
+Great! At this point, I've run a Matlab script on the children's raw data to collect XY gaze data for each video/trial they viewed. We start with 68 *(now 79 after Dec/Jan batch of 11 kids)* children. Here they are. 
 
 ```{r message=FALSE}
 # Libraries
@@ -55,7 +55,7 @@ data <- read_feather("../Child Data/childxydata.feather")
 # Get ages
 ages <- read_csv("childrenages.csv")
 data <- data %>% left_join(ages, by = "participant")
-data %>% select(participant,language,age) %>% distinct() # print data table
+data %>% select(participant,language,age) %>% distinct() %>% arrange(age)  # print data table
 ```
 
 ## Removing Excluded Kids

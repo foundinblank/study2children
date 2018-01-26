@@ -26,7 +26,7 @@ end
 gender = alldata.x_Gender_Value{1};
 language = alldata.x_Language_Value{1};
 analysis = alldata.x_Analysis_Value{1};
-participant = alldata.ParticipantName{1};
+participant = alldata.x___ParticipantName{1};
 
 % Replace all NA with '' 
 %alldata = standardizeMissing(alldata,'NA');
@@ -144,7 +144,7 @@ end
 %% Save xydata as csv
 rownames = {'mark','xpos','ypos'};
 xydataT = array2table(xydata,'VariableNames',rownames);
-savefile = strcat(ID,'_TwoPuppiesData.csv');
+savefile = strcat(participant,'_',ID,'_TwoPuppiesData.csv');
 writetable(xydataT,fullfile(pathname_csv,savefile));
 disp(['Saved ',savefile,'!']);
 

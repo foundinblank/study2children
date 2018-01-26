@@ -14,7 +14,7 @@ output:
 ---
 
 ```{r eval=FALSE, include=FALSE}
-# This is to get all kids' _processed_ AOI data into one single file. Should only run when needed. 
+# This is to get ALLL ALLLL kids' _processed_ AOI data into one single file. Should only run when needed. 
 library(tidyverse)
 library(feather)
 
@@ -187,10 +187,11 @@ data <- data %>%
 data %>% select(participant, language, trial) %>% distinct() %>% group_by(language, participant) %>% summarise(trials = n()) %>% arrange(trials)
 ```
 
-So based on that, we're removing Jelena. 
+So based on that, we're removing Jelena and Gianni. 
 
 ```{r}
 data <- data %>% filter(participant != "JelenaCODAhearing_4y2m")
+data <- data %>% filter(participant != "Gianni 3y6m CODA")
 ```
 
 # Checking for Outliers 

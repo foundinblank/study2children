@@ -14,5 +14,5 @@ filenum = length(csvfiles_all);
 warning('off','MATLAB:table:ModifiedVarnames');
 for i = 1:filenum
     csvfile = csvfiles_all(i).name;
-    ChildTobiiExtractloop;
+    ChildTobiiExtract_TwoPuppiesloop;
 end

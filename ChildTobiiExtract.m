@@ -171,6 +171,6 @@ aoidata = [IDs,participants,analyses,groups,genders,languages,aoidata];
 rownames = {'recording','participant','analysis','group','gender','language','condition','mark','trial','repetition','onset','offset','aoi','hits'};
 aoidataT = cell2table(aoidata,'VariableNames',rownames);
 
-savefile = strcat(ID,'_aoidata.csv');
+savefile = strcat(participant,'_',ID,'_aoidata.csv');
 writetable(aoidataT,fullfile(pathname_csv,savefile));
 disp(['Saved ',savefile,'!']);

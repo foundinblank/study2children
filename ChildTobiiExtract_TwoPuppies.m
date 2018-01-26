@@ -148,7 +148,7 @@ end
 %% Save xydata as csv
 rownames = {'mark','xpos','ypos'};
 xydataT = array2table(xydata,'VariableNames',rownames);
-savefile = strcat(ID,'_TwoPuppiesData.csv');
+savefile = strcat(participant,'_',ID,'_TwoPuppiesData.csv');
 writetable(xydataT,fullfile(pathname_csv,savefile));
 disp(['Saved ',savefile,'!']);
 

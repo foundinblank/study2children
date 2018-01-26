@@ -412,4 +412,257 @@ ZA's offsets are approximately:
 za_stats %>% group_by(axis) %>% summarise(offset = mean(offset))
 ```
 
+# New Kids
 
+## Stella 5.81 y CODA GOOD
+```{r message=FALSE}
+stella <- read_csv("../Child Data/_twopuppies/Stella 5.81 y CODA GOOD_Rec 02_TwoPuppiesData.csv") %>%
+  mutate(puppy = case_when(
+    mark == 1 ~ "chihuahua",
+    mark == 2 ~ "frisby"
+  )) %>%
+  rename(x = xpos, y = ypos) %>%
+  gather(axis, pos, x:y)
+
+ggplot(stella, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
+
+stella_stats <- stella %>%
+  group_by(puppy, axis) %>%
+  summarise(mean = mean(pos, na.rm=TRUE),
+         median = median(pos, na.rm=TRUE)) %>%
+  ungroup() %>%
+  mutate(offset = median - globalmedian) %>%
+  print()
+```
+
+Stella's offsets are approximately: 
+```{r}
+stella_stats %>% group_by(axis) %>% summarise(offset = mean(offset))
+```
+
+## Ethan 10.5 y CODA GOOD
+```{r message=FALSE}
+ethan <- read_csv("../Child Data/_twopuppies/Ethan 10.5 y CODA GOOD_Rec 04_TwoPuppiesData.csv") %>%
+  mutate(puppy = case_when(
+    mark == 1 ~ "chihuahua",
+    mark == 2 ~ "frisby"
+  )) %>%
+  rename(x = xpos, y = ypos) %>%
+  gather(axis, pos, x:y)
+
+ggplot(ethan, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
+
+ethan_stats <- ethan %>%
+  group_by(puppy, axis) %>%
+  summarise(mean = mean(pos, na.rm=TRUE),
+         median = median(pos, na.rm=TRUE)) %>%
+  ungroup() %>%
+  mutate(offset = median - globalmedian) %>%
+  print()
+```
+
+Ethan's offsets are approximately: 
+```{r}
+ethan_stats %>% group_by(axis) %>% summarise(offset = mean(offset))
+```
+
+## Marcus 8.15 y CODA GOOD
+```{r message=FALSE}
+marcus <- read_csv("../Child Data/_twopuppies/Marcus 8.15 y CODA GOOD_Rec 05_TwoPuppiesData.csv") %>%
+  mutate(puppy = case_when(
+    mark == 1 ~ "chihuahua",
+    mark == 2 ~ "frisby"
+  )) %>%
+  rename(x = xpos, y = ypos) %>%
+  gather(axis, pos, x:y)
+
+ggplot(marcus, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
+
+marcus_stats <- marcus %>%
+  group_by(puppy, axis) %>%
+  summarise(mean = mean(pos, na.rm=TRUE),
+         median = median(pos, na.rm=TRUE)) %>%
+  ungroup() %>%
+  mutate(offset = median - globalmedian) %>%
+  print()
+```
+
+Marcus's offsets are approximately: 
+```{r}
+marcus_stats %>% group_by(axis) %>% summarise(offset = mean(offset))
+```
+## GiaLessa 2y2m CODA
+```{r message=FALSE}
+gialessa <- read_csv("../Child Data/_twopuppies/GiaLessa 2y2m CODA_Rec 03_TwoPuppiesData.csv") %>%
+  mutate(puppy = case_when(
+    mark == 1 ~ "chihuahua",
+    mark == 2 ~ "frisby"
+  )) %>%
+  rename(x = xpos, y = ypos) %>%
+  gather(axis, pos, x:y)
+
+ggplot(gialessa, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
+
+gialessa_stats <- gialessa %>%
+  group_by(puppy, axis) %>%
+  summarise(mean = mean(pos, na.rm=TRUE),
+         median = median(pos, na.rm=TRUE)) %>%
+  ungroup() %>%
+  mutate(offset = median - globalmedian) %>%
+  print()
+```
+
+gialessa's offsets are approximately: 
+```{r}
+gialessa_stats %>% group_by(axis) %>% summarise(offset = mean(offset))
+```
+## Olivia CODA 2.5 y
+```{r message=FALSE}
+olivian <- read_csv("../Child Data/_twopuppies/Olivia CODA 2.5 y_Rec 06_TwoPuppiesData.csv") %>%
+  mutate(puppy = case_when(
+    mark == 1 ~ "chihuahua",
+    mark == 2 ~ "frisby"
+  )) %>%
+  rename(x = xpos, y = ypos) %>%
+  gather(axis, pos, x:y)
+
+ggplot(olivian, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
+
+olivian_stats <- olivian %>%
+  group_by(puppy, axis) %>%
+  summarise(mean = mean(pos, na.rm=TRUE),
+         median = median(pos, na.rm=TRUE)) %>%
+  ungroup() %>%
+  mutate(offset = median - globalmedian) %>%
+  print()
+```
+
+Olivia's offsets are approximately: 
+```{r}
+olivian_stats %>% group_by(axis) %>% summarise(offset = mean(offset))
+```
+## Zadre
+```{r message=FALSE}
+zadre <- read_csv("../Child Data/_twopuppies/za02pa_1y11m_Rec 07_TwoPuppiesData.csv") %>%
+  mutate(puppy = case_when(
+    mark == 1 ~ "chihuahua",
+    mark == 2 ~ "frisby"
+  )) %>%
+  rename(x = xpos, y = ypos) %>%
+  gather(axis, pos, x:y)
+
+ggplot(zadre, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
+
+zadre_stats <- zadre %>%
+  group_by(puppy, axis) %>%
+  summarise(mean = mean(pos, na.rm=TRUE),
+         median = median(pos, na.rm=TRUE)) %>%
+  ungroup() %>%
+  mutate(offset = median - globalmedian) %>%
+  print()
+```
+
+Zadre's offsets are approximately: 
+```{r}
+zadre_stats %>% group_by(axis) %>% summarise(offset = mean(offset))
+```
+## Janie CODA 16 m
+```{r message=FALSE}
+janie <- read_csv("../Child Data/_twopuppies/Janie CODA 16 m_Rec 08_TwoPuppiesData.csv") %>%
+  mutate(puppy = case_when(
+    mark == 1 ~ "chihuahua",
+    mark == 2 ~ "frisby"
+  )) %>%
+  rename(x = xpos, y = ypos) %>%
+  gather(axis, pos, x:y)
+
+ggplot(janie, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
+
+janie_stats <- janie %>%
+  group_by(puppy, axis) %>%
+  summarise(mean = mean(pos, na.rm=TRUE),
+         median = median(pos, na.rm=TRUE)) %>%
+  ungroup() %>%
+  mutate(offset = median - globalmedian) %>%
+  print()
+```
+
+Janie's offsets are approximately: 
+```{r}
+janie_stats %>% group_by(axis) %>% summarise(offset = mean(offset))
+```
+## luca_27m
+```{r message=FALSE}
+luca <- read_csv("../Child Data/_twopuppies/luca_27m_Rec 05_TwoPuppiesData.csv") %>%
+  mutate(puppy = case_when(
+    mark == 1 ~ "chihuahua",
+    mark == 2 ~ "frisby"
+  )) %>%
+  rename(x = xpos, y = ypos) %>%
+  gather(axis, pos, x:y)
+
+ggplot(luca, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
+
+luca_stats <- luca %>%
+  group_by(puppy, axis) %>%
+  summarise(mean = mean(pos, na.rm=TRUE),
+         median = median(pos, na.rm=TRUE)) %>%
+  ungroup() %>%
+  mutate(offset = median - globalmedian[1:2]) %>%
+  print()
+```
+
+Luca's offsets are approximately: 
+```{r}
+luca_stats %>% group_by(axis) %>% summarise(offset = mean(offset))
+```
+## Parker 6 m SIGNING
+```{r message=FALSE}
+parker <- read_csv("../Child Data/_twopuppies/Parker 6 m SIGNING_Rec 09_TwoPuppiesData.csv") %>%
+  mutate(puppy = case_when(
+    mark == 1 ~ "chihuahua",
+    mark == 2 ~ "frisby"
+  )) %>%
+  rename(x = xpos, y = ypos) %>%
+  gather(axis, pos, x:y)
+
+ggplot(parker, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
+
+parker_stats <- parker %>%
+  group_by(puppy, axis) %>%
+  summarise(mean = mean(pos, na.rm=TRUE),
+         median = median(pos, na.rm=TRUE)) %>%
+  ungroup() %>%
+  mutate(offset = median - globalmedian) %>%
+  print()
+```
+
+Parker's offsets are approximately: 
+```{r}
+parker_stats %>% group_by(axis) %>% summarise(offset = mean(offset))
+```
+## Penn 6 months SIGN EXPOSED
+```{r message=FALSE}
+penn <- read_csv("../Child Data/_twopuppies/Penn 6 months SIGN EXPOSED_Rec 06_TwoPuppiesData.csv") %>%
+  mutate(puppy = case_when(
+    mark == 1 ~ "chihuahua",
+    mark == 2 ~ "frisby"
+  )) %>%
+  rename(x = xpos, y = ypos) %>%
+  gather(axis, pos, x:y)
+
+ggplot(penn, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
+
+penn_stats <- penn %>%
+  group_by(puppy, axis) %>%
+  summarise(mean = mean(pos, na.rm=TRUE),
+         median = median(pos, na.rm=TRUE)) %>%
+  ungroup() %>%
+  mutate(offset = median - globalmedian) %>%
+  print()
+```
+
+Penn's offsets are approximately: 
+```{r}
+penn_stats %>% group_by(axis) %>% summarise(offset = mean(offset))
+```

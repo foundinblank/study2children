@@ -181,6 +181,6 @@ xydata = [IDs,participants,analyses,groups,genders,languages,xydata];
 rownames = {'recording','participant','analysis','group','gender','language','condition','mark','trial','repetition','onset','offset','x','y'};
 xydataT = cell2table(xydata,'VariableNames',rownames);
 
-savefile = strcat(ID,'_xydata.csv');
+savefile = strcat(participant,'_',ID,'_xydata.csv');
 writetable(xydataT,fullfile(pathname_csv,savefile));
 disp(['Saved ',savefile,'!']);
