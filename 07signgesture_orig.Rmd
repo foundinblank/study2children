@@ -1,0 +1,245 @@
+---
+title: "Signs & Gestures (study2children)"
+author: "Adam Stone, PhD" 
+date: '`r format(Sys.Date(), "%m-%d-%Y")`'
+output:
+  html_notebook:
+    code_folding: hide
+    theme: spacelab
+    highlight: tango
+    toc: yes
+    toc_depth: 2
+    toc_float: yes
+    df_print: paged
+---
+
+# Importing Summary Data
+We're going to load the summary data from Tobii that shows looking duration for each AOI and each trial. This is fine because there's only one repetition of each trial, so we can just use that output as it is. Other studies have more than one repetition, which Tobii collapses together when making summary data (and which we don't want), so we prefer to use raw data for those to calculate looking durations. 
+
+Three kids had double recordings (ShingYi, Joseph, and Madeliene) and those also will be resolved here. 
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(janitor)
+library(lme4)
+library(scales)
+library(openxlsx)
+
+# The big load and reorganizing goes here.
+data <- read_csv("../signgesturedata/dynamicaois.csv") %>%
+  clean_names() %>%
+  gather(stimulus, sec, gesta_fw_belly:signd_er_rightfacetop) %>%
+  select(-sum) %>%
+  rename(agegroup = age,
+         age = age_months) %>%
+  mutate(agegroup = factor(agegroup),
+         gender = factor(gender),
+         signer = factor(signer),
+         group = factor(group),
+         sec = as.numeric(sec)) %>%
+  separate(stimulus, into = c("media","direction","aoi")) %>%
+  mutate(video = str_sub(media, 5, 6), 
+         type = str_sub(media, 0, 4)) %>%
+  mutate(video = case_when(
+    type == "gest" & video == "a" ~ "e",
+    type == "gest" & video == "b" ~ "f",
+    type == "gest" & video == "c" ~ "g",
+    type == "gest" & video == "d" ~ "h",
+    TRUE ~ video
+  )) %>%
+  mutate(direction = case_when(
+    direction == "fw" ~ "forward",
+    direction == "er" ~ "reversed"
+  )) %>%
+  mutate(media = factor(media), 
+         video = factor(video),
+         type = factor(type), 
+         aoi = factor(aoi),
+         direction = factor(direction)) %>%
+  replace_na(list(sec = 0))
+
+# Let's pull in video lengths and calculate percentages
+lengths <- read_csv("storiesgestures_cliplengths.csv") %>%
+  select(-frames) %>%
+  rename(media = story,
+         length = seconds)
+data <- data %>% left_join(lengths, by = "media") %>%
+  mutate(percent = sec/length)
+
+# Let's pull out duplicates from the dataset, resolve them, and put them back in. 
+## FYI each participant should end up with 176 rows of data
+dupes <- data %>% filter(name %in% c("Joseph_NS_3y", "Madeliene_NS_5m", "ShingYi_NSE_5m"))
+data <- anti_join(data, dupes)
+
+## Resolve Joseph (1st recording's GestA, SignA, SignB trials are good)
+joseph <- dupes %>% filter(name == "Joseph_NS_3y")
+joseph_fix_1 <- joseph %>% filter(recording == "Joseph GOOD_Interrupted_Only3Blocks" & media %in% c("gesta","signa","signb"))
+joseph_fix_2 <- joseph %>% filter(recording == "Joseph GOOD_NS_2ndTime_SHIFT" & !(media %in% c("gesta","signa","signb")))
+joseph_fixed <- rbind(joseph_fix_1, joseph_fix_2)
+
+## Resolve Madeliene (keep 1st recording's GestD trial is good)
+mad <- dupes %>% filter(name == "Madeliene_NS_5m")
+mad_fix_1 <- mad %>% filter(recording == "Madeliene FirstTime" & media %in% c("gestd"))
+mad_fix_2 <- mad %>% filter(recording == "Madeliene 2ndTime_NS 5m GOOD maybe" & !(media %in% c("gestd")))
+mad_fixed <- rbind(mad_fix_1, mad_fix_2)
+
+## Resolve ShingYi (keep 1st recording only)
+sy <- dupes %>% filter(name == "ShingYi_NSE_5m")
+sy_fixed <- sy %>% filter(recording == "SnhingYi 5m NS GOOD")
+
+## Add fixed duplicates back in dataset
+data <- rbind(data, joseph_fixed, mad_fixed, sy_fixed)
+
+# Boxplot!
+ggplot(data, aes(x = aoi, y = percent, fill = direction)) + 
+  geom_boxplot() + theme(axis.text.x = element_text(angle=45, hjust = 1)) +
+  ggtitle("Quick boxplots of looking % across all videos, ALL DATA") +
+  scale_y_continuous(labels = scales::percent, limits = c(0,1))
+
+# DO AGES
+## pull ages from the age spreadsheet
+ages <- read.xlsx("../signgesturedata/Study1_ages.xlsx") %>% 
+  clean_names()
+
+age_months <- coalesce(ages$age_months, ages$manualage_months) # combine calculated and manual ages
+
+ages <- ages %>%
+  select(participantname) %>%
+  cbind(age_months) %>%
+  rename(name = participantname,
+         age = age_months)
+
+data <- data %>% 
+  select(-age) %>%
+  left_join(ages, by = "name")
+```
+
+## Remove Low-Looking Participants & Trials
+Trials with less than 25% total looking duration are removed from our analysis. That means children that had 4 or more trials with <25% looking are dropped wholly from our analysis. These are the children we are dropping, below: 
+```{r}
+# Count low trials
+lowlooking <- data %>%
+  group_by(name, signer, quality, age, media) %>%
+  summarise(total = sum(percent, na.rm = TRUE))
+
+# Plot
+ggplot(lowlooking, aes(x = total)) + geom_histogram(binwidth = 0.025) +
+  geom_vline(xintercept = .25) + 
+  ggtitle("Percent Looking in Individual Trials")
+
+# Get low-looking kids
+lowlooking_kids <- lowlooking %>%
+  mutate(low = total < .25) %>%
+  group_by(name, signer, quality, age) %>%
+  summarise(low_trials = sum(low)) %>%
+  arrange(desc(low_trials)) %>%
+  filter(low_trials > 3) %>%
+  print(head(10))
+```
+
+On top of that, we're also removing any <25% trials from our remaining (retained) kids so several of them will have less than 8 trials. Here they are, below. 
+
+```{r}
+# Pull out lowlooking kids' names and use that to remove from main dataset via an anti_join
+lowlooking_kids <- lowlooking_kids %>% select(name)
+data <- data %>% anti_join(lowlooking_kids, by = "name")
+
+# Now pull out low looking trials 
+lowlooking <- lowlooking %>%
+  mutate(low = total < .25) %>%
+  filter(low)
+
+# Remove low looking trials from dataset 
+data <- data %>% anti_join(lowlooking, by = c("name","media"))
+
+# Offer up how many kids have less than 8 trials. 
+data %>% select(name, media) %>%
+  distinct() %>%
+  count(name) %>%
+  rename(valid_trials = n) %>%
+  filter(valid_trials < 8) %>%
+  arrange(desc(valid_trials))
+```
+
+## Identify Outliers
+Next we'll identify any outliers/kids that need to be shifted. We'll look at belly, belowchest, left, and right AOIs across all stories. Also, leftfacetop, midfacetop, and rightfacetop. Those AOIs traditionally have really low values, so consistently high values in these are indicators that the participant's calibration is shifted. Kids with a lot of outlier values probably need to be shifted.
+
+```{r rows.print = 20}
+# Make outlier list
+outliers <- data %>% filter(aoi %in% c("belly","belowchest","left","right","leftfacetop",
+                                       "midfacetop","rightfacetop")) %>%
+  select(name, aoi, quality, media, aoi, percent) %>%
+  arrange(aoi, desc(percent)) %>%
+  group_by(aoi) %>%
+  slice(1:20) %>%
+  ungroup() %>%
+  count(name) %>%
+  arrange(desc(n))
+
+outliers <- data %>% 
+  select(name, quality, signer) %>% 
+  distinct() %>% 
+  right_join(outliers, by = "name") %>%
+  print()
+```
+
+Anyone with more than 2 may need to be checked for shifts. We can run this code again after shifting has happened, to perhaps catch any new outliers. 
+ 
+** For now I'm going to remove Avalon, Da02Ke23, Rowan, Elli, Noa, Bessie, Dylan, and Lyra** 
+
+```{r}
+# Remove those with more than 5 outliers
+outliers <- outliers %>%
+  filter(n > 5) %>%
+  select(name)
+
+data <- anti_join(data, outliers, by = "name")
+```
+
+# Let's Play
+
+Alright, let's play. Grab the boxplot again. 
+
+```{r}
+ggplot(data, aes(x = aoi, y = percent, fill = direction)) + 
+  geom_boxplot() + theme(axis.text.x = element_text(angle=45, hjust = 1)) +
+  ggtitle("Looking % across all videos") +
+  scale_y_continuous(labels = scales::percent, limits = c(0,1))
+```
+
+As usual, most of the looking behavior is in the mid AOIs. We also seem to have several high values for belowchest AND belly, which is interesting (they're also bigger AOIs too). Let's look up close. 
+
+```{r}
+data_mid <- data %>%
+  filter(str_detect(aoi,"mid") | aoi == "belowchest" | aoi == "belly")
+
+ggplot(data_mid, aes(x = aoi, y = percent, fill = direction)) + 
+  geom_boxplot() + theme(axis.text.x = element_text(angle=45, hjust = 1)) +
+  ggtitle("Looking Percentages for Middle AOIs, All Stories") +
+  scale_y_continuous(labels = scales::percent, limits = c(0,1))
+```
+
+We'll just look at MidFaceBottom as that's where the most is happening. 
+
+```{r}
+data_mid %>% 
+  filter(aoi == "midfacebottom") %>%
+  ggplot(aes(x = age, y = percent, color = direction)) + geom_point(alpha = 0.25) +
+  geom_smooth(method = "lm") + facet_grid(signer ~ .) +
+  scale_y_continuous(labels = scales::percent, limits = c(0,1)) +
+  ggtitle("MidFaceBottom")
+```
+
+```{r}
+# how many in each group? 
+kids <- data %>%
+  select(name, signer, age) %>%
+  distinct() %>%
+  mutate(group = case_when(
+    age <= 9 ~ "young_babies",
+    age > 9 & age <= 18 ~ "older_babies",
+    age > 18 ~ "children"
+  )) %>%
+  count(group, signer)
+```
+

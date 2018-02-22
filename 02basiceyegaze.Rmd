@@ -70,6 +70,19 @@ ggplot(data, aes(x = aoi, y = percent, fill = direction)) +
   geom_boxplot() + theme(axis.text.x = element_text(angle=45, hjust = 1)) +
   ggtitle("Looking Percentages for Each AOI, All Stories") +
   scale_y_continuous(labels = scales::percent, limits = c(0,1))
+
+View(data %>% group_by(direction, aoi) %>% summarise(percent = mean(percent)))
+```
+
+```{r}
+# Useful for copying to clipboard
+to_copy <- data %>%
+  group_by(language, direction, aoi) %>%
+  summarise(percent = mean(percent))
+
+clip <- pipe("pbcopy", "w")
+write.table(to_copy, file=clip, sep= '\t', row.names = FALSE)
+close(clip)
 ```
 
 Looks like by far most of the activity is along the Mid** AOIs. Let's look closer. 
