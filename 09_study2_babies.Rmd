@@ -394,12 +394,15 @@ babies_fcr2 %>%
 ```
 
 # Discussion
-Maybe more we can do here (heat maps, certainly) but. 
+Maybe more we can do here (heat maps, certainly).  
 
 The biggest change is we lost the interaction between language and direction. For the ICSLA abstract we reported a strong interaction (p = 0.01), but now it's p = 0.10. Likely because of the new babies we added, and recalculating percentages/denominators. 
 
 The interpretation here is that:
 
+* All babies looked equally at all videos regardless of langauge or direction. Good!
 * SE babies are much more strong face-lookers than NSE babies. (Same as ICSLA)
 * Reversal affects all babies, making many of them look at the face more
 * However, sign exposure does not affect how reversal affects...(this is unlike ICSLA)
+
+One thing I worry about is using age *without any interactions* and whether people will criticize us for that. Because age x language x direction is a "more complete" model as it suggests age may differently influence various combinatiosn (SE + reversed, NSE + forward, etc) differently, while age + language x direction means we're mainly using age as a covariate, not as a factor of interest. But if we use age as a factor of interest, all significance disappears, so ... we want to use age as a covariate if we want to have a story. But how to defend that decision and not just be p-hacking? I have to think about it...
