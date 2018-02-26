@@ -29,11 +29,8 @@ library(openxlsx)
 data <- read_csv("../signgesturedata/dynamicaois.csv") %>%
   clean_names() %>%
   gather(stimulus, sec, gesta_fw_belly:signd_er_rightfacetop) %>%
-  select(-sum) %>%
-  rename(agegroup = age,
-         age = age_months) %>%
-  mutate(agegroup = factor(agegroup),
-         gender = factor(gender),
+  select(-c(sum, age, age_months)) %>%
+  mutate(gender = factor(gender),
          signer = factor(signer),
          group = factor(group),
          sec = as.numeric(sec)) %>%
@@ -56,7 +53,7 @@ data <- read_csv("../signgesturedata/dynamicaois.csv") %>%
          type = factor(type), 
          aoi = factor(aoi),
          direction = factor(direction)) %>%
-  replace_na(list(sec = 0))
+  mutate(sec = replace_na(sec, 0))
 
 # Let's pull in video lengths and calculate percentages
 lengths <- read_csv("storiesgestures_cliplengths.csv") %>%
@@ -90,29 +87,153 @@ sy_fixed <- sy %>% filter(recording == "SnhingYi 5m NS GOOD")
 ## Add fixed duplicates back in dataset
 data <- rbind(data, joseph_fixed, mad_fixed, sy_fixed)
 
+
+# Ages - pull ages from the age spreadsheet
+ages <- read.xlsx("../signgesturedata/Study1_ages.xlsx") %>% 
+  clean_names() %>%
+  mutate(ages_all = coalesce(age_months, manualage_months)) %>% # combine calculated and manual ages
+  rename(name = participantname,
+         age = ages_all) %>%
+  select(name, age)
+
+data <- data %>% 
+  select(-age) %>%
+  left_join(ages, by = "name")
+
+
 # Boxplot!
 ggplot(data, aes(x = aoi, y = percent, fill = direction)) + 
   geom_boxplot() + theme(axis.text.x = element_text(angle=45, hjust = 1)) +
   ggtitle("Quick boxplots of looking % across all videos, ALL DATA") +
   scale_y_continuous(labels = scales::percent, limits = c(0,1))
 
-# DO AGES
-## pull ages from the age spreadsheet
-ages <- read.xlsx("../signgesturedata/Study1_ages.xlsx") %>% 
-  clean_names()
-
-age_months <- coalesce(ages$age_months, ages$manualage_months) # combine calculated and manual ages
-
-ages <- ages %>%
-  select(participantname) %>%
-  cbind(age_months) %>%
-  rename(name = participantname,
-         age = age_months)
-
-data <- data %>% 
-  select(-age) %>%
-  left_join(ages, by = "name")
+data %>%
+  group_by(name, media) %>%
+  summarise(percent = sum(percent),
+            secs = sum(sec))
 ```
+
+## Swapping in re-aligned data 
+Now we are going to swap in/out data for those who have been re-aligned. For comparison let's just pull the mean percent across everybody. 
+
+```{r}
+ggplot(data, aes(x = aoi, y = percent)) + stat_summary_bin(fun.y = "mean", geom = "bar") + theme(axis.text.x = element_text(angle=45, hjust = 1))
+```
+
+### Rowan
+Let's see Rowan's original, mis-aligned data
+```{r}
+rowan <- data %>% filter(name == "Rowan_6m") 
+
+ggplot(rowan, aes(x = aoi, y = percent)) + stat_summary_bin(fun.y = "mean", geom = "bar") + theme(axis.text.x = element_text(angle=45, hjust = 1))
+```
+
+Now let's see Rowan's new data. 
+
+```{r message=FALSE}
+# Clean up the new data
+rowan_new <- read_tsv("../signgesturedata/rowan grp 2 adjusted AOIs moved up and slightly to the left.txt") %>% clean_names() %>%
+  rename(name = x1) %>%
+  select(-c(age:signer)) %>%
+  gather(aoi, sec, 2:353) %>%
+  na_if("-") %>%
+  mutate(sec = replace_na(sec, 0)) %>%
+  mutate(aoi = str_remove_all(aoi, "total_fixation_duration_"),
+         aoi = str_remove_all(aoi, "_xvid_xvid_avi"),
+         aoi = str_remove_all(aoi, "_sum")) %>%
+  separate(aoi, into = c("media","direction","aoi","new")) %>%
+  filter(!is.na(new)) %>%
+  select(-c(new))
+
+# Add correct labels and calculate percentages
+rowan_new <- rowan_new %>%
+  mutate(media = case_when(
+    media == "gesturea" ~ "gesta",
+    media == "gestureb" ~ "gestb",
+    media == "gesturec" ~ "gestc",
+    media == "gestured" ~ "gestd",
+    TRUE ~ media
+  )) %>%
+  mutate(video = str_sub(media, 5, 6), 
+         type = str_sub(media, 0, 4)) %>%
+  mutate(video = case_when(
+    type == "gest" & video == "a" ~ "e",
+    type == "gest" & video == "b" ~ "f",
+    type == "gest" & video == "c" ~ "g",
+    type == "gest" & video == "d" ~ "h",
+    TRUE ~ video
+  )) %>%
+  mutate(direction = case_when(
+    direction == "fw" ~ "forward",
+    direction == "er" ~ "reversed"
+  )) %>%
+  left_join(lengths, by = "media") %>%
+  mutate(sec = as.numeric(sec),
+         percent = sec/length)
+
+ggplot(rowan_new, aes(x = aoi, y = percent)) + stat_summary_bin(fun.y = "mean", geom = "bar") + theme(axis.text.x = element_text(angle=45, hjust = 1))
+
+```
+
+
+### Avalon
+Let's see Avalon's original, mis-aligned data
+```{r}
+avalon <- data %>% filter(name == "Avalon_10m_NS") 
+
+ggplot(avalon, aes(x = aoi, y = percent)) + stat_summary_bin(fun.y = "mean", geom = "bar") + theme(axis.text.x = element_text(angle=45, hjust = 1))
+```
+
+Now let's see Avalon's new data. 
+
+```{r message=FALSE}
+# Clean up the new data
+avalon_new <- read_tsv("../signgesturedata/avalon grp 2 adjusted AOIs moved up use numbered columns only.txt") %>% clean_names() %>%
+  rename(name = x1) %>%
+  select(-c(age:signer)) %>%
+  gather(aoi, sec, 2:353) %>%
+  na_if("-") %>%
+  mutate(sec = replace_na(sec, 0)) %>%
+  mutate(aoi = str_remove_all(aoi, "total_fixation_duration_"),
+         aoi = str_remove_all(aoi, "_xvid_xvid_avi"),
+         aoi = str_remove_all(aoi, "_sum")) %>%
+  separate(aoi, into = c("media","direction","aoi","new")) %>%
+  filter(!is.na(new)) %>%
+  select(-c(new))
+
+# Add correct labels and calculate percentages
+avalon_new <- avalon_new %>%
+  mutate(media = case_when(
+    media == "gesturea" ~ "gesta",
+    media == "gestureb" ~ "gestb",
+    media == "gesturec" ~ "gestc",
+    media == "gestured" ~ "gestd",
+    TRUE ~ media
+  )) %>%
+  mutate(video = str_sub(media, 5, 6), 
+         type = str_sub(media, 0, 4)) %>%
+  mutate(video = case_when(
+    type == "gest" & video == "a" ~ "e",
+    type == "gest" & video == "b" ~ "f",
+    type == "gest" & video == "c" ~ "g",
+    type == "gest" & video == "d" ~ "h",
+    TRUE ~ video
+  )) %>%
+  mutate(direction = case_when(
+    direction == "fw" ~ "forward",
+    direction == "er" ~ "reversed"
+  )) %>%
+  left_join(lengths, by = "media") %>%
+  mutate(sec = as.numeric(sec),
+         percent = sec/length)
+
+ggplot(avalon_new, aes(x = aoi, y = percent)) + stat_summary_bin(fun.y = "mean", geom = "bar") + theme(axis.text.x = element_text(angle=45, hjust = 1))
+```
+
+```{r}
+# Need to add in data
+```
+
 
 ## Remove Low-Looking Participants & Trials
 Trials with less than 25% total looking duration are removed from our analysis. That means children that had 4 or more trials with <25% looking are dropped wholly from our analysis. These are the children we are dropping, below: 
@@ -194,6 +315,8 @@ outliers <- outliers %>%
   select(name)
 
 data <- anti_join(data, outliers, by = "name")
+
+write_csv(data, "study1cleaneddata.csv")
 ```
 
 # Let's Play

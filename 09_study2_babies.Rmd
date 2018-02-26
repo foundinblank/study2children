@@ -1,0 +1,405 @@
+---
+title: "Babies - Study 2 - Results"
+output: 
+  html_notebook:
+    code_folding: hide
+    theme: spacelab
+    highlight: tango
+    toc: yes
+    toc_depth: 2
+    toc_float: yes
+    df_print: paged
+---
+
+This is hopefully the results section for the Study 2 NSE & SE babies watching ASL Stories. We have two main factors: 
+
+1. Language (Sign v. English)
+1. Direction (Forward v. Reversed)
+
+Ages of babies are from 5 to 14.99 months. That means we lose two "old" CODA babies - Janine (16 mo) and za02 (23 mo). 
+
+The dataset also contains factors for younger v. older babies IF we want to do age group splits. I do not recommend it because we lose all significance that way and we have more precise age information, better than brute groups.  IF we do use it, the baby age groups are such:
+
+* Younger babies = 5 to 8.99 months
+* Older babies = 9.0 to 14.99 months
+
+# Demographics
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(janitor)
+library(lme4)
+library(scales)
+library(feather)
+
+babies <- read_feather("cleanedbabyeyedata.feather") %>%
+  mutate(age = age*12) %>%
+  select(participant, language, age, gender, story, direction, mark, trial, repetition, aoi, secs, percent) %>%
+  rename(name = participant) %>%
+  mutate(agegroup = case_when(
+    age <= 8.99 ~ "younger",
+    age >= 9.0 & age < 15 ~ "older"
+  )) %>%
+  filter(!is.na(agegroup)) %>%
+  mutate(language = case_when(
+    language == "english" ~ "NSE",
+    language =="sign" ~ "SE"
+  )) %>%
+  rename(lang = language)
+
+babiesinfo <- babies %>%
+  select(name, lang, age, gender) %>%
+  distinct() %>%
+  group_by(lang) %>%
+  summarise(N = n(),
+            age_mean = mean(age),
+            sd = sd(age),
+            min = min(age),
+            max = max(age))
+
+genders <- babies %>%
+  select(name, lang, age, gender) %>%
+  distinct() %>%
+  group_by(lang, gender) %>%
+  summarise(N = n()) %>%
+  spread(gender, N)
+
+babiesinfo <- left_join(babiesinfo, genders) %>%
+  select(lang, N, Female, Male, age_mean, sd, min, max) %>%
+  print()
+
+babies$agegroup <- fct_relevel(babies$agegroup, c("younger","older"))
+
+
+# IF we do age groups, use this code
+# 
+# babiesinfo <- babies %>%
+#   select(name, lang, age, agegroup, gender) %>%
+#   distinct() %>%
+#   group_by(lang, agegroup) %>%
+#   summarise(N = n(),
+#             age_mean = mean(age),
+#             sd = sd(age),
+#             min = min(age),
+#             max = max(age))
+# 
+# genders <- babies %>%
+#   select(name, lang, age, agegroup, gender) %>%
+#   distinct() %>%
+#   group_by(lang, agegroup, gender) %>%
+#   summarise(N = n()) %>%
+#   spread(gender, N)
+# 
+# babiesinfo <- left_join(babiesinfo, genders) %>%
+#   select(lang, agegroup, N, Female, Male, age_mean, sd, min, max) %>%
+#   print()
+```
+
+# Global Looking
+
+We calculated percentages *based on overall clip length* as the denominator. In this way, we can meaningfully contrast looking times at the videos (which are variable lengths) based on different factors. But when we go to AOI analysis we need to re-calculate the percentages so the denominator is based on total looking time, not overall clip length. 
+
+The chart below shows little differences based on factors AgeGroup, Language, or Direction. That's good, means the videos were equally engaging for all babies, right? 
+
+```{r}
+babies$lang <- as.factor(babies$lang)
+babies_overall_looking <- babies %>%
+  group_by(name, age, lang, direction, story, repetition) %>%
+  summarise(percent = sum(percent)) # gets total looking percent for each trial for each baby
+
+# Table of means
+babies_overall_looking %>% 
+  group_by(name, lang, direction) %>%
+  summarise(percent = mean(percent)) %>% # get average looking percent for each baby
+  group_by(lang, direction) %>%
+  summarise(mean_percent = mean(percent),
+            count = n(),
+            sd = sd(percent),
+            se = sd/sqrt(count)) %>%
+  select(-sd) %>%
+  print()
+
+ggplot(babies_overall_looking, aes(x = age, y = percent, color = direction, fill = direction)) + 
+  geom_jitter(alpha = 0.5) +
+  facet_grid(. ~ lang) +
+  geom_smooth(method = "lm", se = FALSE) +
+  ggtitle("Video Attention") +
+  xlab("age (months)") +
+  ylab("percent looking") + 
+  theme_bw() + 
+  scale_y_continuous(limits = c(0,1), labels = percent) 
+
+
+# Plot
+# babies_overall_looking %>% 
+#   group_by(lang, direction, name) %>%
+#   summarise(percent = mean(percent)) %>% # gets average looking percent for each baby
+#   group_by(lang, direction) %>%
+#   summarise(mean_percent = mean(percent), # gets group averages
+#             count = n(),
+#             sd = sd(percent),
+#             se = sd/sqrt(count)) %>% 
+#   ggplot(aes(x = lang, y = mean_percent, fill = direction)) + 
+#   geom_col(position = "dodge") + 
+#   geom_errorbar(aes(ymin = mean_percent - se, ymax = mean_percent + se), 
+#                 position = position_dodge(width = 0.9), width = 0.25) + 
+#   scale_y_continuous(limits = c(0,1), labels = percent) +
+#   theme_minimal() + 
+#   theme(panel.grid.major.x = element_blank()) +
+# #  facet_wrap("lang") +
+#   ggtitle("Video Attention") +
+#   xlab("") +
+#   ylab("percent looking")
+
+# babies_overall_looking %>%
+#   ggplot(aes(x = lang, y = percent, fill = direction)) +
+#   facet_wrap("agegroup") + 
+#   geom_violin()
+```
+
+A linear model shows there were no significant effects of any factors. We can conclude there was no effect on how *much* the babies looked at the stimuli.  
+
+```{r}
+global_lm <- lmer(percent ~ age * lang * direction + (1|name) + (1|story), data = babies_overall_looking)
+summary(global_lm)
+```
+
+# AOI Looking
+Now we'll re-calculate the percentages so the denominator is based on total looking time. All AOIs should sum up to 100% for each trial and each baby. Next let's make a boxplot of all AOIs. 
+
+```{r}
+# Recalculate percent
+babies <- babies %>% 
+  select(-percent) %>%
+  group_by(name, lang, agegroup, age, direction, story, mark, trial, repetition) %>%
+  mutate(totalsec = sum(secs)) %>%
+  group_by(name, lang, agegroup, age, direction, story, mark, trial, repetition, aoi) %>%
+  summarise(percent = secs/totalsec)
+
+# Boxplot
+babies %>%
+  ggplot(aes(x = aoi, y = percent, fill = direction)) + 
+  geom_boxplot() +
+  ggtitle("AOI Attention") +
+  theme_bw() + 
+  xlab("") +
+  theme(axis.text.x = element_text(angle=45, hjust = 1),
+        panel.grid.major.x = element_blank()) +
+  scale_y_continuous(labels = scales::percent, limits = c(0,1))
+```
+It appears two important AOIs are MidChestTop and MidFaceBottom. Let's look again only at midline AOIs:
+
+```{r}
+midline = c("Belly","BelowChest","MidChestBottom","MidChestCenter","MidChestTop",
+            "MidFaceBottom","MidFaceCenter","MidFaceTop")
+babies %>%
+  filter(aoi %in% midline) %>%
+  ggplot(aes(x = aoi, y = percent, fill = direction)) + 
+  geom_boxplot() +
+  ggtitle("Midline AOI Attention") +
+  theme_bw() + 
+  xlab("") +
+  theme(axis.text.x = element_text(angle=45, hjust = 1),
+        panel.grid.major.x = element_blank()) +
+  scale_y_continuous(labels = scales::percent, limits = c(0,1))
+```
+
+I'm going to run linear models with only MidChestTop or MidFaceBottom, and see what happens. No age interactions.
+
+**MidChestTop:**
+
+* Significant effect of age (p = 0.020) - older babies look at MidChestTop AOI more.
+* Significant effect of language (p = 0.045) - NSE babies look +12.7% more than SE babies. 
+* Significant effect of direction (p = 0.05) - Babies look about 4.5% less for reversed
+* No language X direction interaction. 
+
+**MidFaceBottom:** 
+
+* No effect of age
+* Significant effect of language (p = 0.011) - SE babies look +20% more than NSE babies.
+* Marginal effect of language (p = 0.072) - Babies look about 4% more for reversed. 
+* No language X direction interaction.
+
+```{r}
+babies %>%
+  filter(aoi %in% c("MidFaceBottom","MidChestTop")) %>%
+  ggplot(aes(x = age, y = percent, color = direction, fill = direction)) + 
+  geom_jitter(alpha = 0.5) + 
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_y_continuous(limits = c(0,1), labels = percent) +
+  theme_bw() + 
+#  theme(panel.grid.major.x = element_blank()) +
+  facet_grid(aoi ~ lang) +
+  ggtitle("AOI Attention") +
+  xlab("") +
+  ylab("percent looking")
+
+midchesttop_lm <- lmer(percent ~ age + lang * direction + (1|name) + (1|story), data = filter(babies, aoi == "MidChestTop"))
+summary(midchesttop_lm)
+
+midfacebottom_lm <- lmer(percent ~ age + lang * direction + (1|name) + (1|story), data = filter(babies, aoi == "MidFaceBottom"))
+summary(midfacebottom_lm)
+
+# Bar chart
+# babies %>%
+#   filter(aoi %in% c("MidFaceBottom","MidChestTop")) %>%
+#   group_by(agegroup, lang, direction, name, aoi) %>%
+#   summarise(percent = mean(percent)) %>% # gets average looking percent for each baby
+#   group_by(agegroup, lang, direction, aoi) %>%
+#   summarise(mean_percent = mean(percent), # gets group averages
+#             count = n(),
+#             sd = sd(percent),
+#             se = sd/sqrt(count)) %>% 
+#   ggplot(aes(x = lang, y = mean_percent, fill = direction)) + 
+#   geom_col(position = "dodge") + 
+#   geom_errorbar(aes(ymin = mean_percent - se, ymax = mean_percent + se), 
+#                 position = position_dodge(width = 0.9), width = 0.25) + 
+#   scale_y_continuous(limits = c(0,1), labels = percent) +
+#   theme_minimal() + 
+#   theme(panel.grid.major.x = element_blank()) +
+#   facet_grid(aoi ~ agegroup) +
+#   ggtitle("Video Attention") +
+#   xlab("") +
+#   ylab("percent looking")
+```
+
+
+# Face-Chest Ratio
+Next, we'll define a Face-Chest Ratio (FCR) such that:
+
+1. MidFaceCenter, MidFaceBottom = Face
+1. MidChestTop, MidChestCenter, MidChestBottom, BelowChest = Chest
+1. FCR = face - chest / face + chest
+
+We did not include Belly or MidFaceTop because of very low looking rates according to the boxplots above.
+
+```{r}
+babies_fcr <- babies %>%
+  spread(aoi,percent) %>%
+  group_by(name, age, agegroup, lang, direction, story, repetition) %>%
+  summarise(face = sum(MidFaceCenter, MidFaceBottom, na.rm = TRUE),
+         chest = sum(MidChestTop, MidChestCenter, MidChestBottom, BelowChest, na.rm = TRUE),
+         fcr = (face - chest) / (face + chest))
+
+# Table of means
+babies_fcr %>% 
+  group_by(lang, direction, name) %>%
+  summarise(fcr = mean(fcr)) %>% # gets average looking percent for each baby
+  group_by(lang, direction) %>%
+  summarise(mean_fcr = mean(fcr), # gets group averages
+            count = n(),
+            sd = sd(fcr),
+            se = sd/sqrt(count)) %>%
+  select(-sd) %>%
+  print()
+
+# Plot
+ggplot(babies_fcr, aes(x = age, y = fcr, color = direction, fill = direction)) + 
+  geom_jitter(alpha = 0.5) + 
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_y_continuous(limits = c(-1,1)) +
+  theme_bw() + 
+  theme(panel.grid.major.x = element_blank()) +
+  facet_grid(. ~ lang) +
+  ggtitle("Face-Chest Ratios") +
+  xlab("") +
+  ylab("FCR")
+
+# Bar chart
+# babies_fcr %>% 
+#   group_by(agegroup, lang, direction, name) %>%
+#   summarise(fcr = mean(fcr)) %>% # gets average looking percent for each baby
+#   group_by(agegroup, lang, direction) %>%
+#   summarise(mean_fcr = mean(fcr), # gets group averages
+#             count = n(),
+#             sd = sd(fcr),
+#             se = sd/sqrt(count)) %>% 
+#   ggplot(aes(x = lang, y = mean_fcr, fill = direction)) + 
+#   geom_col(position = "dodge") + 
+#   geom_errorbar(aes(ymin = mean_fcr - se, ymax = mean_fcr + se), 
+#                 position = position_dodge(width = 0.9), width = 0.25) + 
+#   scale_y_continuous(limits = c(-1,1)) +
+#   theme_minimal() + 
+#   theme(panel.grid.major.x = element_blank()) +
+#   facet_wrap("agegroup") +
+#   ggtitle("Face-Chest Ratios") +
+#   xlab("") +
+#   ylab("FCR")
+```
+
+What will a linear mixed model tell us? (with no age interactions)
+
+* No effect of age. Interesting. Maybe just becuase we don't have that many babies. 
+* Effect of language: SE babies have overall +0.49 FCR than NSE babies (p = 0.018). SE looks at the face more than the chest. 
+* Effect of direction: Reversal *increases* FCR by +0.11 across all babies (p = 0.030). Interesting.
+* *Weakkkk* language x direction interaction: bigger reversal effect in SE babies than NSE babies (p = 0.098).
+
+```{r}
+fcr_lm <- lmer(fcr ~ age + lang * direction + (1|name) + (1|story), data = babies_fcr)
+summary(fcr_lm)
+```
+
+I want to try to visualize reversal effects a different way. Maybe this. 
+
+```{r}
+# Get participant-level data
+babies_fcr2 <- babies_fcr %>%
+  group_by(name, age, lang, direction) %>%
+  summarise(fcr = mean(fcr))
+
+# reversal_effect_lm <- lmer(fcr ~ age + lang * direction + (1|name), data = babies_fcr2)
+# summary(reversal_effect_lm)
+
+ggplot(babies_fcr2, aes(x = direction, y = fcr, color = lang, fill = lang)) +
+  geom_point() +
+  geom_line(aes(group = name)) +
+  facet_grid(. ~ lang) + 
+  scale_y_continuous(limits = c(-1,1)) +
+  theme_bw()
+
+```
+
+Or a reversal effect chart? Okay, so this chart tells us overall there really wasn't much of a reversal effect for SE babies, they're all hovering around 0. Interesting. While there seems to be a reversal effect for NSE babies where they look at the face more during reversed stories! 
+
+```{r}
+# Get participant-level data
+babies_fcr3 <- babies_fcr2 %>%
+  spread(direction, fcr) %>%
+  group_by(name, age, lang) %>%
+  summarise(diff = forward - reversed)
+
+ggplot(babies_fcr3, aes(x = age, y = diff, color = lang)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_y_continuous(limits = c(-1,1)) +
+  theme_bw() +
+  ggtitle("Reversal Effect") +
+  ylab("Forward FCR - Reversed FCR")
+```
+
+And a classic box/error plot with age collapsed. 
+
+```{r}
+babies_fcr2 %>%
+  group_by(lang, direction) %>%
+  summarise(fcr_mean = mean(fcr),
+            sd = sd(fcr),
+            n = n(),
+            se = sd/sqrt(n)) %>%
+  ggplot(aes(x = lang, y = fcr_mean, fill = direction)) +
+  geom_bar(stat = "identity", position = position_dodge()) + 
+  geom_errorbar(aes(ymin = fcr_mean-se, ymax = fcr_mean+se), position = position_dodge(0.9), width = 0.2) +
+  scale_y_continuous(limits = c(-0.5, 0.5)) +
+  theme_linedraw()
+
+```
+
+# Discussion
+Maybe more we can do here (heat maps, certainly) but. 
+
+The biggest change is we lost the interaction between language and direction. For the ICSLA abstract we reported a strong interaction (p = 0.01), but now it's p = 0.10. Likely because of the new babies we added, and recalculating percentages/denominators. 
+
+The interpretation here is that:
+
+* SE babies are much more strong face-lookers than NSE babies. (Same as ICSLA)
+* Reversal affects all babies, making many of them look at the face more
+* However, sign exposure does not affect how reversal affects...(this is unlike ICSLA)

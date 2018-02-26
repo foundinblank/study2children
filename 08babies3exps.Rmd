@@ -1,0 +1,223 @@
+---
+title: "Babies - Three Experiments"
+author: "Adam Stone, PhD" 
+date: '`r format(Sys.Date(), "%m-%d-%Y")`'
+output:
+  html_notebook:
+    code_folding: hide
+    theme: spacelab
+    highlight: tango
+    toc: yes
+    toc_depth: 2
+    toc_float: yes
+    df_print: paged
+---
+
+This is hopefully the results section for three baby experiments we have done: 
+
+1. NSE babies, signs v. gestures
+2. NSE babies, ASL stories
+3. SE babies, ASL stories
+
+Across all studies, we are using baby age groups as such:
+
+* Younger babies = 5 to 8.99 months
+* Older babies = 9.0 to 13.99 months
+
+# 1. NSE Babies Signs & Gestures
+
+Who are our babies in Experiment 1? 
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(janitor)
+library(lme4)
+library(scales)
+
+exp1data <- read_csv("study1cleaneddata.csv") %>%
+  filter(signer == "Non-signer") %>%
+  select(name, age, gender, media, video, type, direction, sec, aoi, percent) %>%
+  filter(age <= 18) %>%
+  mutate(agegroup = case_when(
+    age <= 8.99 ~ "younger",
+    age >= 9.0 ~ "older"
+  )) %>%
+  filter(!is.na(agegroup))
+
+exp1data$agegroup <- fct_relevel(exp1data$agegroup, c("younger","older"))
+
+exp1data %>%
+  select(name, age, agegroup, gender) %>%
+  distinct() %>%
+  group_by(agegroup) %>%
+  summarise(N = n(),
+            age = mean(age)) %>%
+  print()
+
+exp1data %>%
+  select(name, age, agegroup, gender) %>%
+  distinct() %>%
+  group_by(agegroup, gender) %>%
+  summarise(N = n()) %>%
+  spread(gender, N) %>%
+  print()
+```
+
+Okay, so this experiment has three main factors: 
+
+1. Age (Older v. Younger) 
+2. Type (Sign v. Gesture) 
+3. Direction (Forward v. Reversed)
+
+What did overall looking behavior look like, regardless of direction? 
+
+```{r}
+# I calculated percent wrong; get total secs per media for denominator
+exp1data <- exp1data %>%
+  group_by(agegroup, name, type, direction, media) %>%
+  mutate(total_sec = sum(sec),
+         percent = sec/total_sec)
+
+exp1data_overall_looking <- exp1data %>%
+  filter(aoi %in% c("belly","belowchest","midchestbottom","midchestcenter","midchesttop","midfacebottom",
+                    "midfacecenter","midfacetop")) %>%
+  group_by(agegroup, type, name, direction, media) %>%
+  summarise(percent = sum(percent)) %>% # gets total looking time (secs) for each video for each baby
+  group_by(agegroup, type, direction, name) %>%
+  summarise(percent = mean(percent)) # gets average looking time (secs) for each baby
+
+exp1data_overall_looking %>% 
+  group_by(agegroup, direction, type) %>%
+  summarise(mean_percent = mean(percent),
+            count = n(),
+            sd = sd(percent),
+            se = sd/sqrt(count)) %>%
+  ggplot(aes(x = direction, y = mean_percent, fill = type)) + 
+  geom_col(position = "dodge") + 
+  geom_errorbar(aes(ymin = mean_percent - se, ymax = mean_percent + se), position = "dodge") + 
+  scale_y_continuous(limits = c(0,1)) +
+  facet_wrap("agegroup") + theme_minimal()
+```
+
+# 2. NSE ASL Stories
+
+Who are our babies in Experiment 2? 
+
+```{r message=FALSE, warning=FALSE}
+library(feather)
+
+exp2data <- read_feather("cleanedbabyeyedata.feather") %>%
+  filter(language == "english") %>%
+  mutate(age = age*12) %>%
+  select(participant, age, gender, story, direction, mark, trial, repetition, aoi, secs, percent) %>%
+  rename(name = participant) %>%
+  mutate(agegroup = case_when(
+    age <= 8.99 ~ "younger",
+    age >= 9.0 ~ "older"
+  )) %>%
+  filter(!is.na(agegroup))
+
+exp2data$agegroup <- fct_relevel(exp2data$agegroup, c("younger","older"))
+
+exp2data %>%
+  select(name, age, agegroup, gender) %>%
+  distinct() %>%
+  group_by(agegroup) %>%
+  summarise(N = n(),
+            age = mean(age)) %>%
+  print()
+
+exp2data %>%
+  select(name, age, agegroup, gender) %>%
+  distinct() %>%
+  group_by(agegroup, gender) %>%
+  summarise(N = n()) %>%
+  spread(gender, N) %>%
+  print()
+```
+
+Experiment 2 has two main factors: 
+
+1. Age (Older v. Younger) 
+2. Direction (Forward v. Reversed)
+
+```{r}
+exp2data_overall_looking <- exp2data %>%
+  group_by(agegroup, direction, name, story, repetition) %>%
+  summarise(percent = sum(percent)) %>% # gets total looking time (secs) for each video for each baby
+  group_by(agegroup, direction, name) %>%
+  summarise(percent = mean(percent)) # gets average looking time (secs) for each baby
+
+exp2data_overall_looking %>% 
+  group_by(agegroup, direction) %>%
+  summarise(mean_percent = mean(percent),
+            count = n(),
+            sd = sd(percent),
+            se = sd/sqrt(count)) %>%
+  ggplot(aes(x = agegroup, y = mean_percent, fill = direction)) + 
+  geom_col(position = "dodge") + 
+  geom_errorbar(aes(ymin = mean_percent - se, ymax = mean_percent + se), position = "dodge") + 
+  scale_y_continuous(limits = c(0,1)) +
+  theme_minimal()
+```
+
+# 3. SE ASL Stories
+
+Who are our babies in Experiment 3? 
+
+```{r message=FALSE, warning=FALSE}
+library(feather)
+
+exp3data <- read_feather("cleanedbabyeyedata.feather") %>%
+  filter(language == "sign") %>%
+  mutate(age = age*12) %>%
+  select(participant, age, gender, story, direction, mark, trial, repetition, aoi, secs, percent) %>%
+  rename(name = participant) %>%
+  mutate(agegroup = case_when(
+    age <= 8.99 ~ "younger",
+    age >= 9.0 ~ "older"
+  )) %>%
+  filter(!is.na(agegroup))
+
+exp3data$agegroup <- fct_relevel(exp3data$agegroup, c("younger","older"))
+
+exp3data %>%
+  select(name, age, agegroup, gender) %>%
+  distinct() %>%
+  group_by(agegroup) %>%
+  summarise(N = n(),
+            age = mean(age)) %>%
+  print()
+
+exp3data %>%
+  select(name, age, agegroup, gender) %>%
+  distinct() %>%
+  group_by(agegroup, gender) %>%
+  summarise(N = n()) %>%
+  spread(gender, N) %>%
+  print()
+```
+
+Experiment 3 has two main factors: 
+
+1. Age (Older v. Younger) 
+2. Direction (Forward v. Reversed)
+
+```{r}
+exp3data_overall_looking <- exp3data %>%
+  group_by(agegroup, direction, name, story, repetition) %>%
+  summarise(percent = sum(percent)) %>% # gets total looking time (secs) for each video for each baby
+  group_by(agegroup, direction, name) %>%
+  summarise(percent = mean(percent)) # gets average looking time (secs) for each baby
+
+exp3data_overall_looking %>% 
+  group_by(agegroup, direction) %>%
+  summarise(mean_percent = mean(percent),
+            count = n(),
+            sd = sd(percent),
+            se = sd/sqrt(count)) %>%
+  ggplot(aes(x = agegroup, y = mean_percent, fill = direction)) + 
+  geom_col(position = "dodge") + 
+  geom_errorbar(aes(ymin = mean_percent - se, ymax = mean_percent + se), position = "dodge") + 
+  scale_y_continuous(limits = c(0,1)) +
+  theme_minimal()
+```
