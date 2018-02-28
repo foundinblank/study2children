@@ -487,13 +487,52 @@ The interpretation here is that:
 
 One thing I worry about is using age *without any interactions* and whether people will criticize us for that. Because age x language x direction is a "more complete" model as it suggests age may differently influence various combinations (SE + reversed, NSE + forward, etc) differently, while age + language x direction means we're mainly using age as a covariate, not as a factor of interest. But if we use age as a factor of interest, all significance disappears, so ... we want to use age as a covariate if we want to have a story. But how to defend that decision and not just be p-hacking? I have to think about it... 
 
+# Correlations
+
 ```{r}
+library(GGally)
+
 # Let's try correlations
 # Get SE babies
-se_participants <- babies %>%
+nse_fw_participants <- babies %>%
   filter(aoi %in% midline) %>%
+  filter(direction == "forward") %>%
+  filter(lang == "NSE") %>%
+  group_by(name, direction, aoi) %>% 
+  summarise(percent = mean(percent)) %>%
+  spread(aoi, percent)
+
+nse_rv_participants <- babies %>%
+  filter(aoi %in% midline) %>%
+  filter(direction == "reversed") %>%
+  filter(lang == "NSE") %>%
+  group_by(name, direction, aoi) %>% 
+  summarise(percent = mean(percent)) %>%
+  spread(aoi, percent)
+
+se_fw_participants <- babies %>%
+  filter(aoi %in% midline) %>%
+  filter(direction == "forward") %>%
   filter(lang == "SE") %>%
   group_by(name, direction, aoi) %>% 
-  summarise(percent = mean(percent))
+  summarise(percent = mean(percent)) %>%
+  spread(aoi, percent)
+
+se_rv_participants <- babies %>%
+  filter(aoi %in% midline) %>%
+  filter(direction == "reversed") %>%
+  filter(lang == "SE") %>%
+  group_by(name, direction, aoi) %>% 
+  summarise(percent = mean(percent)) %>%
+  spread(aoi, percent)
+
+ggcorr(nse_fw_participants, label = TRUE, label_size = 3, label_round = 2, label_alpha = TRUE) + ggtitle("NSE, Forward")
+
+ggcorr(nse_rv_participants, label = TRUE, label_size = 3, label_round = 2, label_alpha = TRUE) + ggtitle("NSE, Reversed")
+
+ggcorr(se_fw_participants, label = TRUE, label_size = 3, label_round = 2, label_alpha = TRUE) + ggtitle("SE, Forward")
+
+ggcorr(se_rv_participants, label = TRUE, label_size = 3, label_round = 2, label_alpha = TRUE) + ggtitle("SE, Reversed")
+
 ```
 
