@@ -381,8 +381,6 @@ ggplot(heatmap_babies, aes(x = direction, y = aoi)) +
   scale_y_discrete(expand=c(0,0)) +
   scale_x_discrete(expand = c(0,0))
 ```
-```
-
 
 # Different Ways to Visualize Reversal
 I want to try to visualize reversal effects a different way. Maybe this. 
@@ -487,4 +485,12 @@ The interpretation here is that:
 * Reversal affects all babies, making many of them look at the face more
 * However, sign exposure does not affect how reversal affects...(this is unlike ICSLA)
 
-One thing I worry about is using age *without any interactions* and whether people will criticize us for that. Because age x language x direction is a "more complete" model as it suggests age may differently influence various combinatiosn (SE + reversed, NSE + forward, etc) differently, while age + language x direction means we're mainly using age as a covariate, not as a factor of interest. But if we use age as a factor of interest, all significance disappears, so ... we want to use age as a covariate if we want to have a story. But how to defend that decision and not just be p-hacking? I have to think about it...
+One thing I worry about is using age *without any interactions* and whether people will criticize us for that. Because age x language x direction is a "more complete" model as it suggests age may differently influence various combinatiosn (SE + reversed, NSE + forward, etc) differently, while age + language x direction means we're mainly using age as a covariate, not as a factor of interest. But if we use age as a factor of interest, all significance disappears, so ... we want to use age as a covariate if we want to have a story. But how to defend that decision and not just be p-hacking? I have to think about it... 
+
+```{r}
+# Let's try correlations
+# Get SE babies
+# se_participants <- babies %>%
+# filter()
+```
+
