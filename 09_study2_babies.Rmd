@@ -338,6 +338,53 @@ fcr_lm <- lmer(fcr ~ age + lang * direction + (1|name) + (1|story), data = babie
 summary(fcr_lm)
 ```
 
+# Heat Maps
+And now heat maps!
+
+```{r}
+heatmap_babies <- babies %>%
+  filter(aoi %in% midline) %>%
+  ungroup() %>%
+  group_by(lang, name, direction, aoi) %>%
+  summarise(percent = mean(percent, na.rm=TRUE)) %>%
+  group_by(lang, direction, aoi) %>%
+  summarise(percent = mean(percent, na.rm=TRUE)) %>%
+  ungroup() %>%
+  mutate(aoi = factor(aoi, levels = c("Belly","BelowChest","MidChestBottom","MidChestCenter","MidChestTop",
+            "MidFaceBottom","MidFaceCenter","MidFaceTop")))
+
+ggplot(heatmap_babies, aes(x = lang, y = aoi)) +
+  geom_tile(aes(fill=percent),color="lightgray",na.rm=TRUE) + 
+#  scale_fill_viridis(option = "viridis", direction=-1, limits = c(0,.7), labels = percent, name = "looking time") +
+    scale_fill_gradient(low = "#ffffff", high = "#08519c", space = "Lab", limits = c(0,.45), labels = percent, name = "looking time", na.value = "grey50") +
+  theme_bw() +
+  theme(axis.text.x=element_text(angle=30,hjust=1),
+        strip.text.x = element_text(size = 11, color = "black", face = "italic"), 
+        strip.background = element_rect(colour = "white", fill = "white"),
+        panel.grid.major = element_line(color = "white")) +
+  facet_grid(. ~ direction) +
+  ylab("") + xlab("") + ggtitle("Eye Gaze Heat Map, by Direction") + 
+  scale_y_discrete(expand=c(0,0)) +
+  scale_x_discrete(expand = c(0,0))
+
+ggplot(heatmap_babies, aes(x = direction, y = aoi)) +
+  geom_tile(aes(fill=percent),color="lightgray",na.rm=TRUE) + 
+#  scale_fill_viridis(option = "viridis", direction=-1, limits = c(0,.7), labels = percent, name = "looking time") +
+    scale_fill_gradient(low = "#ffffff", high = "#08519c", space = "Lab", limits = c(0,.45), labels = percent, name = "looking time", na.value = "grey50") +
+  theme_bw() +
+  theme(axis.text.x=element_text(angle=30,hjust=1),
+        strip.text.x = element_text(size = 11, color = "black", face = "italic"), 
+        strip.background = element_rect(colour = "white", fill = "white"),
+        panel.grid.major = element_line(color = "white")) +
+  facet_grid(. ~ lang) +
+  ylab("") + xlab("") + ggtitle("Eye Gaze Heat Map, by Language") + 
+  scale_y_discrete(expand=c(0,0)) +
+  scale_x_discrete(expand = c(0,0))
+```
+```
+
+
+# Different Ways to Visualize Reversal
 I want to try to visualize reversal effects a different way. Maybe this. 
 
 ```{r}
@@ -376,36 +423,7 @@ ggplot(babies_fcr3, aes(x = age, y = diff, color = lang)) +
   ylab("Forward FCR - Reversed FCR")
 ```
 
-And a classic box/error plot with age collapsed. 
-
-```{r}
-babies_fcr2 %>%
-  group_by(lang, direction) %>%
-  summarise(fcr_mean = mean(fcr),
-            sd = sd(fcr),
-            n = n(),
-            se = sd/sqrt(n)) %>%
-  ggplot(aes(x = lang, y = fcr_mean, fill = direction)) +
-  geom_bar(stat = "identity", position = position_dodge()) + 
-  geom_errorbar(aes(ymin = fcr_mean-se, ymax = fcr_mean+se), position = position_dodge(0.9), width = 0.2) +
-  scale_y_continuous(limits = c(-0.5, 0.5)) +
-  theme_linedraw()
-
-```
-
-# Discussion
-Maybe more we can do here (heat maps, certainly).  
-
-The biggest change is we lost the interaction between language and direction. For the ICSLA abstract we reported a strong interaction (p = 0.01), but now it's p = 0.10. Likely because of the new babies we added, and recalculating percentages/denominators. 
-
-The interpretation here is that:
-
-* All babies looked equally at all videos regardless of langauge or direction. Good!
-* SE babies are much more strong face-lookers than NSE babies. (Same as ICSLA)
-* Reversal affects all babies, making many of them look at the face more
-* However, sign exposure does not affect how reversal affects...(this is unlike ICSLA)
-
-One thing I worry about is using age *without any interactions* and whether people will criticize us for that. Because age x language x direction is a "more complete" model as it suggests age may differently influence various combinatiosn (SE + reversed, NSE + forward, etc) differently, while age + language x direction means we're mainly using age as a covariate, not as a factor of interest. But if we use age as a factor of interest, all significance disappears, so ... we want to use age as a covariate if we want to have a story. But how to defend that decision and not just be p-hacking? I have to think about it...
+This analysis of within-subject variation here: 
 
 ```{r}
 # First get the mean of each trial, THEN the participant-level means
@@ -442,3 +460,31 @@ within_subjects %>%
   facet_wrap("lang")
 ```
 
+And a classic box/error plot with age collapsed. 
+
+```{r}
+babies_fcr2 %>%
+  group_by(lang, direction) %>%
+  summarise(fcr_mean = mean(fcr),
+            sd = sd(fcr),
+            n = n(),
+            se = sd/sqrt(n)) %>%
+  ggplot(aes(x = lang, y = fcr_mean, fill = direction)) +
+  geom_bar(stat = "identity", position = position_dodge()) + 
+  geom_errorbar(aes(ymin = fcr_mean-se, ymax = fcr_mean+se), position = position_dodge(0.9), width = 0.2) +
+  scale_y_continuous(limits = c(-0.5, 0.5)) +
+  theme_linedraw()
+
+```
+
+# Discussion
+The biggest change is we lost the interaction between language and direction. For the ICSLA abstract we reported a strong interaction (p = 0.01), but now it's p = 0.10. Likely because of the new babies we added, and recalculating percentages/denominators. 
+
+The interpretation here is that:
+
+* All babies looked equally at all videos regardless of langauge or direction. Good!
+* SE babies are much more strong face-lookers than NSE babies. (Same as ICSLA)
+* Reversal affects all babies, making many of them look at the face more
+* However, sign exposure does not affect how reversal affects...(this is unlike ICSLA)
+
+One thing I worry about is using age *without any interactions* and whether people will criticize us for that. Because age x language x direction is a "more complete" model as it suggests age may differently influence various combinatiosn (SE + reversed, NSE + forward, etc) differently, while age + language x direction means we're mainly using age as a covariate, not as a factor of interest. But if we use age as a factor of interest, all significance disappears, so ... we want to use age as a covariate if we want to have a story. But how to defend that decision and not just be p-hacking? I have to think about it...

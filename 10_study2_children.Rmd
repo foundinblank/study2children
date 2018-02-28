@@ -360,6 +360,7 @@ fcr_lm <- lmer(fcr ~ age + lang * direction + (1|name) + (1|story), data = kids_
 summary(fcr_lm)
 ```
 
+# Visualizing Reversal Effect
 I want to try to visualize reversal effects a different way. Maybe this. 
 
 ```{r}
@@ -398,35 +399,7 @@ ggplot(kids_fcr3, aes(x = age, y = diff, color = lang)) +
   ylab("Forward FCR - Reversed FCR")
 ```
 
-And a classic box/error plot with age collapsed. 
-
-```{r}
-kids_fcr2 %>%
-  group_by(lang, direction) %>%
-  summarise(fcr_mean = mean(fcr),
-            sd = sd(fcr),
-            n = n(),
-            se = sd/sqrt(n)) %>%
-  ggplot(aes(x = lang, y = fcr_mean, fill = direction)) +
-  geom_bar(stat = "identity", position = position_dodge()) + 
-  geom_errorbar(aes(ymin = fcr_mean-se, ymax = fcr_mean+se), position = position_dodge(0.9), width = 0.2) +
-  scale_y_continuous(limits = c(-0.5, 0.5)) +
-  theme_linedraw()
-
-```
-
-# Discussion
-We should also do heat maps, of course. 
-
-No big changes from the ICSLA abstract. Good! 
-
-The interpretation here is that:
-
-* All kids looked equally at all videos regardless of language or direction. Age did have an effect so we used age in our models. Good!
-* SE kids continue to be strong face-lookers compared to NSE kids.  (Same as ICSLA)
-* There is no reversal effect. (Same as ICSLA)
-
-That doesn't mean both groups of children don't care about reversal. On the contrary. We can hypothesize that SE kids have efficient gaze behavior and are resilient to reversal; while NSE kids already are "inefficient" and changing the video stimulus isn't going to help. But how do we test that? Maybe let's look at within-subject variation.
+And within-subjects variation here: 
 
 ```{r}
 # First get the mean of each trial, THEN the participant-level means
@@ -462,4 +435,78 @@ within_subjects %>%
   ggtitle("FCR Means") +
   facet_wrap("lang")
 ```
+
+And a classic box/error plot with age collapsed. 
+
+```{r}
+kids_fcr2 %>%
+  group_by(lang, direction) %>%
+  summarise(fcr_mean = mean(fcr),
+            sd = sd(fcr),
+            n = n(),
+            se = sd/sqrt(n)) %>%
+  ggplot(aes(x = lang, y = fcr_mean, fill = direction)) +
+  geom_bar(stat = "identity", position = position_dodge()) + 
+  geom_errorbar(aes(ymin = fcr_mean-se, ymax = fcr_mean+se), position = position_dodge(0.9), width = 0.2) +
+  scale_y_continuous(limits = c(-0.5, 0.5)) +
+  theme_linedraw()
+
+```
+
+# Heat Maps
+And now heat maps!
+
+```{r}
+heatmap_kids <- kids %>%
+  filter(aoi %in% midline) %>%
+  ungroup() %>%
+  group_by(lang, name, direction, aoi) %>%
+  summarise(percent = mean(percent, na.rm=TRUE)) %>%
+  group_by(lang, direction, aoi) %>%
+  summarise(percent = mean(percent, na.rm=TRUE)) %>%
+  ungroup() %>%
+  mutate(aoi = factor(aoi, levels = c("Belly","BelowChest","MidChestBottom","MidChestCenter","MidChestTop",
+            "MidFaceBottom","MidFaceCenter","MidFaceTop")))
+
+ggplot(heatmap_kids, aes(x = lang, y = aoi)) +
+  geom_tile(aes(fill=percent),color="lightgray",na.rm=TRUE) + 
+#  scale_fill_viridis(option = "viridis", direction=-1, limits = c(0,.7), labels = percent, name = "looking time") +
+    scale_fill_gradient(low = "#ffffff", high = "#08519c", space = "Lab", limits = c(0,.52), labels = percent, name = "looking time", na.value = "grey50") +
+  theme_bw() +
+  theme(axis.text.x=element_text(angle=30,hjust=1),
+        strip.text.x = element_text(size = 11, color = "black", face = "italic"), 
+        strip.background = element_rect(colour = "white", fill = "white"),
+        panel.grid.major = element_line(color = "white")) +
+  facet_grid(. ~ direction) +
+  ylab("") + xlab("") + ggtitle("Eye Gaze Heat Map, by Direction") + 
+  scale_y_discrete(expand=c(0,0)) +
+  scale_x_discrete(expand = c(0,0))
+
+ggplot(heatmap_kids, aes(x = direction, y = aoi)) +
+  geom_tile(aes(fill=percent),color="lightgray",na.rm=TRUE) + 
+#  scale_fill_viridis(option = "viridis", direction=-1, limits = c(0,.7), labels = percent, name = "looking time") +
+    scale_fill_gradient(low = "#ffffff", high = "#08519c", space = "Lab", limits = c(0,.52), labels = percent, name = "looking time", na.value = "grey50") +
+  theme_bw() +
+  theme(axis.text.x=element_text(angle=30,hjust=1),
+        strip.text.x = element_text(size = 11, color = "black", face = "italic"), 
+        strip.background = element_rect(colour = "white", fill = "white"),
+        panel.grid.major = element_line(color = "white")) +
+  facet_grid(. ~ lang) +
+  ylab("") + xlab("") + ggtitle("Eye Gaze Heat Map, by Language") + 
+  scale_y_discrete(expand=c(0,0)) +
+  scale_x_discrete(expand = c(0,0))
+```
+
+# Discussion
+No big changes from the ICSLA abstract. Good! 
+
+The interpretation here is that:
+
+* All kids looked equally at all videos regardless of language or direction. Age did have an effect so we used age in our models. Good!
+* SE kids continue to be strong face-lookers compared to NSE kids.  (Same as ICSLA)
+* There is no reversal effect. (Same as ICSLA)
+
+That doesn't mean both groups of children don't care about reversal. On the contrary. We can hypothesize that SE kids have efficient gaze behavior and are resilient to reversal; while NSE kids already are "inefficient" and changing the video stimulus isn't going to help. But how do we test that? Maybe let's look at within-subject variation.
+
+
 
