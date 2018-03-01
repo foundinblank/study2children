@@ -30,6 +30,7 @@ library(janitor)
 library(lme4)
 library(scales)
 library(feather)
+library(GGally)
 
 babies <- read_feather("cleanedbabyeyedata.feather") %>%
   mutate(age = age*12) %>%
@@ -160,7 +161,8 @@ A linear model shows there were no significant effects of any factors. We can co
 
 ```{r}
 global_lm <- lmer(percent ~ age + lang * direction + (1|name) + (1|story), data = babies_overall_looking)
-summary(global_lm)
+summary(global_lm) 
+ggcoef(global_lm)
 ```
 
 # AOI Looking
@@ -235,9 +237,11 @@ babies %>%
 
 midchesttop_lm <- lmer(percent ~ age + lang * direction + (1|name) + (1|story), data = filter(babies, aoi == "MidChestTop"))
 summary(midchesttop_lm)
+ggcoef(midchesttop_lm)
 
 midfacebottom_lm <- lmer(percent ~ age + lang * direction + (1|name) + (1|story), data = filter(babies, aoi == "MidFaceBottom"))
 summary(midfacebottom_lm)
+ggcoef(midchesttop_lm)
 
 # Bar chart
 # babies %>%
@@ -336,6 +340,7 @@ What will a linear mixed model tell us? (with no age interactions)
 ```{r}
 fcr_lm <- lmer(fcr ~ age + lang * direction + (1|name) + (1|story), data = babies_fcr)
 summary(fcr_lm)
+ggcoef(fcr_lm)
 ```
 
 # Heat Maps
@@ -358,8 +363,7 @@ ggplot(heatmap_babies, aes(x = lang, y = aoi)) +
 #  scale_fill_viridis(option = "viridis", direction=-1, limits = c(0,.7), labels = percent, name = "looking time") +
     scale_fill_gradient(low = "#ffffff", high = "#08519c", space = "Lab", limits = c(0,.45), labels = percent, name = "looking time", na.value = "grey50") +
   theme_bw() +
-  theme(axis.text.x=element_text(angle=30,hjust=1),
-        strip.text.x = element_text(size = 11, color = "black", face = "italic"), 
+  theme(strip.text.x = element_text(size = 11, color = "black", face = "italic"), 
         strip.background = element_rect(colour = "white", fill = "white"),
         panel.grid.major = element_line(color = "white")) +
   facet_grid(. ~ direction) +
@@ -372,8 +376,7 @@ ggplot(heatmap_babies, aes(x = direction, y = aoi)) +
 #  scale_fill_viridis(option = "viridis", direction=-1, limits = c(0,.7), labels = percent, name = "looking time") +
     scale_fill_gradient(low = "#ffffff", high = "#08519c", space = "Lab", limits = c(0,.45), labels = percent, name = "looking time", na.value = "grey50") +
   theme_bw() +
-  theme(axis.text.x=element_text(angle=30,hjust=1),
-        strip.text.x = element_text(size = 11, color = "black", face = "italic"), 
+  theme(strip.text.x = element_text(size = 11, color = "black", face = "italic"), 
         strip.background = element_rect(colour = "white", fill = "white"),
         panel.grid.major = element_line(color = "white")) +
   facet_grid(. ~ lang) +
@@ -489,50 +492,36 @@ One thing I worry about is using age *without any interactions* and whether peop
 
 # Correlations
 
-```{r}
-library(GGally)
-
+```{r fig.height=12, fig.width=12}
 # Let's try correlations
-# Get SE babies
-nse_fw_participants <- babies %>%
+babies_nse <- babies %>% 
   filter(aoi %in% midline) %>%
-  filter(direction == "forward") %>%
   filter(lang == "NSE") %>%
   group_by(name, direction, aoi) %>% 
   summarise(percent = mean(percent)) %>%
-  spread(aoi, percent)
+  ungroup() %>%
+  mutate(direction = case_when(
+    direction == "forward" ~ "fw",
+    direction == "reversed" ~ "rv"
+  )) %>% 
+  unite(aoi2, direction, aoi, sep = "_") %>%
+  spread(aoi2, percent)
 
-nse_rv_participants <- babies %>%
+babies_se <- babies %>% 
   filter(aoi %in% midline) %>%
-  filter(direction == "reversed") %>%
-  filter(lang == "NSE") %>%
-  group_by(name, direction, aoi) %>% 
-  summarise(percent = mean(percent)) %>%
-  spread(aoi, percent)
-
-se_fw_participants <- babies %>%
-  filter(aoi %in% midline) %>%
-  filter(direction == "forward") %>%
   filter(lang == "SE") %>%
   group_by(name, direction, aoi) %>% 
   summarise(percent = mean(percent)) %>%
-  spread(aoi, percent)
+  ungroup() %>%
+  mutate(direction = case_when(
+    direction == "forward" ~ "fw",
+    direction == "reversed" ~ "rv"
+  )) %>% 
+  unite(aoi2, direction, aoi, sep = "_") %>%
+  spread(aoi2, percent)
 
-se_rv_participants <- babies %>%
-  filter(aoi %in% midline) %>%
-  filter(direction == "reversed") %>%
-  filter(lang == "SE") %>%
-  group_by(name, direction, aoi) %>% 
-  summarise(percent = mean(percent)) %>%
-  spread(aoi, percent)
+ggcorr(babies_nse, label = TRUE, label_size = 5, label_round = 2, label_alpha = TRUE, hjust = 0.9, size = 5, color = "grey50", layout.exp = 1) + ggtitle("NSE")
 
-ggcorr(nse_fw_participants, label = TRUE, label_size = 3, label_round = 2, label_alpha = TRUE) + ggtitle("NSE, Forward")
-
-ggcorr(nse_rv_participants, label = TRUE, label_size = 3, label_round = 2, label_alpha = TRUE) + ggtitle("NSE, Reversed")
-
-ggcorr(se_fw_participants, label = TRUE, label_size = 3, label_round = 2, label_alpha = TRUE) + ggtitle("SE, Forward")
-
-ggcorr(se_rv_participants, label = TRUE, label_size = 3, label_round = 2, label_alpha = TRUE) + ggtitle("SE, Reversed")
-
+ggcorr(babies_se, label = TRUE, label_size = 5, label_round = 2, label_alpha = TRUE, hjust = 0.9, size = 5, color = "grey50", layout.exp = 1) + ggtitle("SE")
 ```
 

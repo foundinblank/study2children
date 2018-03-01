@@ -26,6 +26,7 @@ library(lme4)
 library(lmerTest)
 library(scales)
 library(feather)
+library(GGally)
 
 kids <- read_feather("cleanedchildeyedata.feather") %>%
 #  mutate(age = age*12) %>%
@@ -180,6 +181,7 @@ A linear model shows a significant effect of age. Overall, Age seems to increase
 ```{r}
 global_lm <- lmer(percent ~ age + lang * direction + (1|name) + (1|story), data = kids_overall_looking)
 summary(global_lm)
+ggcoef(global_lm)
 ```
 
 # AOI Looking
@@ -256,9 +258,11 @@ kids %>%
 
 midchesttop_lm <- lmer(percent ~ age + lang * direction + (1|name) + (1|story), data = filter(kids, aoi == "MidChestTop"))
 summary(midchesttop_lm)
+ggcoef(midchesttop_lm)
 
 midfacebottom_lm <- lmer(percent ~ age + lang * direction + (1|name) + (1|story), data = filter(kids, aoi == "MidFaceBottom"))
 summary(midfacebottom_lm)
+ggcoef(midfacebottom_lm)
 
 # Bar chart
 # babies %>%
@@ -358,6 +362,7 @@ What will a linear mixed model tell us? (with no age interactions)
 ```{r}
 fcr_lm <- lmer(fcr ~ age + lang * direction + (1|name) + (1|story), data = kids_fcr)
 summary(fcr_lm)
+ggcoef(fcr_lm)
 ```
 
 # Visualizing Reversal Effect
@@ -473,8 +478,7 @@ ggplot(heatmap_kids, aes(x = lang, y = aoi)) +
 #  scale_fill_viridis(option = "viridis", direction=-1, limits = c(0,.7), labels = percent, name = "looking time") +
     scale_fill_gradient(low = "#ffffff", high = "#08519c", space = "Lab", limits = c(0,.52), labels = percent, name = "looking time", na.value = "grey50") +
   theme_bw() +
-  theme(axis.text.x=element_text(angle=30,hjust=1),
-        strip.text.x = element_text(size = 11, color = "black", face = "italic"), 
+  theme(strip.text.x = element_text(size = 11, color = "black", face = "italic"), 
         strip.background = element_rect(colour = "white", fill = "white"),
         panel.grid.major = element_line(color = "white")) +
   facet_grid(. ~ direction) +
@@ -487,8 +491,7 @@ ggplot(heatmap_kids, aes(x = direction, y = aoi)) +
 #  scale_fill_viridis(option = "viridis", direction=-1, limits = c(0,.7), labels = percent, name = "looking time") +
     scale_fill_gradient(low = "#ffffff", high = "#08519c", space = "Lab", limits = c(0,.52), labels = percent, name = "looking time", na.value = "grey50") +
   theme_bw() +
-  theme(axis.text.x=element_text(angle=30,hjust=1),
-        strip.text.x = element_text(size = 11, color = "black", face = "italic"), 
+  theme(strip.text.x = element_text(size = 11, color = "black", face = "italic"), 
         strip.background = element_rect(colour = "white", fill = "white"),
         panel.grid.major = element_line(color = "white")) +
   facet_grid(. ~ lang) +
@@ -508,5 +511,37 @@ The interpretation here is that:
 
 That doesn't mean both groups of children don't care about reversal. On the contrary. We can hypothesize that SE kids have efficient gaze behavior and are resilient to reversal; while NSE kids already are "inefficient" and changing the video stimulus isn't going to help. But how do we test that? Maybe let's look at within-subject variation.
 
+# Correlations
+Let's try correlations.
+```{r fig.height=12, fig.width=12}
+# Let's try correlations
+kids_nse <- kids %>% 
+  filter(aoi %in% midline) %>%
+  filter(lang == "NSE") %>%
+  group_by(name, direction, aoi) %>% 
+  summarise(percent = mean(percent)) %>%
+  ungroup() %>%
+  mutate(direction = case_when(
+    direction == "forward" ~ "fw",
+    direction == "reversed" ~ "rv"
+  )) %>% 
+  unite(aoi2, direction, aoi, sep = "_") %>%
+  spread(aoi2, percent)
 
+kids_se <- kids %>% 
+  filter(aoi %in% midline) %>%
+  filter(lang == "SE") %>%
+  group_by(name, direction, aoi) %>% 
+  summarise(percent = mean(percent)) %>%
+  ungroup() %>%
+  mutate(direction = case_when(
+    direction == "forward" ~ "fw",
+    direction == "reversed" ~ "rv"
+  )) %>% 
+  unite(aoi2, direction, aoi, sep = "_") %>%
+  spread(aoi2, percent)
 
+ggcorr(kids_nse, label = TRUE, label_size = 5, label_round = 2, label_alpha = TRUE, hjust = 0.9, size = 5, color = "grey50", layout.exp = 1) + ggtitle("NSE")
+
+ggcorr(kids_se, label = TRUE, label_size = 5, label_round = 2, label_alpha = TRUE, hjust = 0.9, size = 5, color = "grey50", layout.exp = 1) + ggtitle("SE")
+```
