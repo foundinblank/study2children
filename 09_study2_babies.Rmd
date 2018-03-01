@@ -505,7 +505,8 @@ babies_nse <- babies %>%
     direction == "reversed" ~ "rv"
   )) %>% 
   unite(aoi2, direction, aoi, sep = "_") %>%
-  spread(aoi2, percent)
+  spread(aoi2, percent) %>%
+  select(-name)
 
 babies_se <- babies %>% 
   filter(aoi %in% midline) %>%
@@ -518,10 +519,15 @@ babies_se <- babies %>%
     direction == "reversed" ~ "rv"
   )) %>% 
   unite(aoi2, direction, aoi, sep = "_") %>%
-  spread(aoi2, percent)
+  spread(aoi2, percent) %>%
+  select(-name)
 
 ggcorr(babies_nse, label = TRUE, label_size = 5, label_round = 2, label_alpha = TRUE, hjust = 0.9, size = 5, color = "grey50", layout.exp = 1) + ggtitle("NSE")
 
 ggcorr(babies_se, label = TRUE, label_size = 5, label_round = 2, label_alpha = TRUE, hjust = 0.9, size = 5, color = "grey50", layout.exp = 1) + ggtitle("SE")
+
+library(corrr)
+babies_nse %>% correlate() %>% network_plot(min_cor=0.6) + ggtitle("NSE Babies")
+babies_se %>% correlate() %>% network_plot(min_cor=0.6) + ggtitle("SE Babies")
 ```
 
