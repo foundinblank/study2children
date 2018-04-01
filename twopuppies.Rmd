@@ -666,3 +666,55 @@ Penn's offsets are approximately:
 ```{r}
 penn_stats %>% group_by(axis) %>% summarise(offset = mean(offset))
 ```
+
+## Victoria 8 months SIGN EXPOSED
+```{r message=FALSE}
+victoria <- read_csv("../Child Data/_twopuppies/Victoria07_18_17_Rec 10_TwoPuppiesData.csv") %>%
+  mutate(puppy = case_when(
+    mark == 1 ~ "chihuahua",
+    mark == 2 ~ "frisby"
+  )) %>%
+  rename(x = xpos, y = ypos) %>%
+  gather(axis, pos, x:y)
+
+ggplot(victoria, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
+
+victoria_stats <- victoria %>%
+  group_by(puppy, axis) %>%
+  summarise(mean = mean(pos, na.rm=TRUE),
+         median = median(pos, na.rm=TRUE)) %>%
+  ungroup() %>%
+  mutate(offset = median - globalmedian) %>%
+  print()
+```
+
+Victoria's offsets are approximately: 
+```{r}
+victoria_stats %>% group_by(axis) %>% summarise(offset = mean(offset))
+```
+
+## Ke11es12 7.5 Mo SE
+```{r message=FALSE}
+kelles <- read_csv("../Child Data/_twopuppies/ke11es12_13_7m GOOD_TwoPuppiesData.csv") %>%
+  mutate(puppy = case_when(
+    mark == 1 ~ "chihuahua",
+    mark == 2 ~ "frisby"
+  )) %>%
+  rename(x = xpos, y = ypos) %>%
+  gather(axis, pos, x:y)
+
+ggplot(kelles, aes(x = pos, fill = axis)) + geom_histogram(binwidth = 10) + ggtitle("X/Y Histogram for Puppies") + facet_grid(puppy ~ axis)
+
+kelles_stats <- kelles %>%
+  group_by(puppy, axis) %>%
+  summarise(mean = mean(pos, na.rm=TRUE),
+         median = median(pos, na.rm=TRUE)) %>%
+  ungroup() %>%
+  mutate(offset = median - globalmedian) %>%
+  print()
+```
+
+Ke11es12's offsets are approximately: 
+```{r}
+kelles_stats %>% group_by(axis) %>% summarise(offset = mean(offset))
+```

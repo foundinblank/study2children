@@ -28,10 +28,12 @@ The dataset also contains factors for younger v. older babies IF we want to do a
 library(tidyverse)
 library(janitor)
 library(lme4)
+library(lmerTest)
 library(scales)
 library(feather)
 library(GGally)
 
+# Grab data that was produced in 03importcleanbabies.Rmd
 babies <- read_feather("cleanedbabyeyedata.feather") %>%
   mutate(age = age*12) %>%
   select(participant, language, age, gender, story, direction, mark, trial, repetition, aoi, secs, percent) %>%
@@ -160,7 +162,7 @@ ggplot(babies_overall_looking, aes(x = age, y = percent, color = direction, fill
 A linear model shows there were no significant effects of any factors. We can conclude there was no effect on how *much* the babies looked at the stimuli.  
 
 ```{r}
-global_lm <- lmer(percent ~ age + lang * direction + (1|name) + (1|story), data = babies_overall_looking)
+global_lm <- lmer(percent ~ age + lang * direction + (direction|name) + (direction|story), data = babies_overall_looking)
 summary(global_lm) 
 ggcoef(global_lm)
 ```
@@ -169,8 +171,8 @@ ggcoef(global_lm)
 Now we'll re-calculate the percentages so the denominator is based on total looking time. All AOIs should sum up to 100% for each trial and each baby. Next let's make a boxplot of all AOIs. 
 
 ```{r}
-# Recalculate percent
-babies <- babies %>% 
+#Recalculate percent
+babies <- babies %>%
   select(-percent) %>%
   group_by(name, lang, agegroup, age, direction, story, mark, trial, repetition) %>%
   mutate(totalsec = sum(secs)) %>%
@@ -209,17 +211,18 @@ I'm going to run linear models with only MidChestTop or MidFaceBottom, and see w
 
 **MidChestTop:**
 
-* Significant effect of age (p = 0.020) - older babies look at MidChestTop AOI more.
-* Significant effect of language (p = 0.045) - NSE babies look +12.7% more than SE babies. 
-* Significant effect of direction (p = 0.05) - Babies look about 4.5% less for reversed
+* Significant effect of age (p = 0.019) - older babies look at MidChestTop AOI more.
+* Significant effect of language (p = 0.040) - NSE babies look +12.3% more than SE babies. 
+* Significant effect of direction (p = 0.047) - Babies look about 4.5% less for reversed
 * No language X direction interaction. 
 
 **MidFaceBottom:** 
 
 * No effect of age
-* Significant effect of language (p = 0.011) - SE babies look +20% more than NSE babies.
-* Marginal effect of language (p = 0.072) - Babies look about 4% more for reversed. 
+* Significant effect of language (p = 0.038) - SE babies look +16% more than NSE babies.
+* Marginal effect of language (p = 0.069) - Babies look about 4% more for reversed. 
 * No language X direction interaction.
+
 
 ```{r}
 babies %>%
@@ -241,7 +244,7 @@ ggcoef(midchesttop_lm)
 
 midfacebottom_lm <- lmer(percent ~ age + lang * direction + (1|name) + (1|story), data = filter(babies, aoi == "MidFaceBottom"))
 summary(midfacebottom_lm)
-ggcoef(midchesttop_lm)
+ggcoef(midfacebottom_lm)
 
 # Bar chart
 # babies %>%
@@ -333,9 +336,10 @@ ggplot(babies_fcr, aes(x = age, y = fcr, color = direction, fill = direction)) +
 What will a linear mixed model tell us? (with no age interactions)
 
 * No effect of age. Interesting. Maybe just becuase we don't have that many babies. 
-* Effect of language: SE babies have overall +0.49 FCR than NSE babies (p = 0.018). SE looks at the face more than the chest. 
-* Effect of direction: Reversal *increases* FCR by +0.11 across all babies (p = 0.030). Interesting.
-* *Weakkkk* language x direction interaction: bigger reversal effect in SE babies than NSE babies (p = 0.098).
+* Weak effect of language: SE babies have overall +0.38 FCR than NSE babies (p = 0.063); in other words athey are more attracted to the face. But only marginally. **Before Victoria it was p = 0.018, with +0.49 FCR for SE.**
+* Effect of direction: Reversal *increases* FCR by +0.12 across all babies (p = 0.028). Interesting.
+* Weak language x direction interaction. It seems NSE babies have a bigger reversal effect than SE babies? Trying to judge from the heat maps. (p = 0.074). **Before Victoria it was p = 0.098.**
+
 
 ```{r}
 fcr_lm <- lmer(fcr ~ age + lang * direction + (1|name) + (1|story), data = babies_fcr)
@@ -361,7 +365,7 @@ heatmap_babies <- babies %>%
 ggplot(heatmap_babies, aes(x = lang, y = aoi)) +
   geom_tile(aes(fill=percent),color="lightgray",na.rm=TRUE) + 
 #  scale_fill_viridis(option = "viridis", direction=-1, limits = c(0,.7), labels = percent, name = "looking time") +
-    scale_fill_gradient(low = "#ffffff", high = "#08519c", space = "Lab", limits = c(0,.45), labels = percent, name = "looking time", na.value = "grey50") +
+    scale_fill_gradient(low = "#ffffff", high = "#08519c", space = "Lab", limits = c(0,.41), labels = percent, name = "looking time", na.value = "grey50") +
   theme_bw() +
   theme(strip.text.x = element_text(size = 11, color = "black", face = "italic"), 
         strip.background = element_rect(colour = "white", fill = "white"),
@@ -374,7 +378,7 @@ ggplot(heatmap_babies, aes(x = lang, y = aoi)) +
 ggplot(heatmap_babies, aes(x = direction, y = aoi)) +
   geom_tile(aes(fill=percent),color="lightgray",na.rm=TRUE) + 
 #  scale_fill_viridis(option = "viridis", direction=-1, limits = c(0,.7), labels = percent, name = "looking time") +
-    scale_fill_gradient(low = "#ffffff", high = "#08519c", space = "Lab", limits = c(0,.45), labels = percent, name = "looking time", na.value = "grey50") +
+    scale_fill_gradient(low = "#ffffff", high = "#08519c", space = "Lab", limits = c(0,.41), labels = percent, name = "looking time", na.value = "grey50") +
   theme_bw() +
   theme(strip.text.x = element_text(size = 11, color = "black", face = "italic"), 
         strip.background = element_rect(colour = "white", fill = "white"),
@@ -484,9 +488,8 @@ The biggest change is we lost the interaction between language and direction. Fo
 The interpretation here is that:
 
 * All babies looked equally at all videos regardless of langauge or direction. Good!
-* SE babies are much more strong face-lookers than NSE babies. (Same as ICSLA)
-* Reversal affects all babies, making many of them look at the face more
-* However, sign exposure does not affect how reversal affects...(this is unlike ICSLA)
+* SE babies are stronger face-lookers than NSE babies. (Same as ICSLA)
+* Reversal appears to affect NSE babies more than SE babies? (Marginal). This is unlike ICSLA. 
 
 One thing I worry about is using age *without any interactions* and whether people will criticize us for that. Because age x language x direction is a "more complete" model as it suggests age may differently influence various combinations (SE + reversed, NSE + forward, etc) differently, while age + language x direction means we're mainly using age as a covariate, not as a factor of interest. But if we use age as a factor of interest, all significance disappears, so ... we want to use age as a covariate if we want to have a story. But how to defend that decision and not just be p-hacking? I have to think about it... 
 

@@ -14,5 +14,5 @@ filenum = length(csvfiles_all);
 warning('off','MATLAB:table:ModifiedVarnames');
 for i = 1:filenum
     csvfile = csvfiles_all(i).name;
-    SignGesture_TobiiExtractloop; % Change this function for what you need
+    ChildTobiiXYExtractloop; % Change this function for what you need
 end

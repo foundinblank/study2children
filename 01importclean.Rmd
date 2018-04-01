@@ -72,7 +72,7 @@ write_feather(data, "childrawdata.feather")
 
 # Introduction
 
-Great! At this point, I've run a Matlab script on the children's raw data to tally up all AOI hits for each video/trial they viewed. We start with 67 children. Not all of them go into our analysis. Some are babies, for one thing! Others had bad eye tracking calibration or were too fussy, and so were wholly thrown out. Other kids may have bad trials (e.g., no eye gaze data for more than 75% of the video). We'll go through each at a time. For now here's **all** our data. 
+Great! At this point, I've run a Matlab script (that is, ChildTobiiExtract.m or ChildTobiiExtractloop.m) on the children's raw data to tally up all AOI hits for each video/trial they viewed. We start with 67 children. Not all of them go into our analysis. Some are babies, for one thing! Others had bad eye tracking calibration or were too fussy, and so were wholly thrown out. Other kids may have bad trials (e.g., no eye gaze data for more than 75% of the video). We'll go through each at a time. For now here's **all** our data. 
 
 ```{r message=FALSE}
 # Libraries
@@ -81,7 +81,8 @@ library(feather)
 library(stringr)
 #library(cowplot)
 
-# Import data
+# Import data. If you're adding any new participants you need to run the first code block in
+# 01importclean.Rmd which will add those to the .feather file. And add the age to childrenages.csv. 
 data <- read_feather("childrawdata.feather")
 
 # Get ages
