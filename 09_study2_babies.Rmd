@@ -16,12 +16,13 @@ This is hopefully the results section for the Study 2 NSE & SE babies watching A
 1. Language (Sign v. English)
 1. Direction (Forward v. Reversed)
 
-Ages of babies are from 5 to 14.99 months. That means we lose two "old" CODA babies - Janine (16 mo) and za02 (23 mo). 
-
-The dataset also contains factors for younger v. older babies IF we want to do age group splits. I do not recommend it because we lose all significance that way and we have more precise age information, better than brute groups.  IF we do use it, the baby age groups are such:
+Ages of babies are from 5 to 14.99 months. That means we lose two "old" CODA babies - Janine (16 mo) and za02 (23 mo). The dataset also contains factors for younger v. older babies *IF* we want to do age group splits. I do not recommend it because we lose all significance that way and we have more precise age information, better than brute groups.  IF we do use it, the baby age groups are such:
 
 * Younger babies = 5 to 8.99 months
 * Older babies = 9.0 to 14.99 months
+
+To skip to the XY Data, go here. 
+To skip to the AOI/FCR analysis, go here. 
 
 # Demographics
 ```{r message=FALSE, warning=FALSE}
@@ -95,6 +96,7 @@ babies$agegroup <- fct_relevel(babies$agegroup, c("younger","older"))
 # babiesinfo <- left_join(babiesinfo, genders) %>%
 #   select(lang, agegroup, N, Female, Male, age_mean, sd, min, max) %>%
 #   print()
+
 ```
 
 # Global Looking
@@ -482,7 +484,7 @@ babies_fcr2 %>%
 
 ```
 
-# Discussion
+# Discussion re AOI/anatomical data
 The biggest change is we lost the interaction between language and direction. For the ICSLA abstract we reported a strong interaction (p = 0.01), but now it's p = 0.10. Likely because of the new babies we added, and recalculating percentages/denominators. 
 
 The interpretation here is that:
@@ -493,9 +495,10 @@ The interpretation here is that:
 
 One thing I worry about is using age *without any interactions* and whether people will criticize us for that. Because age x language x direction is a "more complete" model as it suggests age may differently influence various combinations (SE + reversed, NSE + forward, etc) differently, while age + language x direction means we're mainly using age as a covariate, not as a factor of interest. But if we use age as a factor of interest, all significance disappears, so ... we want to use age as a covariate if we want to have a story. But how to defend that decision and not just be p-hacking? I have to think about it... 
 
+
+```{r eval=FALSE, fig.height=12, fig.width=12, include=FALSE}
 # Correlations
 
-```{r fig.height=12, fig.width=12}
 # Let's try correlations
 babies_nse <- babies %>% 
   filter(aoi %in% midline) %>%
@@ -532,5 +535,259 @@ ggcorr(babies_se, label = TRUE, label_size = 5, label_round = 2, label_alpha = T
 library(corrr)
 babies_nse %>% correlate() %>% network_plot(min_cor=0.6) + ggtitle("NSE Babies")
 babies_se %>% correlate() %>% network_plot(min_cor=0.6) + ggtitle("SE Babies")
+```
+
+# XY Space Data
+We'll load the data from the `childxydata.feather` file made in 06rawxydata.Rmd. So any new babies, please run the first code block in 06 to include it. Then we'll keep all the babies we also have in the AOI data group. 
+
+```{r message=FALSE, warning=FALSE}
+included <- babies %>%
+  ungroup() %>%
+  select(name) %>% 
+  distinct() %>%
+  unlist()
+
+xydata <- read_feather("../Child Data/childxydata.feather") %>%
+  rename(name = participant) %>%
+  filter(name %in% included)
+
+# Get ages
+ages <- read_csv("childrenages.csv") %>%
+  rename(name = participant)
+xydata <- xydata %>% left_join(ages, by = "name") %>%
+  mutate(age = age*12) %>%
+  mutate(agegroup = case_when(
+    age <= 8.99 ~ "younger",
+    age >= 9.0 & age < 15 ~ "older"
+  )) %>%
+  mutate(language = case_when(
+    language == "EnglishExposed" ~ "NSE",
+    language == "SignLanguageExposed" ~ "SE"
+  )) %>%
+  rename(lang = language) %>%
+  select(name, group, gender, lang, condition, mark, trial, repetition, x, y, age, agegroup) %>%
+  separate(condition, into = c("story", "clip", "direction")) %>%
+  unite("story", c("story", "clip")) %>%
+  mutate(direction = case_when(
+    direction == "ER" ~ "reversed",
+    direction == "FW" ~ "forward"
+  )) %>%
+  mutate(name = factor(name),
+         group = factor(group),
+         gender = factor(gender),
+         lang = factor(lang),
+         story = factor(story),
+         direction = factor(direction),
+         mark = factor(mark),
+         trial = factor(trial),
+         repetition = factor(repetition),
+         agegroup = factor(agegroup))
+```
+
+## Overall Looking
+Let's check that we have no significant group or condition differences in terms of valid (not empty) data points collected. This is same as "Global Looking" we have above, really, but w raw xy data. 
+
+```{r}
+xy_overall <- xydata %>%
+  filter(!is.na(x)) %>%
+  group_by(name, age, lang, direction, story, repetition) %>%
+  summarise(data_points = n()) # gets total looking percent for each trial for each baby
+
+# Table of means
+xy_overall %>% 
+  group_by(name, lang, direction) %>%
+  summarise(data_points = mean(data_points)) %>% # get average looking percent for each baby
+  group_by(lang, direction) %>%
+  summarise(mean_data_points = mean(data_points),
+            count = n(),
+            sd = sd(data_points),
+            se = sd/sqrt(count)) %>%
+  select(-sd) %>%
+  print()
+
+ggplot(xy_overall, aes(x = age, y = data_points, color = direction, fill = direction)) + 
+  geom_jitter(alpha = 0.5) +
+  facet_grid(. ~ lang) +
+  geom_smooth(method = "lm", se = FALSE) +
+  ggtitle("Data Points") +
+  xlab("age (months)") +
+  ylab("data points recorded") + 
+  theme_bw() 
+```
+
+
+A linear model shows there were no significant effects of any factors. We can conclude there was no effect on how *much* data was collected from the babies.   
+
+```{r}
+overall_xy_lm <- lmer(data_points ~ age + lang * direction + (direction|name) + (direction|story), data = xy_overall)
+summary(overall_xy_lm) 
+ggcoef(overall_xy_lm)
+```
+
+## XY Data LMMs
+Now we're going to run LMMs on babies' raw: 
+
+* horizontal spread (middle 50% of x data; xIQR)
+* vertical spread (middle 50% of y data; yIQR)
+* viewing area (A = middle-x * middle-y; area)
+
+But to do this we first trim each baby's data, getting rid of the first 60 samples (0.5 secs) of each trial. 
+
+```{r}
+xydata <- xydata %>%
+  group_by(name,trial) %>%
+  slice(60:n())
+
+iqr <- xydata %>%
+  group_by(name, age, lang, story, direction, trial) %>%
+  summarise(xIQR = IQR(x,na.rm=TRUE),
+                   yIQR = IQR(y,na.rm=TRUE),
+                   xmed = median(x, na.rm=TRUE),
+                   ymed = median(y, na.rm=TRUE),
+                   area = xIQR*yIQR)
+head(iqr,20)
+
+```
+
+
+### Middle X
+
+Results tell us that there is a significant effect of age where horizontal spread grew narrower with older babies (p = 0.024; slope = -2.2 px/month). There was a marginal effect of language where SE babies have slightly narrower horizontal spread (11 px; p = 0.088). No effects of reversal or interactions.
+
+```{r}
+xiqr_mean <- iqr %>% 
+  group_by(lang, direction, name) %>%
+  summarise(xIQR = mean(xIQR, na.rm = T)) %>% # gets average looking percent for each baby
+  group_by(lang, direction) %>%
+  summarise(mean_xIQR = mean(xIQR), # gets group averages
+            count = n(),
+            sd = sd(xIQR),
+            se = sd/sqrt(count)) %>%
+  select(-sd) %>%
+  print()
+
+# Plot
+ggplot(iqr, aes(x = age, y = xIQR, color = direction, fill = direction)) + 
+  geom_jitter(alpha = 0.5) + 
+  geom_smooth(method = "lm", se = FALSE) +
+  theme_bw() + 
+  theme(panel.grid.major.x = element_blank()) +
+  facet_grid(. ~ lang) +
+  ggtitle("Horizontal Spread") +
+  xlab("") +
+  ylab("xIQR")
+
+ggplot(xiqr_mean, aes(x = lang, y = mean_xIQR, fill = direction)) +
+  geom_bar(stat = "identity", position = position_dodge()) + 
+  geom_errorbar(aes(ymin = mean_xIQR-se, ymax = mean_xIQR+se), position = position_dodge(0.9), width = 0.2) +
+  theme_linedraw()
+
+xiqr_lm <- lmer(xIQR ~ age + lang * direction + (1|name) + (1|story), data = iqr)
+summary(xiqr_lm)
+ggcoef(xiqr_lm)
+```
+
+
+### Middle Y
+
+We had a significant effect of age where vertical spread got narrower with older babies (p = 0.019, slope = -5.5 px/month). There were no effect of language, direction, or interactions. 
+
+```{r}
+yiqr_mean <- iqr %>% 
+  group_by(lang, direction, name) %>%
+  summarise(yIQR = mean(yIQR, na.rm = T)) %>% # gets average looking percent for each baby
+  group_by(lang, direction) %>%
+  summarise(mean_yIQR = mean(yIQR), # gets group averages
+            count = n(),
+            sd = sd(yIQR),
+            se = sd/sqrt(count)) %>%
+  select(-sd) %>%
+  print()
+
+# Plot
+ggplot(iqr, aes(x = age, y = yIQR, color = direction, fill = direction)) + 
+  geom_jitter(alpha = 0.5) + 
+  geom_smooth(method = "lm", se = FALSE) +
+  theme_bw() + 
+  theme(panel.grid.major.x = element_blank()) +
+  facet_grid(. ~ lang) +
+  ggtitle("Vertical Spread") +
+  xlab("") +
+  ylab("yIQR")
+
+ggplot(yiqr_mean, aes(x = lang, y = mean_yIQR, fill = direction)) +
+  geom_bar(stat = "identity", position = position_dodge()) + 
+  geom_errorbar(aes(ymin = mean_yIQR-se, ymax = mean_yIQR+se), position = position_dodge(0.9), width = 0.2) +
+  theme_linedraw()
+
+yiqr_lm <- lmer(yIQR ~ age + lang * direction + (1|name) + (1|story), data = iqr)
+summary(yiqr_lm)
+ggcoef(yiqr_lm)
+```
+
+### Viewing Area
+Again, age is significant (p = 0.01) such that area gets smaller with age (about 500 sq. px. per month). No effect of language or direction or interactions. 
+
+```{r}
+area_mean <- iqr %>% 
+  group_by(lang, direction, name) %>%
+  summarise(area = mean(area, na.rm = T)) %>% # gets average looking percent for each baby
+  group_by(lang, direction) %>%
+  summarise(area_mean = mean(area), # gets group averages
+            count = n(),
+            sd = sd(area),
+            se = sd/sqrt(count)) %>%
+  select(-sd) %>%
+  print()
+
+# Plot
+ggplot(iqr, aes(x = age, y = area, color = direction, fill = direction)) + 
+  geom_jitter(alpha = 0.5) + 
+  geom_smooth(method = "lm", se = FALSE) +
+  theme_bw() + 
+  theme(panel.grid.major.x = element_blank()) +
+  facet_grid(. ~ lang) +
+  ggtitle("Viewing Area") +
+  xlab("") +
+  ylab("Area (px^2)")
+
+ggplot(area_mean, aes(x = lang, y = area_mean, fill = direction)) +
+  geom_bar(stat = "identity", position = position_dodge()) + 
+  geom_errorbar(aes(ymin = area_mean-se, ymax = area_mean+se), position = position_dodge(0.9), width = 0.2) +
+  theme_linedraw()
+
+area_lm <- lmer(area ~ age + lang * direction + (1|name) + (1|story), data = iqr)
+summary(area_lm)
+ggcoef(area_lm)
+```
+
+## Plotting Viewing Area 
+
+```{r}
+medians <- iqr %>%
+  group_by(name,lang,direction) %>%
+  summarise(xIQR = median(xIQR,na.rm=TRUE),
+                   yIQR = median(yIQR,na.rm=TRUE),
+                   xmed = median(xmed,na.rm=TRUE),
+                   ymed = median(ymed,na.rm=TRUE)) %>%
+  group_by(lang,direction) %>% 
+  summarise(xIQR = median(xIQR,na.rm=TRUE),
+                   yIQR = median(yIQR,na.rm=TRUE),
+                   x = median(xmed,na.rm=TRUE),
+                   y = median(ymed,na.rm=TRUE)) %>%
+  mutate(y = y*-1,
+         xmin = x-(xIQR/2),
+         xmax = x+(xIQR/2),
+         ymin = y-(yIQR/2),
+         ymax = y+(yIQR/2))
+img <- png::readPNG("cindy.png")
+g <- grid::rasterGrob(img, interpolate=TRUE, width=unit(1,"npc"), height=unit(1,"npc")) 
+ggplot(medians, aes(fill=direction,color=direction)) +
+  annotation_custom(g, xmin=-Inf, xmax=Inf, ymin=-Inf, ymax=Inf) +
+  geom_rect(aes(xmin=xmin,ymin=ymin,xmax=xmax,ymax=ymax),alpha=.1) + 
+  theme_linedraw() +
+  scale_x_continuous(limits = c(0,1080), expand = c(0, 0)) +
+  scale_y_continuous(limits = c(-720,0), expand = c(0, 0)) +
+  facet_wrap("lang")
 ```
 
