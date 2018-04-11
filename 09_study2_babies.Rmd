@@ -49,6 +49,8 @@ babies <- read_feather("cleanedbabyeyedata.feather") %>%
     language =="sign" ~ "SE"
   )) %>%
   rename(lang = language)
+#  filter(name != "Parker 6 m SIGNING") %>%
+#  filter(name != "Victoria07_18_17")
 
 babiesinfo <- babies %>%
   select(name, lang, age, gender) %>%
@@ -367,7 +369,7 @@ heatmap_babies <- babies %>%
 ggplot(heatmap_babies, aes(x = lang, y = aoi)) +
   geom_tile(aes(fill=percent),color="lightgray",na.rm=TRUE) + 
 #  scale_fill_viridis(option = "viridis", direction=-1, limits = c(0,.7), labels = percent, name = "looking time") +
-    scale_fill_gradient(low = "#ffffff", high = "#08519c", space = "Lab", limits = c(0,.41), labels = percent, name = "looking time", na.value = "grey50") +
+    scale_fill_gradient(low = "#ffffff", high = "#08519c", space = "Lab", limits = c(0,.38), labels = percent, name = "looking time", na.value = "grey50") +
   theme_bw() +
   theme(strip.text.x = element_text(size = 11, color = "black", face = "italic"), 
         strip.background = element_rect(colour = "white", fill = "white"),
@@ -380,7 +382,7 @@ ggplot(heatmap_babies, aes(x = lang, y = aoi)) +
 ggplot(heatmap_babies, aes(x = direction, y = aoi)) +
   geom_tile(aes(fill=percent),color="lightgray",na.rm=TRUE) + 
 #  scale_fill_viridis(option = "viridis", direction=-1, limits = c(0,.7), labels = percent, name = "looking time") +
-    scale_fill_gradient(low = "#ffffff", high = "#08519c", space = "Lab", limits = c(0,.41), labels = percent, name = "looking time", na.value = "grey50") +
+    scale_fill_gradient(low = "#ffffff", high = "#08519c", space = "Lab", limits = c(0,.38), labels = percent, name = "looking time", na.value = "grey50") +
   theme_bw() +
   theme(strip.text.x = element_text(size = 11, color = "black", face = "italic"), 
         strip.background = element_rect(colour = "white", fill = "white"),

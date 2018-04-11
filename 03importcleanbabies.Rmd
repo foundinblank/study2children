@@ -27,7 +27,7 @@ library(stringr)
 library(RColorBrewer)
 #library(cowplot)
 
-# Import data. If you're adding any new participants you need to run the first code block in
+# Import data. If you're adding any new participants you need to run the topmost code block in
 # 01importclean.Rmd which will add those to the .feather file. And add the age to childrenages.csv. 
 data <- read_feather("childrawdata.feather") 
 
