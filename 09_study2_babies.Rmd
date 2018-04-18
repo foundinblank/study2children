@@ -190,9 +190,9 @@ Now we'll re-calculate the percentages so the denominator is based on total look
 #Recalculate percent
 babies <- babies %>%
   select(-percent) %>%
-  group_by(name, lang, agegroup, age, direction, story, mark, trial, repetition) %>%
+  group_by(name, lang, agegroup, age, direction, story, mark, trial, repetition, gender) %>%
   mutate(totalsec = sum(secs)) %>%
-  group_by(name, lang, agegroup, age, direction, story, mark, trial, repetition, aoi) %>%
+  group_by(name, lang, agegroup, age, direction, story, mark, trial, repetition, gender, aoi) %>%
   summarise(percent = secs/totalsec)
 
 # Boxplot
@@ -297,7 +297,7 @@ We did not include Belly or MidFaceTop because of very low looking rates accordi
 ```{r}
 babies_fcr <- babies %>%
   spread(aoi,percent) %>%
-  group_by(name, age, agegroup, lang, direction, story, repetition) %>%
+  group_by(name, age, agegroup, lang, gender, direction, story, repetition) %>%
   summarise(face = sum(MidFaceCenter, MidFaceBottom, na.rm = TRUE),
          chest = sum(MidChestTop, MidChestCenter, MidChestBottom, BelowChest, na.rm = TRUE),
          fcr = (face - chest) / (face + chest))
@@ -799,5 +799,60 @@ ggplot(medians, aes(fill=direction,color=direction)) +
   scale_x_continuous(limits = c(0,1080), expand = c(0, 0)) +
   scale_y_continuous(limits = c(-720,0), expand = c(0, 0)) +
   facet_wrap("lang")
+```
+
+# Puppies
+Get puppy data!
+
+```{r message=FALSE, warning=FALSE}
+puppies1 <- read_tsv("../Child Data/_puppies/all puppies group 1 sums.txt", na = "-") %>% 
+  clean_names() %>%
+  select(-c(age, analysis, check_if_want_scatterplot, gender, language)) %>%
+  rename(name = x1) %>%
+  mutate(mean = rowMeans(.[2:10], na.rm = T)) %>%
+  select(name, mean)
+  
+puppies2 <- read_tsv("../Child Data/_puppies/all puppies group 2 sums.txt", na = "-") %>% 
+  clean_names() %>%
+  select(-c(age, analysis, check_if_want_scatterplot, gender, language)) %>%
+  rename(name = x1) %>%
+  mutate(mean = rowMeans(.[2:17], na.rm = T)) %>%
+  select(name, mean)
+
+puppies <- rbind(puppies1, puppies2)
+
+participants <- xydata %>% 
+  select(name, group, gender, language) %>% 
+  distinct()
+
+puppies <- left_join(participants, puppies, by = "name")
+
+summary(lm(data = puppies, mean ~ language))
+
+puppies_se <- filter(puppies, language == "SignLanguageExposed")
+puppies_nse <- filter(puppies, language == "EnglishExposed")
+
+t.test(puppies_se$mean, puppies_nse$mean)
+
+# Let's do this again but preserve puppy-level data
+puppies1 <- read_tsv("../Child Data/_puppies/all puppies group 1 sums.txt", na = "-") %>% 
+  clean_names() %>%
+  select(-c(age, analysis, check_if_want_scatterplot, gender, language)) %>%
+  rename(name = x1) %>%
+  gather(key = puppy, value = sec, -name)
+
+puppies2 <- read_tsv("../Child Data/_puppies/all puppies group 2 sums.txt", na = "-") %>% 
+  clean_names() %>%
+  select(-c(age, analysis, check_if_want_scatterplot, gender, language)) %>%
+  rename(name = x1) %>%
+  gather(key = puppy, value = sec, -name)
+
+puppies <- rbind(puppies1,puppies2)
+
+puppies <- left_join(participants, puppies, by = "name")
+
+summary(lmer(data = puppies, sec ~ language + (1|name)))
+
+ggplot(puppies, aes(x = language, y = sec, fill = language)) + geom_boxplot()
 ```
 
