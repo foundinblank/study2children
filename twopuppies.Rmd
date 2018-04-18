@@ -721,7 +721,7 @@ kelles_stats %>% group_by(axis) %>% summarise(offset = mean(offset))
 
 ## Trinity SE
 ```{r message=FALSE}
-trinity <- read_csv("../Child Data/_twopuppies/Trinity 8m_Rec 07_TwoPuppiesData.csv") %>%
+trinity <- read_csv("~/Downloads/Trinity 8m_Rec 07_TwoPuppiesData.csv") %>%
   mutate(puppy = case_when(
     mark == 1 ~ "chihuahua",
     mark == 2 ~ "frisby"

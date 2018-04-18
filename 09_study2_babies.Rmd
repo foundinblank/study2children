@@ -48,8 +48,20 @@ babies <- read_feather("cleanedbabyeyedata.feather") %>%
     language == "english" ~ "NSE",
     language =="sign" ~ "SE"
   )) %>%
-  rename(lang = language)
-#  filter(name != "Parker 6 m SIGNING") %>%
+  rename(lang = language) %>%
+  mutate(lang2 = case_when(
+    name == "aubrey CODA 11m" ~ "HSE",
+    name == "GemmaF_11_4_13_CODA" ~ "HSE",
+    name == "Hannah_CODA_7m" ~ "HSE",
+    name == "ke11es12_7m_MomTerp" ~ "LSE",
+    name == "Miles_14m_SE" ~ "HSE",
+    name == "Parker 6 m SIGNING" ~ "HSE",
+    name == "Penn 6 months SIGN EXPOSED" ~ "HSE",
+    name == "Trinity 8m" ~ "LSE",
+    name == "Victoria07_18_17" ~ "LSE",
+    name == "Wells_8mos" ~ "LSE",
+    TRUE ~ lang
+  ))
 #  filter(name != "Victoria07_18_17")
 
 babiesinfo <- babies %>%
@@ -215,18 +227,17 @@ I'm going to run linear models with only MidChestTop or MidFaceBottom, and see w
 
 **MidChestTop:**
 
-* Significant effect of age (p = 0.019) - older babies look at MidChestTop AOI more.
-* Significant effect of language (p = 0.040) - NSE babies look +12.3% more than SE babies. 
-* Significant effect of direction (p = 0.047) - Babies look about 4.5% less for reversed
+* Significant effect of age (p = 0.004) - older babies look at MidChestTop AOI more.
+* Significant effect of language (p = 0.006) - NSE babies look +14.6% more than SE babies. 
+* Significant effect of direction (p = 0.046) - Babies look about 4.5% less for reversed
 * No language X direction interaction. 
 
 **MidFaceBottom:** 
 
 * No effect of age
-* Significant effect of language (p = 0.038) - SE babies look +16% more than NSE babies.
-* Marginal effect of language (p = 0.069) - Babies look about 4% more for reversed. 
+* Significant effect of language (p = 0.004) - SE babies look +21% more than NSE babies.
+* Marginal effect of language (p = 0.073) - Babies look about 2% more for reversed. 
 * No language X direction interaction.
-
 
 ```{r}
 babies %>%
@@ -339,10 +350,10 @@ ggplot(babies_fcr, aes(x = age, y = fcr, color = direction, fill = direction)) +
 
 What will a linear mixed model tell us? (with no age interactions)
 
-* No effect of age. Interesting. Maybe just becuase we don't have that many babies. 
-* Weak effect of language: SE babies have overall +0.38 FCR than NSE babies (p = 0.063); in other words athey are more attracted to the face. But only marginally. **Before Victoria it was p = 0.018, with +0.49 FCR for SE.**
-* Effect of direction: Reversal *increases* FCR by +0.12 across all babies (p = 0.028). Interesting.
-* Weak language x direction interaction. It seems NSE babies have a bigger reversal effect than SE babies? Trying to judge from the heat maps. (p = 0.074). **Before Victoria it was p = 0.098.**
+* No effect of age. Interesting. Maybe because we don't have that many babies. 
+* Strong effect of language: SE babies have overall +0.50 FCR than NSE babies (p = 0.008); in other words, they are more attracted to the face. 
+* Effect of direction: Reversal *increases* FCR by +0.12 across all babies (p = 0.032). Interesting.
+* Weak language x direction interaction. It seems NSE babies have a bigger reversal effect than SE babies? Trying to judge from the heat maps. (p = 0.095). BUt it's so weak so possibly not worth mentioning.
 
 
 ```{r}
@@ -369,7 +380,7 @@ heatmap_babies <- babies %>%
 ggplot(heatmap_babies, aes(x = lang, y = aoi)) +
   geom_tile(aes(fill=percent),color="lightgray",na.rm=TRUE) + 
 #  scale_fill_viridis(option = "viridis", direction=-1, limits = c(0,.7), labels = percent, name = "looking time") +
-    scale_fill_gradient(low = "#ffffff", high = "#08519c", space = "Lab", limits = c(0,.38), labels = percent, name = "looking time", na.value = "grey50") +
+    scale_fill_gradient(low = "#ffffff", high = "#08519c", space = "Lab", limits = c(0,.451), labels = percent, name = "looking time", na.value = "grey50") +
   theme_bw() +
   theme(strip.text.x = element_text(size = 11, color = "black", face = "italic"), 
         strip.background = element_rect(colour = "white", fill = "white"),
@@ -382,7 +393,7 @@ ggplot(heatmap_babies, aes(x = lang, y = aoi)) +
 ggplot(heatmap_babies, aes(x = direction, y = aoi)) +
   geom_tile(aes(fill=percent),color="lightgray",na.rm=TRUE) + 
 #  scale_fill_viridis(option = "viridis", direction=-1, limits = c(0,.7), labels = percent, name = "looking time") +
-    scale_fill_gradient(low = "#ffffff", high = "#08519c", space = "Lab", limits = c(0,.38), labels = percent, name = "looking time", na.value = "grey50") +
+    scale_fill_gradient(low = "#ffffff", high = "#08519c", space = "Lab", limits = c(0,.451), labels = percent, name = "looking time", na.value = "grey50") +
   theme_bw() +
   theme(strip.text.x = element_text(size = 11, color = "black", face = "italic"), 
         strip.background = element_rect(colour = "white", fill = "white"),
@@ -487,16 +498,13 @@ babies_fcr2 %>%
 ```
 
 # Discussion re AOI/anatomical data
-The biggest change is we lost the interaction between language and direction. For the ICSLA abstract we reported a strong interaction (p = 0.01), but now it's p = 0.10. Likely because of the new babies we added, and recalculating percentages/denominators. 
+The biggest change is we lost the interaction between language and direction. For the ICSLA abstract we reported a strong interaction (p = 0.01), but now it's p = 0.10. Shoot. 
 
 The interpretation here is that:
 
-* All babies looked equally at all videos regardless of langauge or direction. Good!
+* All babies looked equally at all videos regardless of language or direction. Good!
 * SE babies are stronger face-lookers than NSE babies. (Same as ICSLA)
 * Reversal appears to affect NSE babies more than SE babies? (Marginal). This is unlike ICSLA. 
-
-One thing I worry about is using age *without any interactions* and whether people will criticize us for that. Because age x language x direction is a "more complete" model as it suggests age may differently influence various combinations (SE + reversed, NSE + forward, etc) differently, while age + language x direction means we're mainly using age as a covariate, not as a factor of interest. But if we use age as a factor of interest, all significance disappears, so ... we want to use age as a covariate if we want to have a story. But how to defend that decision and not just be p-hacking? I have to think about it... 
-
 
 ```{r eval=FALSE, fig.height=12, fig.width=12, include=FALSE}
 # Correlations
