@@ -181,7 +181,7 @@ A linear model shows a significant effect of age. Overall, Age seems to increase
 ```{r}
 global_lm <- lmer(percent ~ age + lang * direction + (1|name) + (1|story), data = kids_overall_looking)
 summary(global_lm)
-ggcoef(global_lm)
+#ggcoef(global_lm)
 ```
 
 # AOI Looking
@@ -258,11 +258,11 @@ kids %>%
 
 midchesttop_lm <- lmer(percent ~ age + lang * direction + (1|name) + (1|story), data = filter(kids, aoi == "MidChestTop"))
 summary(midchesttop_lm)
-ggcoef(midchesttop_lm)
+#ggcoef(midchesttop_lm)
 
 midfacebottom_lm <- lmer(percent ~ age + lang * direction + (1|name) + (1|story), data = filter(kids, aoi == "MidFaceBottom"))
 summary(midfacebottom_lm)
-ggcoef(midfacebottom_lm)
+#ggcoef(midfacebottom_lm)
 
 # Bar chart
 # babies %>%
@@ -362,7 +362,7 @@ What will a linear mixed model tell us? (with no age interactions)
 ```{r}
 fcr_lm <- lmer(fcr ~ age + lang * direction + (1|name) + (1|story), data = kids_fcr)
 summary(fcr_lm)
-ggcoef(fcr_lm)
+#ggcoef(fcr_lm)
 ```
 
 # Visualizing Reversal Effect
@@ -500,6 +500,31 @@ ggplot(heatmap_kids, aes(x = direction, y = aoi)) +
   scale_x_discrete(expand = c(0,0))
 ```
 
+
+
+```{r}
+# All Data
+#Here's all AOI data. 
+
+kids %>%
+  ungroup() %>%
+  group_by(lang, name, direction, aoi) %>%
+  summarise(percent = mean(percent, na.rm=TRUE)) %>%
+  group_by(lang, direction, aoi) %>%
+  summarise(percent = mean(percent, na.rm=TRUE)) %>%
+  openxlsx::write.xlsx("~/Desktop/kids_by_direction.xlsx")
+
+kids %>%
+  ungroup() %>%
+  group_by(lang, name, direction, aoi) %>%
+  summarise(percent = mean(percent, na.rm=TRUE)) %>%
+  group_by(lang, direction, aoi) %>%
+  summarise(percent = mean(percent, na.rm=TRUE)) %>%
+  group_by(lang, aoi) %>%
+  summarise(percent = mean(percent, na.rm=TRUE)) %>%
+  openxlsx::write.xlsx("~/Desktop/kids_collapsed.xlsx")
+```
+
 # Discussion
 No big changes from the ICSLA abstract. Good! 
 
@@ -551,4 +576,256 @@ library(corrr)
 kids_nse %>% correlate() %>% network_plot(min_cor=0.6) + ggtitle("NSE Children")
 kids_se %>% correlate() %>% network_plot(min_cor=0.6) + ggtitle("SE Children")
 
+```
+
+# XY Space Data
+We'll load the data from the `childxydata.feather` file made in 06rawxydata.Rmd. So any new kids, please run the first code block in 06 to include it. Then we'll keep all the kids we also have in the AOI data group. 
+
+```{r message=FALSE, warning=FALSE}
+included <- kids %>%
+  ungroup() %>%
+  select(name) %>% 
+  distinct() %>%
+  unlist()
+
+xydata <- read_feather("../Child Data/childxydata.feather") %>%
+  rename(name = participant) %>%
+  filter(name %in% included)
+
+# Get ages
+ages <- read_csv("childrenages.csv") %>%
+  rename(name = participant)
+xydata <- xydata %>% left_join(ages, by = "name") %>%
+  mutate(age = age*12) %>%
+  mutate(agegroup = case_when(
+    age <= 8.99 ~ "younger",
+    age >= 9.0 & age < 15 ~ "older"
+  )) %>%
+  mutate(language = case_when(
+    language == "EnglishExposed" ~ "NSE",
+    language == "SignLanguageExposed" ~ "SE"
+  )) %>%
+  rename(lang = language) %>%
+  select(name, group, gender, lang, condition, mark, trial, repetition, x, y, age, agegroup) %>%
+  separate(condition, into = c("story", "clip", "direction")) %>%
+  unite("story", c("story", "clip")) %>%
+  mutate(direction = case_when(
+    direction == "ER" ~ "reversed",
+    direction == "FW" ~ "forward"
+  )) %>%
+  mutate(name = factor(name),
+         group = factor(group),
+         gender = factor(gender),
+         lang = factor(lang),
+         story = factor(story),
+         direction = factor(direction),
+         mark = factor(mark),
+         trial = factor(trial),
+         repetition = factor(repetition),
+         agegroup = factor(agegroup))
+```
+
+## Overall Looking
+Let's check that we have no significant group or condition differences in terms of valid (not empty) data points collected. This is same as "Global Looking" we have above, really, but w raw xy data. 
+
+```{r}
+xy_overall <- xydata %>%
+  filter(!is.na(x)) %>%
+  group_by(name, age, lang, direction, story, repetition) %>%
+  summarise(data_points = n()) # gets total looking percent for each trial for each baby
+
+# Table of means
+xy_overall %>% 
+  group_by(name, lang, direction) %>%
+  summarise(data_points = mean(data_points)) %>% # get average looking percent for each baby
+  group_by(lang, direction) %>%
+  summarise(mean_data_points = mean(data_points),
+            count = n(),
+            sd = sd(data_points),
+            se = sd/sqrt(count)) %>%
+  select(-sd) %>%
+  print()
+
+ggplot(xy_overall, aes(x = age, y = data_points, color = direction, fill = direction)) + 
+  geom_jitter(alpha = 0.5) +
+  facet_grid(. ~ lang) +
+  geom_smooth(method = "lm", se = FALSE) +
+  ggtitle("Data Points") +
+  xlab("age (months)") +
+  ylab("data points recorded") + 
+  theme_bw() 
+```
+
+
+Description.
+
+```{r}
+overall_xy_lm <- lmer(data_points ~ age + lang * direction + (direction|name) + (direction|story), data = xy_overall)
+summary(overall_xy_lm) 
+#ggcoef(overall_xy_lm)
+```
+
+## XY Data LMMs
+Now we're going to run LMMs on babies' raw: 
+
+* horizontal spread (middle 50% of x data; xIQR)
+* vertical spread (middle 50% of y data; yIQR)
+* viewing area (A = middle-x * middle-y; area)
+
+But to do this we first trim each kid's data, getting rid of the first 60 samples (0.50 secs) of each trial. 
+
+```{r}
+xydata <- xydata %>%
+  group_by(name,trial) %>%
+  slice(30:n())
+
+iqr <- xydata %>%
+  group_by(name, age, lang, story, direction, trial) %>%
+  summarise(xIQR = IQR(x,na.rm=TRUE),
+                   yIQR = IQR(y,na.rm=TRUE),
+                   xmed = median(x, na.rm=TRUE),
+                   ymed = median(y, na.rm=TRUE),
+                   area = xIQR*yIQR)
+head(iqr,20)
+
+```
+
+
+### Middle X
+Description.
+
+```{r}
+xiqr_mean <- iqr %>% 
+  group_by(lang, direction, name) %>%
+  summarise(xIQR = mean(xIQR, na.rm = T)) %>% # gets average looking percent for each baby
+  group_by(lang, direction) %>%
+  summarise(mean_xIQR = mean(xIQR), # gets group averages
+            count = n(),
+            sd = sd(xIQR),
+            se = sd/sqrt(count)) %>%
+  select(-sd) %>%
+  print()
+
+# Plot
+ggplot(iqr, aes(x = age, y = xIQR, color = direction, fill = direction)) + 
+  geom_jitter(alpha = 0.5) + 
+  geom_smooth(method = "lm", se = FALSE) +
+  theme_bw() + 
+  theme(panel.grid.major.x = element_blank()) +
+  facet_grid(. ~ lang) +
+  ggtitle("Horizontal Spread") +
+  xlab("") +
+  ylab("xIQR")
+
+ggplot(xiqr_mean, aes(x = lang, y = mean_xIQR, fill = direction)) +
+  geom_bar(stat = "identity", position = position_dodge()) + 
+  geom_errorbar(aes(ymin = mean_xIQR-se, ymax = mean_xIQR+se), position = position_dodge(0.9), width = 0.2) +
+  theme_linedraw()
+
+xiqr_lm <- lmer(xIQR ~ age + lang * direction + (1|name) + (1|story), data = iqr)
+summary(xiqr_lm)
+#ggcoef(xiqr_lm)
+```
+
+
+### Middle Y
+Description.
+
+```{r}
+yiqr_mean <- iqr %>% 
+  group_by(lang, direction, name) %>%
+  summarise(yIQR = mean(yIQR, na.rm = T)) %>% # gets average looking percent for each baby
+  group_by(lang, direction) %>%
+  summarise(mean_yIQR = mean(yIQR), # gets group averages
+            count = n(),
+            sd = sd(yIQR),
+            se = sd/sqrt(count)) %>%
+  select(-sd) %>%
+  print()
+
+# Plot
+ggplot(iqr, aes(x = age, y = yIQR, color = direction, fill = direction)) + 
+  geom_jitter(alpha = 0.5) + 
+  geom_smooth(method = "lm", se = FALSE) +
+  theme_bw() + 
+  theme(panel.grid.major.x = element_blank()) +
+  facet_grid(. ~ lang) +
+  ggtitle("Vertical Spread") +
+  xlab("") +
+  ylab("yIQR")
+
+ggplot(yiqr_mean, aes(x = lang, y = mean_yIQR, fill = direction)) +
+  geom_bar(stat = "identity", position = position_dodge()) + 
+  geom_errorbar(aes(ymin = mean_yIQR-se, ymax = mean_yIQR+se), position = position_dodge(0.9), width = 0.2) +
+  theme_linedraw()
+
+yiqr_lm <- lmer(yIQR ~ age + lang * direction + (1|name) + (1|story), data = iqr)
+summary(yiqr_lm)
+#ggcoef(yiqr_lm)
+```
+
+### Viewing Area
+Description.
+
+```{r}
+area_mean <- iqr %>% 
+  group_by(lang, direction, name) %>%
+  summarise(area = mean(area, na.rm = T)) %>% # gets average looking percent for each baby
+  group_by(lang, direction) %>%
+  summarise(area_mean = mean(area), # gets group averages
+            count = n(),
+            sd = sd(area),
+            se = sd/sqrt(count)) %>%
+  select(-sd) %>%
+  print()
+
+# Plot
+ggplot(iqr, aes(x = age, y = area, color = direction, fill = direction)) + 
+  geom_jitter(alpha = 0.5) + 
+  geom_smooth(method = "lm", se = FALSE) +
+  theme_bw() + 
+  theme(panel.grid.major.x = element_blank()) +
+  facet_grid(. ~ lang) +
+  ggtitle("Viewing Area") +
+  xlab("") +
+  ylab("Area (px^2)")
+
+ggplot(area_mean, aes(x = lang, y = area_mean, fill = direction)) +
+  geom_bar(stat = "identity", position = position_dodge()) + 
+  geom_errorbar(aes(ymin = area_mean-se, ymax = area_mean+se), position = position_dodge(0.9), width = 0.2) +
+  theme_linedraw()
+
+area_lm <- lmer(area ~ age + lang * direction + (1|name) + (1|story), data = iqr)
+summary(area_lm)
+#ggcoef(area_lm)
+```
+
+## Plotting Viewing Area 
+
+```{r}
+medians <- iqr %>%
+  group_by(name,lang,direction) %>%
+  summarise(xIQR = median(xIQR,na.rm=TRUE),
+                   yIQR = median(yIQR,na.rm=TRUE),
+                   xmed = median(xmed,na.rm=TRUE),
+                   ymed = median(ymed,na.rm=TRUE)) %>%
+  group_by(lang,direction) %>% 
+  summarise(xIQR = median(xIQR,na.rm=TRUE),
+                   yIQR = median(yIQR,na.rm=TRUE),
+                   x = median(xmed,na.rm=TRUE),
+                   y = median(ymed,na.rm=TRUE)) %>%
+  mutate(y = y*-1,
+         xmin = x-(xIQR/2),
+         xmax = x+(xIQR/2),
+         ymin = y-(yIQR/2),
+         ymax = y+(yIQR/2))
+img <- png::readPNG("cindy.png")
+g <- grid::rasterGrob(img, interpolate=TRUE, width=unit(1,"npc"), height=unit(1,"npc")) 
+ggplot(medians, aes(fill=direction,color=direction)) +
+  annotation_custom(g, xmin=-Inf, xmax=Inf, ymin=-Inf, ymax=Inf) +
+  geom_rect(aes(xmin=xmin,ymin=ymin,xmax=xmax,ymax=ymax),alpha=.1) + 
+  theme_linedraw() +
+  scale_x_continuous(limits = c(0,1080), expand = c(0, 0)) +
+  scale_y_continuous(limits = c(-720,0), expand = c(0, 0)) +
+  facet_wrap("lang")
 ```

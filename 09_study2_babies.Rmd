@@ -180,7 +180,7 @@ A linear model shows there were no significant effects of any factors. We can co
 ```{r}
 global_lm <- lmer(percent ~ age + lang * direction + (direction|name) + (direction|story), data = babies_overall_looking)
 summary(global_lm) 
-ggcoef(global_lm)
+#ggcoef(global_lm)
 ```
 
 # AOI Looking
@@ -255,11 +255,11 @@ babies %>%
 
 midchesttop_lm <- lmer(percent ~ age + lang * direction + (1|name) + (1|story), data = filter(babies, aoi == "MidChestTop"))
 summary(midchesttop_lm)
-ggcoef(midchesttop_lm)
+#ggcoef(midchesttop_lm)
 
 midfacebottom_lm <- lmer(percent ~ age + lang * direction + (1|name) + (1|story), data = filter(babies, aoi == "MidFaceBottom"))
 summary(midfacebottom_lm)
-ggcoef(midfacebottom_lm)
+#ggcoef(midfacebottom_lm)
 
 # Bar chart
 # babies %>%
@@ -359,7 +359,7 @@ What will a linear mixed model tell us? (with no age interactions)
 ```{r}
 fcr_lm <- lmer(fcr ~ age + lang * direction + (1|name) + (1|story), data = babies_fcr)
 summary(fcr_lm)
-ggcoef(fcr_lm)
+#ggcoef(fcr_lm)
 ```
 
 # Heat Maps
@@ -631,7 +631,7 @@ A linear model shows there were no significant effects of any factors. We can co
 ```{r}
 overall_xy_lm <- lmer(data_points ~ age + lang * direction + (direction|name) + (direction|story), data = xy_overall)
 summary(overall_xy_lm) 
-ggcoef(overall_xy_lm)
+#ggcoef(overall_xy_lm)
 ```
 
 ## XY Data LMMs
@@ -694,7 +694,7 @@ ggplot(xiqr_mean, aes(x = lang, y = mean_xIQR, fill = direction)) +
 
 xiqr_lm <- lmer(xIQR ~ age + lang * direction + (1|name) + (1|story), data = iqr)
 summary(xiqr_lm)
-ggcoef(xiqr_lm)
+#ggcoef(xiqr_lm)
 ```
 
 
@@ -732,7 +732,7 @@ ggplot(yiqr_mean, aes(x = lang, y = mean_yIQR, fill = direction)) +
 
 yiqr_lm <- lmer(yIQR ~ age + lang * direction + (1|name) + (1|story), data = iqr)
 summary(yiqr_lm)
-ggcoef(yiqr_lm)
+#ggcoef(yiqr_lm)
 ```
 
 ### Viewing Area
@@ -768,7 +768,7 @@ ggplot(area_mean, aes(x = lang, y = area_mean, fill = direction)) +
 
 area_lm <- lmer(area ~ age + lang * direction + (1|name) + (1|story), data = iqr)
 summary(area_lm)
-ggcoef(area_lm)
+#ggcoef(area_lm)
 ```
 
 ## Plotting Viewing Area 
@@ -781,8 +781,8 @@ medians <- iqr %>%
                    xmed = median(xmed,na.rm=TRUE),
                    ymed = median(ymed,na.rm=TRUE)) %>%
   group_by(lang,direction) %>% 
-  summarise(xIQR = median(xIQR,na.rm=TRUE),
-                   yIQR = median(yIQR,na.rm=TRUE),
+  summarise(xIQR = mean(xIQR,na.rm=TRUE),
+                   yIQR = mean(yIQR,na.rm=TRUE),
                    x = median(xmed,na.rm=TRUE),
                    y = median(ymed,na.rm=TRUE)) %>%
   mutate(y = y*-1,
@@ -805,54 +805,76 @@ ggplot(medians, aes(fill=direction,color=direction)) +
 Get puppy data!
 
 ```{r message=FALSE, warning=FALSE}
-puppies1 <- read_tsv("../Child Data/_puppies/all puppies group 1 sums.txt", na = "-") %>% 
-  clean_names() %>%
-  select(-c(age, analysis, check_if_want_scatterplot, gender, language)) %>%
-  rename(name = x1) %>%
-  mutate(mean = rowMeans(.[2:10], na.rm = T)) %>%
-  select(name, mean)
-  
-puppies2 <- read_tsv("../Child Data/_puppies/all puppies group 2 sums.txt", na = "-") %>% 
-  clean_names() %>%
-  select(-c(age, analysis, check_if_want_scatterplot, gender, language)) %>%
-  rename(name = x1) %>%
-  mutate(mean = rowMeans(.[2:17], na.rm = T)) %>%
-  select(name, mean)
-
-puppies <- rbind(puppies1, puppies2)
-
-participants <- xydata %>% 
-  select(name, group, gender, language) %>% 
-  distinct()
-
-puppies <- left_join(participants, puppies, by = "name")
-
-summary(lm(data = puppies, mean ~ language))
-
-puppies_se <- filter(puppies, language == "SignLanguageExposed")
-puppies_nse <- filter(puppies, language == "EnglishExposed")
-
-t.test(puppies_se$mean, puppies_nse$mean)
+# puppies1 <- read_tsv("../Child Data/_puppies/all puppies group 1 sums.txt", na = "-") %>% 
+#   clean_names() %>%
+#   select(-c(age, analysis, check_if_want_scatterplot, gender, language)) %>%
+#   rename(name = x1) %>%
+#   mutate(mean = rowMeans(.[2:10], na.rm = T)) %>%
+#   select(name, mean)
+#   
+# puppies2 <- read_tsv("../Child Data/_puppies/all puppies group 2 sums.txt", na = "-") %>% 
+#   clean_names() %>%
+#   select(-c(age, analysis, check_if_want_scatterplot, gender, language)) %>%
+#   rename(name = x1) %>%
+#   mutate(mean = rowMeans(.[2:17], na.rm = T)) %>%
+#   select(name, mean)
+# 
+# puppies <- rbind(puppies1, puppies2)
+# 
+# participants <- xydata %>% 
+#   select(name, group, gender, lang) %>% 
+#   distinct()
+# 
+# puppies <- left_join(participants, puppies, by = "name")
+# 
+# summary(lm(data = puppies, mean ~ lang))
+# 
+# puppies_se <- filter(puppies, lang == "NSE")
+# puppies_nse <- filter(puppies, lang == "SE")
+# 
+# t.test(puppies_se$mean, puppies_nse$mean)
 
 # Let's do this again but preserve puppy-level data
 puppies1 <- read_tsv("../Child Data/_puppies/all puppies group 1 sums.txt", na = "-") %>% 
   clean_names() %>%
   select(-c(age, analysis, check_if_want_scatterplot, gender, language)) %>%
   rename(name = x1) %>%
-  gather(key = puppy, value = sec, -name)
+  gather(key = puppy, value = sec, -name) %>%
+  mutate(pups = case_when(
+    str_detect(puppy, "huskies") ~ "huskies",
+    str_detect(puppy, "golden") ~ "golden",
+    str_detect(puppy, "wawa") ~ "wawa",
+    str_detect(puppy, "frisby") ~ "frisby",
+    str_detect(puppy, "bulldog") ~ "bulldog",
+    str_detect(puppy, "puppy_jpg") ~ "puppy",
+    TRUE ~ puppy
+  ))
 
 puppies2 <- read_tsv("../Child Data/_puppies/all puppies group 2 sums.txt", na = "-") %>% 
   clean_names() %>%
   select(-c(age, analysis, check_if_want_scatterplot, gender, language)) %>%
   rename(name = x1) %>%
-  gather(key = puppy, value = sec, -name)
+  gather(key = puppy, value = sec, -name) %>%
+  mutate(pups = case_when(
+    str_detect(puppy, "huskies") ~ "huskies",
+    str_detect(puppy, "golden") ~ "golden",
+    str_detect(puppy, "wawa") ~ "wawa",
+    str_detect(puppy, "frisby") ~ "frisby",
+    str_detect(puppy, "bulldog") ~ "bulldog",
+    str_detect(puppy, "puppies") ~ "puppies",
+    TRUE ~ puppy
+  ))
 
 puppies <- rbind(puppies1,puppies2)
 
+participants <- xydata %>%
+  select(name, group, gender, lang) %>%
+  distinct()
+
 puppies <- left_join(participants, puppies, by = "name")
 
-summary(lmer(data = puppies, sec ~ language + (1|name)))
+summary(lmer(data = puppies, sec ~ lang + (1|name) + (1|pups)))
 
-ggplot(puppies, aes(x = language, y = sec, fill = language)) + geom_boxplot()
+ggplot(puppies, aes(x = lang, y = sec, fill = lang)) + geom_boxplot()
 ```
 
