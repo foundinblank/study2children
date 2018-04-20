@@ -193,7 +193,7 @@ babies <- babies %>%
   group_by(name, lang, agegroup, age, direction, story, mark, trial, repetition, gender) %>%
   mutate(totalsec = sum(secs)) %>%
   group_by(name, lang, agegroup, age, direction, story, mark, trial, repetition, gender, aoi) %>%
-  summarise(percent = secs/totalsec)
+  mutate(percent = secs/totalsec)
 
 # Boxplot
 babies %>%

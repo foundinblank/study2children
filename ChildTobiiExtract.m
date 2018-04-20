@@ -1,4 +1,4 @@
-%% Extracts trial information from Tobii file for Rain's Child Study
+%% Extracts AOIh trial information from Tobii file for Rain's Child Study
 % Adam Stone, October 2017
 %
 % The script, when run in Matlab, will output a table of AOI
