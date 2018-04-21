@@ -1,0 +1,97 @@
+---
+title: "PuppiesXY (study2children)"
+author: "Adam Stone, PhD" 
+date: '`r format(Sys.Date(), "%m-%d-%Y")`'
+output:
+  html_notebook:
+    code_folding: hide
+    theme: spacelab
+    highlight: tango
+    toc: yes
+    toc_depth: 2
+    toc_float: yes
+    df_print: paged
+---
+
+```{r eval=FALSE, include=FALSE}
+# This is to get all kids' _processed_ puppiesxy.data into one single file. Should only run when needed. 
+library(tidyverse)
+library(feather)
+
+csvpath = "../Child Data/_xypuppies/"
+#csvpath = "~/Desktop/"
+files <- dir(path = csvpath, pattern = "_xypuppies")
+files <- paste(csvpath, files, sep="")
+data <- files %>%
+  map(read_csv) %>%
+  reduce(rbind)
+write_feather(data, "xypuppies.feather")
+```
+
+For now we're just working with babies. So that means we need to pull baby info from `cleanedbabyeyedata.feather`. Below is a table of how many rows of data each baby has. 
+
+```{r message=FALSE}
+# Libraries
+library(tidyverse)
+library(feather)
+library(lme4)
+library(lmerTest)
+
+# Import data 
+data <- read_feather("xypuppies.feather") %>%
+  select(participant, condition, trial, x, y) %>%
+  rename(name = participant)
+
+# Pull baby names/info
+babies <- read_feather("cleanedbabyeyedata.feather") %>%
+  mutate(age = age*12) %>%
+  select(participant, language, age) %>%
+  rename(name = participant) %>%
+  mutate(agegroup = case_when(
+    age <= 8.99 ~ "younger",
+    age >= 9.0 & age < 15 ~ "older"
+  )) %>%
+  filter(!is.na(agegroup)) %>%
+  distinct()
+
+# Filter that with xypuppies data
+data <- left_join(babies, data, by = "name")
+data %>% count(name)
+```
+
+And let's get means per trial per baby. 
+```{r}
+data_stats <- data %>%
+  group_by(name, age, language, condition, trial) %>%
+  summarise(x = mean(x, na.rm=TRUE),
+            y = mean(y, na.rm=TRUE))
+data_stats
+```
+
+Let's visualize. Remember not all the puppy pictures are the same size, though. 
+
+```{r}
+ggplot(data_stats, aes(x = x, y = -1*y, color = language)) + geom_point(alpha = 0.5) + facet_wrap("condition") + theme_linedraw() + xlab("mean x position") + ylab("mean y position")
+```
+
+And run a linear mixed model. First, x-axis - no differences of group (p = .52) or of age (p = .87) or interactions. Great!
+
+```{r}
+lmm_x <- lmer(data = data_stats, x ~ language * age + (1|condition) + (1|name))
+summary(lmm_x)
+```
+
+Next, y-axis - no NSE/SE differences (p = 0.82) but there is an effect of age (p = 0.03)!! Interesting. 
+
+```{r}
+lmm_y <- lmer(data = data_stats, y ~ language * age + (1|condition) + (1|name))
+summary(lmm_y)
+```
+
+Let's explore the effect of age on the y-axis some more...this tells us there IS an effect but it's very subtle. And the LMM output above tells us that it's about 4 pixels for every month. So a 12-month-old looks about 29 pixels lower compared to a 6-month-old. That is nothing, it's not half of an AOI. It's a significant effect, but it's a tiny thing and likely nothing to worry about. I think!!
+
+```{r}
+ggplot(data_stats, aes(x = age, y = -1*y)) + geom_point(alpha = 0.5, aes(color = language)) + geom_smooth(method = "lm") + facet_wrap("condition") + theme_linedraw() + ylab("mean y position") +
+  xlab("age (months)")
+```
+

@@ -190,7 +190,7 @@ ggplot(data_rr, aes(x = percent)) + geom_histogram() + facet_grid(aoi ~ story) +
 
 
 # Save!
-Great. Let's save this as `cleanedchildeyedata.csv'. 
+Great. Let's save this as `cleanedbabyeyedata.csv'. 
 
 ```{r}
 # A bit more cleaning up

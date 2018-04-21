@@ -19,5 +19,6 @@ More coming.
 
 This is the page where we're checking for offsets for each child. 
 1. [Two Puppies - For Offsets](twopuppies.nb.html)
+1. [PuppiesXY - For XY Data Analysis of Puppies](puppiesXY.nb.html)
 
 Any questions? [Email Adam](mailto:amstone@ucsd.edu)
