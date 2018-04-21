@@ -95,3 +95,34 @@ ggplot(data_stats, aes(x = age, y = -1*y)) + geom_point(alpha = 0.5, aes(color =
   xlab("age (months)")
 ```
 
+# Shifting 4 babies
+
+How do results change if I shift 4 babies? 
+
+```{r}
+data2 <- data_stats %>%
+  mutate(y = case_when(
+    name == "aubrey CODA 11m" ~ y-15,
+    name == "LA11BA11_5M_24D" ~ y-50,
+    name == "Parker 6 m SIGNING" ~ y-61,
+    name == "Trinity 8m" ~ y-40,
+    TRUE ~ y
+  ))
+
+ggplot(data2, aes(x = x, y = -1*y, color = language)) + geom_point(alpha = 0.5) + facet_wrap("condition") + theme_linedraw() + xlab("mean x position") + ylab("mean y position")
+```
+
+Now re-run the linear model for y-axis. The age effect is more significant (p = 0.005) and the magnitude is now 5.7 pixels per month. 12-month-olds look 34 pixels lower than 6-month-olds. 
+
+```{r}
+lmm_y <- lmer(data = data2, y ~ language * age + (1|condition) + (1|name))
+summary(lmm_y)
+```
+
+And the visualization.
+
+```{r}
+ggplot(data2, aes(x = age, y = -1*y)) + geom_point(alpha = 0.5, aes(color = language)) + geom_smooth(method = "lm") + facet_wrap("condition") + theme_linedraw() + ylab("mean y position") +
+  xlab("age (months)")
+```
+
