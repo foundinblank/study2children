@@ -30,7 +30,7 @@ write_feather(data, "xypuppies.feather")
 
 # Let's go! 26 Babies. 
 
-For now we're just working with babies. So that means we need to pull baby info from `cleanedbabyeyedata.feather`. Below is a table of how many rows of data each baby has. 
+For now we're just working with babies. So that means we need to pull baby info from `cleanedbabyeyedata.feather`. Below is a table of how many rows of data each baby has. I removed the first 60 data points from each trial (equivalent to 0.5 secs).
 
 ```{r message=FALSE}
 # Libraries
@@ -56,9 +56,11 @@ babies <- read_feather("cleanedbabyeyedata.feather") %>%
   filter(!is.na(agegroup)) %>%
   distinct()
 
-# Filter that with xypuppies data
-data <- left_join(babies, data, by = "name")
-data %>% count(name)
+# Filter that with xypuppies data and cut first 60 samples
+data <- left_join(babies, data, by = "name") %>%
+  group_by(name,trial) %>%
+  slice(60:n())
+data %>% ungroup() %>% count(name)
 ```
 
 And let's get means per trial per baby. 
@@ -76,21 +78,21 @@ Let's visualize. Remember not all the puppy pictures are the same size, though.
 ggplot(data_stats, aes(x = x, y = -1*y, color = language)) + geom_point(alpha = 0.5) + facet_wrap("condition") + theme_linedraw() + xlab("mean x position") + ylab("mean y position")
 ```
 
-And run a linear mixed model. First, x-axis - no differences of group (p = .52) or of age (p = .87) or interactions. Great!
+And run a linear mixed model. First, x-axis - no differences of group, age, or interactions. Great!
 
 ```{r}
 lmm_x <- lmer(data = data_stats, x ~ language * age + (1|condition) + (1|name))
 summary(lmm_x)
 ```
 
-Next, y-axis - no NSE/SE differences (p = 0.82) but there is an effect of age (p = 0.03)!! Interesting. 
+Next, y-axis - no NSE/SE differences (p = 0.60) but there is an effect of age (p = 0.01)!! Interesting. 
 
 ```{r}
 lmm_y <- lmer(data = data_stats, y ~ language * age + (1|condition) + (1|name))
 summary(lmm_y)
 ```
 
-Let's explore the effect of age on the y-axis some more...this tells us there IS an effect but it's very subtle. And the LMM output above tells us that it's about 4 pixels for every month. So a 12-month-old looks about 29 pixels lower compared to a 6-month-old. That is nothing, it's not half of an AOI. It's a significant effect, but it's a tiny thing and likely nothing to worry about. I think!!
+Let's explore the effect of age on the y-axis some more...this tells us there IS an effect but it's very subtle. And the LMM output above tells us that it's about 5.6 pixels for every month. So a 12-month-old looks about 33 pixels lower compared to a 6-month-old. That is kind of nothing, it's about half of an AOI. It's a significant effect, but it's maybe a tiny thing and likely nothing to worry about. I think!!
 
 ```{r}
 ggplot(data_stats, aes(x = age, y = -1*y)) + geom_point(alpha = 0.5, aes(color = language)) + geom_smooth(method = "lm") + facet_wrap("condition") + theme_linedraw() + ylab("mean y position") +
@@ -114,7 +116,7 @@ data2 <- data_stats %>%
 ggplot(data2, aes(x = x, y = -1*y, color = language)) + geom_point(alpha = 0.5) + facet_wrap("condition") + theme_linedraw() + xlab("mean x position") + ylab("mean y position")
 ```
 
-Now re-run the linear model for y-axis. The age effect is more significant (p = 0.005) and the magnitude is now 5.7 pixels per month. 12-month-olds look 34 pixels lower than 6-month-olds. 
+Now re-run the linear model for y-axis. The age effect is more significant (p = 0.003) and the magnitude is now 6.5 pixels per month. 12-month-olds look 39 pixels lower than 6-month-olds. 
 
 ```{r}
 lmm_y <- lmer(data = data2, y ~ language * age + (1|condition) + (1|name))
