@@ -28,6 +28,8 @@ data <- files %>%
 write_feather(data, "xypuppies.feather")
 ```
 
+# Let's go! 26 Babies. 
+
 For now we're just working with babies. So that means we need to pull baby info from `cleanedbabyeyedata.feather`. Below is a table of how many rows of data each baby has. 
 
 ```{r message=FALSE}
