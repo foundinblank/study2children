@@ -31,7 +31,9 @@ data <- files %>%
   mutate(language = case_when(
     participant == "OwenTwin030212_4y2m" ~ "EnglishExposed",
     TRUE ~ language
-  ))
+  )) %>%
+  mutate(x = na_if(x, "NaN"),
+         y = na_if(y, "NaN"))
 write_feather(data, "../Child Data/childxydata.feather")
 ```
 

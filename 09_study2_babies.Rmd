@@ -776,15 +776,15 @@ summary(area_lm)
 ```{r}
 medians <- iqr %>%
   group_by(name,lang,direction) %>%
-  summarise(xIQR = median(xIQR,na.rm=TRUE),
-                   yIQR = median(yIQR,na.rm=TRUE),
-                   xmed = median(xmed,na.rm=TRUE),
-                   ymed = median(ymed,na.rm=TRUE)) %>%
+  summarise(xIQR = mean(xIQR,na.rm=TRUE),
+                   yIQR = mean(yIQR,na.rm=TRUE),
+                   xmed = mean(xmed,na.rm=TRUE),
+                   ymed = mean(ymed,na.rm=TRUE)) %>%
   group_by(lang,direction) %>% 
   summarise(xIQR = mean(xIQR,na.rm=TRUE),
                    yIQR = mean(yIQR,na.rm=TRUE),
-                   x = median(xmed,na.rm=TRUE),
-                   y = median(ymed,na.rm=TRUE)) %>%
+                   x = mean(xmed,na.rm=TRUE),
+                   y = mean(ymed,na.rm=TRUE)) %>%
   mutate(y = y*-1,
          xmin = x-(xIQR/2),
          xmax = x+(xIQR/2),
@@ -878,3 +878,123 @@ summary(lmer(data = puppies, sec ~ lang + (1|name) + (1|pups)))
 ggplot(puppies, aes(x = lang, y = sec, fill = lang)) + geom_boxplot()
 ```
 
+# XY Space Data - Multiple Plots
+
+First let's prep the data. 
+```{r}
+multiples <- xydata %>%
+  filter(!is.na(x)) %>%
+  filter(!is.na(y)) %>%
+  group_by(name, age, lang, story, direction, trial) %>%
+  summarise(xIQR = IQR(x,na.rm=TRUE),
+            yIQR = IQR(y,na.rm=TRUE),
+            xmed = median(x, na.rm=TRUE),
+            ymed = median(y, na.rm=TRUE),
+            area = xIQR*yIQR,
+            x_90 = quantile(x, .95, na.rm=TRUE) - quantile(x, .05, na.rm=TRUE),
+            y_90 = quantile(y, .95, na.rm=TRUE) - quantile(y, .05, na.rm=TRUE),
+            area_90 = (x_90) * (y_90),
+            x_mean = mean(x, na.rm = TRUE),
+            y_mean = mean(y, na.rm = TRUE),
+            x_sd = sd(x, na.rm = TRUE),
+            y_sd = sd(y, na.rm = TRUE),
+            x_1sd = (x_mean+x_sd) - (x_mean-x_sd),
+            y_1sd = (y_mean+y_sd) - (y_mean-y_sd),
+            area_1sd = x_1sd * y_1sd,
+            x_2sd = (x_mean+(x_sd*2)) - (x_mean-(x_sd*2)),
+            y_2sd = (y_mean+(y_sd*2)) - (y_mean-(y_sd*2)),
+            area_2sd = x_2sd * y_2sd) %>%
+  group_by(name, lang, direction) %>%
+  summarise_if(is.double, funs(mean), na.rm = T) %>%
+  group_by(lang, direction) %>%
+  summarise_if(is.double, funs(mean), na.rm = T)
+
+img <- png::readPNG("cindy.png")
+g <- grid::rasterGrob(img, interpolate=TRUE, width=unit(1,"npc"), height=unit(1,"npc")) 
+
+```
+
+## IQR (Middle 50%)
+Let's see. 
+```{r}
+curr_data <- multiples %>% 
+  ungroup() %>%
+  select(lang, direction, xmed, ymed, xIQR, yIQR) %>%
+  group_by(lang, direction) %>%
+  summarise(xmin = xmed-(xIQR/2),
+         xmax = xmed+(xIQR/2),
+         ymin = -1*(ymed-(yIQR/2)),
+         ymax = -1*(ymed+(yIQR/2)))
+
+ggplot(curr_data, aes(fill=direction,color=direction)) +
+  annotation_custom(g, xmin=-Inf, xmax=Inf, ymin=-Inf, ymax=Inf) +
+  geom_rect(aes(xmin=xmin,ymin=ymin,xmax=xmax,ymax=ymax),alpha=.1) + 
+  theme_linedraw() +
+  scale_x_continuous(limits = c(0,1080), expand = c(0, 0)) +
+  scale_y_continuous(limits = c(-720,0), expand = c(0, 0)) +
+  facet_wrap("lang")
+```
+
+## Middle 90%
+So I calculated the average median across, and the middle 90% of the data. 
+```{r}
+curr_data <- multiples %>% 
+  ungroup() %>%
+  select(lang, direction, xmed, ymed, x_90, y_90) %>%
+  group_by(lang, direction) %>%
+  summarise(xmin = xmed-(x_90/2),
+         xmax = xmed+(x_90/2),
+         ymin = -1*(ymed-(y_90/2)),
+         ymax = -1*(ymed+(y_90/2)))
+
+ggplot(curr_data, aes(fill=direction,color=direction)) +
+  annotation_custom(g, xmin=-Inf, xmax=Inf, ymin=-Inf, ymax=Inf) +
+  geom_rect(aes(xmin=xmin,ymin=ymin,xmax=xmax,ymax=ymax),alpha=.1) + 
+  theme_linedraw() +
+  scale_x_continuous(limits = c(0,1080), expand = c(0, 0)) +
+  scale_y_continuous(limits = c(-720,0), expand = c(0, 0)) +
+  facet_wrap("lang")
+```
+
+
+## ±1 SD (Middle 68%)
+So this is using the mean of the means, plus or minus one SD.  This is equivalent to middle 68%. 
+```{r}
+curr_data <- multiples %>% 
+  ungroup() %>%
+  select(lang, direction, x_mean, y_mean, x_1sd, y_1sd) %>%
+  group_by(lang, direction) %>%
+  summarise(xmin = x_mean-(x_1sd/2),
+         xmax = x_mean+(x_1sd/2),
+         ymin = -1*(y_mean-(y_1sd/2)),
+         ymax = -1*(y_mean+(y_1sd/2)))
+
+ggplot(curr_data, aes(fill=direction,color=direction)) +
+  annotation_custom(g, xmin=-Inf, xmax=Inf, ymin=-Inf, ymax=Inf) +
+  geom_rect(aes(xmin=xmin,ymin=ymin,xmax=xmax,ymax=ymax),alpha=.1) + 
+  theme_linedraw() +
+  scale_x_continuous(limits = c(0,1080), expand = c(0, 0)) +
+  scale_y_continuous(limits = c(-720,0), expand = c(0, 0)) +
+  facet_wrap("lang")
+```
+
+## ±2 SD (Middle 96%)
+And this is using the mean of the means, plus or minus two SD.  This is equivalent to middle 96%. 
+```{r}
+curr_data <- multiples %>% 
+  ungroup() %>%
+  select(lang, direction, x_mean, y_mean, x_2sd, y_2sd) %>%
+  group_by(lang, direction) %>%
+  summarise(xmin = x_mean-(x_2sd/2),
+         xmax = x_mean+(x_2sd/2),
+         ymin = -1*(y_mean-(y_2sd/2)),
+         ymax = -1*(y_mean+(y_2sd/2)))
+
+ggplot(curr_data, aes(fill=direction,color=direction)) +
+  annotation_custom(g, xmin=-Inf, xmax=Inf, ymin=-Inf, ymax=Inf) +
+  geom_rect(aes(xmin=xmin,ymin=ymin,xmax=xmax,ymax=ymax),alpha=.1) + 
+  theme_linedraw() +
+  scale_x_continuous(limits = c(0,1080), expand = c(0, 0)) +
+  scale_y_continuous(limits = c(-720,0), expand = c(0, 0)) +
+  facet_wrap("lang")
+```
