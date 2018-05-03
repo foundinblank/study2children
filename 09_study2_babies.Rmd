@@ -380,7 +380,7 @@ heatmap_babies <- babies %>%
 ggplot(heatmap_babies, aes(x = lang, y = aoi)) +
   geom_tile(aes(fill=percent),color="lightgray",na.rm=TRUE) + 
 #  scale_fill_viridis(option = "viridis", direction=-1, limits = c(0,.7), labels = percent, name = "looking time") +
-    scale_fill_gradient(low = "#ffffff", high = "#08519c", space = "Lab", limits = c(0,.451), labels = percent, name = "looking time", na.value = "grey50") +
+    scale_fill_gradient(low = "#ffffff", high = "#08519c", space = "Lab", limits = c(0,.4501), labels = percent, name = "looking time", na.value = "grey50") +
   theme_bw() +
   theme(strip.text.x = element_text(size = 11, color = "black", face = "italic"), 
         strip.background = element_rect(colour = "white", fill = "white"),
@@ -393,7 +393,7 @@ ggplot(heatmap_babies, aes(x = lang, y = aoi)) +
 ggplot(heatmap_babies, aes(x = direction, y = aoi)) +
   geom_tile(aes(fill=percent),color="lightgray",na.rm=TRUE) + 
 #  scale_fill_viridis(option = "viridis", direction=-1, limits = c(0,.7), labels = percent, name = "looking time") +
-    scale_fill_gradient(low = "#ffffff", high = "#08519c", space = "Lab", limits = c(0,.451), labels = percent, name = "looking time", na.value = "grey50") +
+    scale_fill_gradient(low = "#ffffff", high = "#08519c", space = "Lab", limits = c(0,.4501), labels = percent, name = "looking time", na.value = "grey50") +
   theme_bw() +
   theme(strip.text.x = element_text(size = 11, color = "black", face = "italic"), 
         strip.background = element_rect(colour = "white", fill = "white"),
@@ -954,6 +954,22 @@ ggplot(curr_data, aes(fill=direction,color=direction)) +
   scale_x_continuous(limits = c(0,1080), expand = c(0, 0)) +
   scale_y_continuous(limits = c(-720,0), expand = c(0, 0)) +
   facet_wrap("lang")
+
+
+# ggplot(filter(curr_data, lang == "NSE"), aes(fill=direction,color=direction)) +
+#   annotation_custom(g, xmin=-Inf, xmax=Inf, ymin=-Inf, ymax=Inf) +
+#   geom_rect(aes(xmin=xmin,ymin=ymin,xmax=xmax,ymax=ymax),alpha=.2, size = 1) + 
+#   theme_linedraw() +
+#   scale_x_continuous(limits = c(0,1080), expand = c(0, 0)) +
+#   scale_y_continuous(limits = c(-720,0), expand = c(0, 0))
+# 
+# 
+# ggplot(filter(curr_data, lang == "SE"), aes(fill=direction,color=direction)) +
+#   annotation_custom(g, xmin=-Inf, xmax=Inf, ymin=-Inf, ymax=Inf) +
+#   geom_rect(aes(xmin=xmin,ymin=ymin,xmax=xmax,ymax=ymax),alpha=.2, size = 1) + 
+#   theme_linedraw() +
+#   scale_x_continuous(limits = c(0,1080), expand = c(0, 0)) +
+#   scale_y_continuous(limits = c(-720,0), expand = c(0, 0))
 ```
 
 

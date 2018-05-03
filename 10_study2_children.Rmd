@@ -906,6 +906,21 @@ ggplot(curr_data, aes(fill=direction,color=direction)) +
   scale_x_continuous(limits = c(0,1080), expand = c(0, 0)) +
   scale_y_continuous(limits = c(-720,0), expand = c(0, 0)) +
   facet_wrap("lang")
+
+# ggplot(filter(curr_data, lang == "NSE"), aes(fill=direction,color=direction)) +
+#   annotation_custom(g, xmin=-Inf, xmax=Inf, ymin=-Inf, ymax=Inf) +
+#   geom_rect(aes(xmin=xmin,ymin=ymin,xmax=xmax,ymax=ymax),alpha=.2, size = 1) +
+#   theme_linedraw() +
+#   scale_x_continuous(limits = c(0,1080), expand = c(0, 0)) +
+#   scale_y_continuous(limits = c(-720,0), expand = c(0, 0))
+# 
+# 
+# ggplot(filter(curr_data, lang == "SE"), aes(fill=direction,color=direction)) +
+#   annotation_custom(g, xmin=-Inf, xmax=Inf, ymin=-Inf, ymax=Inf) +
+#   geom_rect(aes(xmin=xmin,ymin=ymin,xmax=xmax,ymax=ymax),alpha=.2, size = 1) +
+#   theme_linedraw() +
+#   scale_x_continuous(limits = c(0,1080), expand = c(0, 0)) +
+#   scale_y_continuous(limits = c(-720,0), expand = c(0, 0))
 ```
 
 ## ±1 SD (Middle 68%)
