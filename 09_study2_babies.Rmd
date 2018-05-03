@@ -227,16 +227,16 @@ I'm going to run linear models with only MidChestTop or MidFaceBottom, and see w
 
 **MidChestTop:**
 
-* Significant effect of age (p = 0.004) - older babies look at MidChestTop AOI more.
-* Significant effect of language (p = 0.006) - NSE babies look +14.6% more than SE babies. 
+* Significant effect of age (p = 0.002) - older babies look at MidChestTop AOI more.
+* Significant effect of language (p = 0.010) - NSE babies look +13.6% more than SE babies. 
 * Significant effect of direction (p = 0.046) - Babies look about 4.5% less for reversed
 * No language X direction interaction. 
-
+ 
 **MidFaceBottom:** 
 
 * No effect of age
-* Significant effect of language (p = 0.004) - SE babies look +21% more than NSE babies.
-* Marginal effect of language (p = 0.073) - Babies look about 2% more for reversed. 
+* Significant effect of language (p = 0.005) - SE babies look +19% more than NSE babies.
+* Marginal effect of language (p = 0.104) - Babies look about 3% more for reversed. 
 * No language X direction interaction.
 
 ```{r}
@@ -351,10 +351,9 @@ ggplot(babies_fcr, aes(x = age, y = fcr, color = direction, fill = direction)) +
 What will a linear mixed model tell us? (with no age interactions)
 
 * No effect of age. Interesting. Maybe because we don't have that many babies. 
-* Strong effect of language: SE babies have overall +0.50 FCR than NSE babies (p = 0.008); in other words, they are more attracted to the face. 
-* Effect of direction: Reversal *increases* FCR by +0.12 across all babies (p = 0.032). Interesting.
-* Weak language x direction interaction. It seems NSE babies have a bigger reversal effect than SE babies? Trying to judge from the heat maps. (p = 0.095). BUt it's so weak so possibly not worth mentioning.
-
+* Strong effect of language: SE babies have overall +0.43 FCR than NSE babies (p = 0.01); in other words, they are more attracted to the face. 
+* Effect of direction: Reversal *increases* FCR by +0.12 across all babies (p = 0.039). Interesting.
+* Weak language x direction interaction. It seems NSE babies have a bigger reversal effect than SE babies? Trying to judge from the heat maps. (p = 0.1049). But it's so weak so possibly not worth mentioning.
 
 ```{r}
 fcr_lm <- lmer(fcr ~ age + lang * direction + (1|name) + (1|story), data = babies_fcr)
