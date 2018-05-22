@@ -11,7 +11,7 @@ output:
     df_print: paged
 ---
 
-This is hopefully the results section for the Study 2 NSE & SE babies watching ASL Stories. We have two main factors: 
+This is hopefully the results section for the Study 2 NSE & SE babies watching ASL Stories. We have two main factors:
 
 1. Language (Sign v. English)
 1. Direction (Forward v. Reversed)
@@ -359,6 +359,11 @@ What will a linear mixed model tell us? (with no age interactions)
 fcr_lm <- lmer(fcr ~ age + lang * direction + (1|name) + (1|story), data = babies_fcr)
 summary(fcr_lm)
 #ggcoef(fcr_lm)
+
+# fcrse_lm <- lmer(fcr ~ age + direction + (1|name) + (1|story), data = filter(babies_fcr, lang == "SE"))
+# fcrnse_lm <- lmer(fcr ~ age + direction + (1|name) + (1|story), data = filter(babies_fcr, lang == "NSE"))
+# summary(fcrse_lm)
+# summary(fcrnse_lm)
 ```
 
 # Heat Maps
