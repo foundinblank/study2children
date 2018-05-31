@@ -408,6 +408,34 @@ ggplot(heatmap_babies, aes(x = direction, y = aoi)) +
   scale_x_discrete(expand = c(0,0))
 ```
 
+```{r fig.width = 6.5, fig.height = 6}
+ggplot(heatmap_babies, aes(x = direction, y = aoi)) +
+  geom_tile(aes(fill=percent), color="dark gray", size = 0.25, na.rm=T, height = c(10,4,1,1,1,1,1,1)) + 
+  scale_fill_gradient(low = "#ffffff", 
+                      high = "#08519c", 
+                      space = "Lab", 
+                      limits = c(0,.4501), 
+                      labels = percent, 
+                      name = "looking time", 
+                      na.value = "grey50") +
+  facet_grid(. ~ lang) +
+  ylab("") + xlab("") + ggtitle("Eye Gaze Heat Map, by Language") + 
+  scale_y_discrete(expand=c(0,0)) +
+  scale_x_discrete(expand=c(0,0)) +
+  theme_bw() +
+  theme(text = element_text(size = 20, family = "xkcd"),
+        axis.title.y = element_blank(),
+        axis.title.x = element_blank(),
+        axis.text.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.ticks.y = element_blank(),
+        strip.text = element_blank(),
+        panel.border = element_rect(size = 2),
+        title = element_blank()) + 
+  guides(color = FALSE, fill = FALSE)
+```
+
 # Different Ways to Visualize Reversal
 I want to try to visualize reversal effects a different way. Maybe this. 
 
