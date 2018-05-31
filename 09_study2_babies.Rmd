@@ -498,6 +498,38 @@ babies_fcr2 %>%
   geom_errorbar(aes(ymin = fcr_mean-se, ymax = fcr_mean+se), position = position_dodge(0.9), width = 0.2) +
   scale_y_continuous(limits = c(-0.5, 0.5)) +
   theme_linedraw()
+```
+
+```{r fig.width=6.5, fig.height=6}
+
+library(extrafont)
+
+babies_fcr2 %>%
+  group_by(lang, direction) %>%
+  summarise(fcr_mean = mean(fcr),
+            sd = sd(fcr),
+            n = n(),
+            se = sd/sqrt(n)) %>%
+  ggplot(aes(x = lang, y = fcr_mean, color = direction, fill = direction, group = direction)) +
+  geom_hline(yintercept = 0, size = 0.5) +
+  geom_point(size = 6, position = position_dodge(width = 0.4)) +
+  geom_errorbar(aes(ymin = fcr_mean-se, ymax = fcr_mean+se), 
+                size = 2, 
+                position = position_dodge(0.4), 
+                width = 0.3) +
+  scale_y_continuous(limits = c(-0.5, 0.5)) +
+  theme_linedraw() +
+  theme(text = element_text(size = 30, family = "xkcd"),
+        panel.grid.minor.y = element_blank(),
+        panel.grid.major.x = element_blank(),
+        axis.title.y = element_blank(),
+        axis.title.x = element_blank(),
+        axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        panel.border = element_rect(size = 2),
+        axis.ticks.y = element_line(size = 0.5),
+        panel.grid.major.y = element_line(size = 0.5, color = "light gray", linetype = "dashed")) +
+  guides(color = FALSE, fill = FALSE)
 
 ```
 
