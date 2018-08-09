@@ -358,7 +358,16 @@ What will a linear mixed model tell us? (with no age interactions)
 ```{r}
 fcr_lm <- lmer(fcr ~ age + lang * direction + (1|name) + (1|story), data = babies_fcr)
 summary(fcr_lm)
+
+# https://jofrhwld.github.io/teaching/courses/2017_lsa/lectures/Session_8.nb.html
+# library(boot)
+# fcr_boot <- bootMer(fcr_lm, FUN = fixef, nsim = 1000)
+# fcr_boot
+# boot.ci(fcr_boot, index = 3, type = "perc")
+
 #ggcoef(fcr_lm)
+
+#emmeans::emmeans(fcr_lm, list(pairwise ~ direction*lang), adjust = "none")
 
 # fcrse_lm <- lmer(fcr ~ age + direction + (1|name) + (1|story), data = filter(babies_fcr, lang == "SE"))
 # fcrnse_lm <- lmer(fcr ~ age + direction + (1|name) + (1|story), data = filter(babies_fcr, lang == "NSE"))
