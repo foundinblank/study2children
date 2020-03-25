@@ -180,6 +180,7 @@ A linear model shows there were no significant effects of any factors. We can co
 ```{r}
 global_lm <- lmer(percent ~ age + lang * direction + (direction|name) + (direction|story), data = babies_overall_looking)
 summary(global_lm) 
+confint(global_lm)
 #ggcoef(global_lm)
 ```
 
@@ -255,10 +256,12 @@ babies %>%
 
 midchesttop_lm <- lmer(percent ~ age + lang * direction + (1|name) + (1|story), data = filter(babies, aoi == "MidChestTop"))
 summary(midchesttop_lm)
+confint(midchesttop_lm)
 #ggcoef(midchesttop_lm)
 
 midfacebottom_lm <- lmer(percent ~ age + lang * direction + (1|name) + (1|story), data = filter(babies, aoi == "MidFaceBottom"))
 summary(midfacebottom_lm)
+confint(midfacebottom_lm)
 #ggcoef(midfacebottom_lm)
 
 # Bar chart
@@ -358,6 +361,7 @@ What will a linear mixed model tell us? (with no age interactions)
 ```{r}
 fcr_lm <- lmer(fcr ~ age + lang * direction + (1|name) + (1|story), data = babies_fcr)
 summary(fcr_lm)
+confint(fcr_lm)
 
 # https://jofrhwld.github.io/teaching/courses/2017_lsa/lectures/Session_8.nb.html
 # library(boot)
@@ -704,6 +708,7 @@ A linear model shows there were no significant effects of any factors. We can co
 ```{r}
 overall_xy_lm <- lmer(data_points ~ age + lang * direction + (direction|name) + (direction|story), data = xy_overall)
 summary(overall_xy_lm) 
+confint(overall_xy_lm)
 #ggcoef(overall_xy_lm)
 ```
 
@@ -767,6 +772,7 @@ ggplot(xiqr_mean, aes(x = lang, y = mean_xIQR, fill = direction)) +
 
 xiqr_lm <- lmer(xIQR ~ age + lang * direction + (1|name) + (1|story), data = iqr)
 summary(xiqr_lm)
+confint(xiqr_lm)
 #ggcoef(xiqr_lm)
 ```
 
@@ -805,6 +811,7 @@ ggplot(yiqr_mean, aes(x = lang, y = mean_yIQR, fill = direction)) +
 
 yiqr_lm <- lmer(yIQR ~ age + lang * direction + (1|name) + (1|story), data = iqr)
 summary(yiqr_lm)
+confint(yiqr_lm)
 #ggcoef(yiqr_lm)
 ```
 
@@ -841,6 +848,7 @@ ggplot(area_mean, aes(x = lang, y = area_mean, fill = direction)) +
 
 area_lm <- lmer(area ~ age + lang * direction + (1|name) + (1|story), data = iqr)
 summary(area_lm)
+confint(area_lm)
 #ggcoef(area_lm)
 ```
 
@@ -947,6 +955,8 @@ participants <- xydata %>%
 puppies <- left_join(participants, puppies, by = "name")
 
 summary(lmer(data = puppies, sec ~ lang + (1|name) + (1|pups)))
+
+confint(lmer(data = puppies, sec ~ lang + (1|name) + (1|pups)))
 
 ggplot(puppies, aes(x = lang, y = sec, fill = lang)) + geom_boxplot()
 ```

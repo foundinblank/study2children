@@ -181,6 +181,7 @@ A linear model shows a significant effect of age. Overall, Age seems to increase
 ```{r}
 global_lm <- lmer(percent ~ age + lang * direction + (1|name) + (1|story), data = kids_overall_looking)
 summary(global_lm)
+confint(global_lm)
 #ggcoef(global_lm)
 ```
 
@@ -258,10 +259,12 @@ kids %>%
 
 midchesttop_lm <- lmer(percent ~ age + lang * direction + (1|name) + (1|story), data = filter(kids, aoi == "MidChestTop"))
 summary(midchesttop_lm)
+confint(midchesttop_lm)
 #ggcoef(midchesttop_lm)
 
 midfacebottom_lm <- lmer(percent ~ age + lang * direction + (1|name) + (1|story), data = filter(kids, aoi == "MidFaceBottom"))
 summary(midfacebottom_lm)
+confint(midfacebottom_lm)
 #ggcoef(midfacebottom_lm)
 
 # Bar chart
@@ -362,6 +365,7 @@ What will a linear mixed model tell us? (with no age interactions)
 ```{r}
 fcr_lm <- lmer(fcr ~ age + lang * direction + (1|name) + (1|story), data = kids_fcr)
 summary(fcr_lm)
+confint(fcr_lm)
 #ggcoef(fcr_lm)
 ```
 
@@ -724,6 +728,7 @@ Description.
 ```{r}
 overall_xy_lm <- lmer(data_points ~ age + lang * direction + (direction|name) + (direction|story), data = xy_overall)
 summary(overall_xy_lm) 
+confint(overall_xy_lm)
 #ggcoef(overall_xy_lm)
 ```
 
@@ -786,6 +791,7 @@ ggplot(xiqr_mean, aes(x = lang, y = mean_xIQR, fill = direction)) +
 
 xiqr_lm <- lmer(xIQR ~ age + lang * direction + (1|name) + (1|story), data = iqr)
 summary(xiqr_lm)
+confint(xiqr_lm)
 #ggcoef(xiqr_lm)
 ```
 
@@ -823,6 +829,7 @@ ggplot(yiqr_mean, aes(x = lang, y = mean_yIQR, fill = direction)) +
 
 yiqr_lm <- lmer(yIQR ~ age + lang * direction + (1|name) + (1|story), data = iqr)
 summary(yiqr_lm)
+confint(yiqr_lm)
 #ggcoef(yiqr_lm)
 ```
 
@@ -859,6 +866,7 @@ ggplot(area_mean, aes(x = lang, y = area_mean, fill = direction)) +
 
 area_lm <- lmer(area ~ age + lang * direction + (1|name) + (1|story), data = iqr)
 summary(area_lm)
+confint(area_lm)
 #ggcoef(area_lm)
 ```
 
