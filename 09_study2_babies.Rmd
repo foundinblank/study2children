@@ -21,9 +21,6 @@ Ages of babies are from 5 to 14.99 months. That means we lose two "old" CODA bab
 * Younger babies = 5 to 8.99 months
 * Older babies = 9.0 to 14.99 months
 
-To skip to the XY Data, go here. 
-To skip to the AOI/FCR analysis, go here. 
-
 # Demographics
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
@@ -86,6 +83,9 @@ babiesinfo <- left_join(babiesinfo, genders) %>%
   print()
 
 babies$agegroup <- fct_relevel(babies$agegroup, c("younger","older"))
+
+# t-test for NSE v. SE ages
+summary(lm(data = distinct(select(babies, age, lang)), age ~ lang))
 
 
 # IF we do age groups, use this code
@@ -190,6 +190,7 @@ Now we'll re-calculate the percentages so the denominator is based on total look
 ```{r}
 #Recalculate percent
 babies <- babies %>%
+  ungroup() %>%
   select(-percent) %>%
   group_by(name, lang, agegroup, age, direction, story, mark, trial, repetition, gender) %>%
   mutate(totalsec = sum(secs)) %>%
@@ -299,7 +300,8 @@ We did not include Belly or MidFaceTop because of very low looking rates accordi
 
 ```{r}
 babies_fcr <- babies %>%
-  spread(aoi,percent) %>%
+  ungroup() %>%
+  spread(aoi, percent) %>%
   group_by(name, age, agegroup, lang, gender, direction, story, repetition) %>%
   summarise(face = sum(MidFaceCenter, MidFaceBottom, na.rm = TRUE),
          chest = sum(MidChestTop, MidChestCenter, MidChestBottom, BelowChest, na.rm = TRUE),
@@ -379,6 +381,31 @@ confint(fcr_lm)
 # summary(fcrnse_lm)
 ```
 
+# The Large Table
+
+> I would like a large table with all individual percent looking means for each AOI and the individual FCR values, with ages, gender, video group for each child.  (collapsed across stories and trials)  
+
+```{r message=FALSE, warning=FALSE}
+# babies has the AOI info, babies_fcr has FCR
+# Collapse across stories and trials 
+
+babies_spread <- babies %>%
+  group_by(name, lang, age, gender, direction, aoi) %>%
+  summarise(percent = mean(percent, na.rm = T)) %>%
+  spread(aoi, percent)
+
+babies_fcr_spread <- babies_fcr %>%
+  group_by(name, lang, age, gender, direction) %>%
+  summarise(fcr = mean(fcr, na.rm = T))
+
+babies_large_table <- babies_spread %>%
+  left_join(babies_fcr_spread)
+
+babies_large_table %>%
+  write_csv("large_table_babies.csv")
+```
+
+
 # Heat Maps
 And now heat maps!
 
@@ -421,9 +448,43 @@ ggplot(heatmap_babies, aes(x = direction, y = aoi)) +
   scale_x_discrete(expand = c(0,0))
 ```
 
+## Collapsed by direction (new)
+
+```{r}
+heatmap_babies2 <- babies %>%
+  filter(aoi %in% midline) %>%
+  ungroup() %>%
+  group_by(lang, name, aoi) %>%
+  summarise(percent = mean(percent, na.rm=TRUE)) %>%
+  group_by(lang, aoi) %>%
+  summarise(percent = mean(percent, na.rm=TRUE)) %>%
+  ungroup() %>%
+  mutate(aoi = factor(aoi, levels = c("Belly","BelowChest","MidChestBottom","MidChestCenter","MidChestTop",
+            "MidFaceBottom","MidFaceCenter","MidFaceTop")))
+
+
+ggplot(heatmap_babies2, aes(x = lang, y = aoi)) +
+  geom_tile(aes(fill=percent),color="lightgray",na.rm=TRUE) + 
+#  scale_fill_viridis(option = "viridis", direction=-1, limits = c(0,.7), labels = percent, name = "looking time") +
+    scale_fill_gradient(low = "#ffffff", high = "#08519c", space = "Lab", limits = c(0,.4501), labels = percent, name = "looking time", na.value = "grey50") +
+  theme_bw() +
+  theme(strip.text.x = element_text(size = 11, color = "black", face = "italic"), 
+        strip.background = element_rect(colour = "white", fill = "white"),
+        panel.grid.major = element_line(color = "white")) +
+  ylab("") + xlab("") + ggtitle("Eye Gaze Heat Map, by Language (Collapsed by Direction)") + 
+  scale_y_discrete(expand=c(0,0)) +
+  scale_x_discrete(expand = c(0,0))
+```
+
+## For poster?
+
 ```{r fig.width = 6.5, fig.height = 6}
 ggplot(heatmap_babies, aes(x = direction, y = aoi)) +
-  geom_tile(aes(fill=percent), color="dark gray", size = 0.25, na.rm=T, height = c(10,4,1,1,1,1,1,1)) + 
+  geom_tile(aes(fill = percent), 
+            color="dark gray", 
+            size = 0.25, 
+            na.rm = T, 
+            height = rep(c(10,4,1,1,1,1,1,1),4)) + 
   scale_fill_gradient(low = "#ffffff", 
                       high = "#08519c", 
                       space = "Lab", 
@@ -477,7 +538,7 @@ Or a reversal effect chart? Okay, so this chart tells us overall there really wa
 babies_fcr3 <- babies_fcr2 %>%
   spread(direction, fcr) %>%
   group_by(name, age, lang) %>%
-  summarise(diff = forward - reversed)
+  mutate(diff = (forward - reversed))
 
 ggplot(babies_fcr3, aes(x = age, y = diff, color = lang)) +
   geom_point() +
@@ -500,6 +561,7 @@ within_subjects <- babies_fcr %>%
   summarise(mean = mean(fcr, na.rm = TRUE),
             se = sd(fcr, na.rm = TRUE)/sqrt(n()),
             count = n())
+
 # Then spread out mean and SE columns by direction
 within_subjects_means <- within_subjects %>%
   select(-se, -count) %>%
@@ -544,6 +606,7 @@ babies_fcr2 %>%
 ```{r fig.width=6.5, fig.height=6}
 
 library(extrafont)
+library(xkcd)
 
 babies_fcr2 %>%
   group_by(lang, direction) %>%
@@ -560,7 +623,7 @@ babies_fcr2 %>%
                 width = 0.3) +
   scale_y_continuous(limits = c(-0.5, 0.5)) +
   theme_linedraw() +
-  theme(text = element_text(size = 30, family = "xkcd"),
+  theme(text = element_text(size = 30),
         panel.grid.minor.y = element_blank(),
         panel.grid.major.x = element_blank(),
         axis.title.y = element_blank(),

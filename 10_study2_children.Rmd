@@ -191,10 +191,11 @@ Now we'll re-calculate the percentages so the denominator is based on total look
 ```{r}
 # Recalculate percent
 kids <- kids %>% 
+  ungroup() %>%
   select(-percent) %>%
-  group_by(name, lang, age, direction, story, mark, trial, repetition) %>%
+  group_by(name, lang, age, direction, story, mark, trial, repetition, gender) %>%
   mutate(totalsec = sum(secs)) %>%
-  group_by(name, lang, age, direction, story, mark, trial, repetition, aoi) %>%
+  group_by(name, lang, age, direction, story, mark, trial, repetition, gender, aoi) %>%
   summarise(percent = secs/totalsec)
 
 # Boxplot
@@ -302,8 +303,9 @@ We did not include Belly or MidFaceTop because of very low looking rates accordi
 
 ```{r}
 kids_fcr <- kids %>%
+  ungroup() %>%
   spread(aoi,percent) %>%
-  group_by(name, age, lang, direction, story, repetition) %>%
+  group_by(name, age, lang, gender, direction, story, repetition) %>%
   summarise(face = sum(MidFaceCenter, MidFaceBottom, na.rm = TRUE),
          chest = sum(MidChestTop, MidChestCenter, MidChestBottom, BelowChest, na.rm = TRUE),
          fcr = (face - chest) / (face + chest))
@@ -369,6 +371,30 @@ confint(fcr_lm)
 #ggcoef(fcr_lm)
 ```
 
+# The Large Table
+
+> I would like a large table with all individual percent looking means for each AOI and the individual FCR values, with ages, gender, video group for each child.  (collapsed across stories and trials)  
+
+```{r message=FALSE, warning=FALSE}
+# Collapse across stories and trials 
+
+kids_spread <- kids %>%
+  group_by(name, lang, age, gender, direction, aoi) %>%
+  summarise(percent = mean(percent, na.rm = T)) %>%
+  spread(aoi, percent)
+
+kids_fcr_spread <- kids_fcr %>%
+  group_by(name, lang, age, gender, direction) %>%
+  summarise(fcr = mean(fcr, na.rm = T))
+
+kids_large_table <- kids_spread %>%
+  left_join(kids_fcr_spread)
+
+kids_large_table %>%
+  write_csv("large_table_kids.csv")
+```
+
+
 # Visualizing Reversal Effect
 I want to try to visualize reversal effects a different way. Maybe this. 
 
@@ -397,7 +423,7 @@ Or a reversal effect chart? Okay, so this chart tells us overall there really wa
 kids_fcr3 <- kids_fcr2 %>%
   spread(direction, fcr) %>%
   group_by(name, age, lang) %>%
-  summarise(diff = forward - reversed)
+  mutate(diff = forward - reversed)
 
 ggplot(kids_fcr3, aes(x = age, y = diff, color = lang)) +
   geom_point() +
@@ -481,7 +507,7 @@ kids_fcr2 %>%
                 width = 0.3) +
   scale_y_continuous(limits = c(-0.5, 0.5)) +
   theme_linedraw() +
-  theme(text = element_text(size = 30, family = "xkcd"),
+  theme(text = element_text(size = 30),
         panel.grid.minor.y = element_blank(),
         panel.grid.major.x = element_blank(),
         axis.title.y = element_blank(),
@@ -537,9 +563,43 @@ ggplot(heatmap_kids, aes(x = direction, y = aoi)) +
   scale_x_discrete(expand = c(0,0))
 ```
 
+
+## Collaped by direction (new)
+```{r}
+heatmap_kids2 <- kids %>%
+  filter(aoi %in% midline) %>%
+  ungroup() %>%
+  group_by(lang, name, aoi) %>%
+  summarise(percent = mean(percent, na.rm=TRUE)) %>%
+  group_by(lang, aoi) %>%
+  summarise(percent = mean(percent, na.rm=TRUE)) %>%
+  ungroup() %>%
+  mutate(aoi = factor(aoi, levels = c("Belly","BelowChest","MidChestBottom","MidChestCenter","MidChestTop",
+            "MidFaceBottom","MidFaceCenter","MidFaceTop")))
+
+ggplot(heatmap_kids2, aes(x = lang, y = aoi)) +
+  geom_tile(aes(fill=percent),color="lightgray",na.rm=TRUE) + 
+#  scale_fill_viridis(option = "viridis", direction=-1, limits = c(0,.7), labels = percent, name = "looking time") +
+    scale_fill_gradient(low = "#ffffff", high = "#08519c", space = "Lab", limits = c(0,.52), labels = percent, name = "looking time", na.value = "grey50") +
+  theme_bw() +
+  theme(strip.text.x = element_text(size = 11, color = "black", face = "italic"), 
+        strip.background = element_rect(colour = "white", fill = "white"),
+        panel.grid.major = element_line(color = "white")) +
+  ylab("") + xlab("") + ggtitle("Eye Gaze Heat Map, by Language (Collapsed by Direction") + 
+  scale_y_discrete(expand=c(0,0)) +
+  scale_x_discrete(expand = c(0,0))
+```
+
+
+## For poster? 
 ```{r fig.width = 6.5, fig.height = 6}
 ggplot(heatmap_kids, aes(x = direction, y = aoi)) +
-  geom_tile(aes(fill=percent), color="dark gray", size = 0.25, na.rm=T, height = c(10,4,1,1,1,1,1,1)) + 
+  geom_tile(aes(fill=percent), 
+            color="dark gray", 
+            size = 0.25, 
+            na.rm=T, 
+            height = rep(c(10,4,1,1,1,1,1,1),4)
+            ) + 
   scale_fill_gradient(low = "#ffffff", 
                       high = "#08519c", 
                       space = "Lab", 
@@ -552,7 +612,7 @@ ggplot(heatmap_kids, aes(x = direction, y = aoi)) +
   scale_y_discrete(expand=c(0,0)) +
   scale_x_discrete(expand=c(0,0)) +
   theme_bw() +
-  theme(text = element_text(size = 20, family = "xkcd"),
+  theme(text = element_text(size = 20),
         axis.title.y = element_blank(),
         axis.title.x = element_blank(),
         axis.text.x = element_blank(),
