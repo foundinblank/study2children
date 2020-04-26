@@ -11,6 +11,9 @@ output:
     df_print: paged
 ---
 
+# Chart here
+The chart that shows FCR ratios for NSE & SE babies, children, and adults. Adults is Hearing Novice & Deaf Early. 
+
 
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
