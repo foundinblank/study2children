@@ -16,6 +16,7 @@ More coming.
 1. [Babies 3 Experiments](08babies3exps.nb.html) - brief attempt at doing 3 baby studies together, quit
 1. [Study 2 Babies](09_study2_babies.nb.html) - "Final" analysis plan for babies
 1. [Study 2 Children](10_study2_children.nb.html) - "Final" analysis plan for babies
+1. [Combined Child/Adult FCR Chart](11_combined_fcr_chart.nb.html) - The combined chart of children and adults' FCR. 
 
 This is the page where we're checking for offsets for each child. 
 1. [Two Puppies - For Offsets](twopuppies.nb.html)
