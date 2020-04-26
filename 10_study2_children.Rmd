@@ -492,6 +492,17 @@ kids_fcr2 %>%
 
 library(extrafont)
 
+# For making the babies/adults chart: 
+kids_fcr2 %>%
+  group_by(lang, direction) %>%
+  summarise(fcr_mean = mean(fcr),
+            sd = sd(fcr),
+            n = n(),
+            se = sd/sqrt(n)) %>%
+  add_column(group = 'children') %>%
+  write_csv("fcr_chart_children.csv")
+
+
 kids_fcr2 %>%
   group_by(lang, direction) %>%
   summarise(fcr_mean = mean(fcr),
