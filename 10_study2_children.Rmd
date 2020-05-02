@@ -322,6 +322,17 @@ kids_fcr %>%
   select(-sd) %>%
   print()
 
+kids_fcr %>% 
+  group_by(lang, name) %>%
+  summarise(fcr = mean(fcr)) %>% # gets average looking percent for each baby
+  group_by(lang) %>%
+  summarise(mean_fcr = mean(fcr), # gets group averages
+            count = n(),
+            sd = sd(fcr),
+            se = sd/sqrt(count)) %>%
+  select(-sd) %>%
+  print()
+
 # Plot
 ggplot(kids_fcr, aes(x = age, y = fcr, color = direction, fill = direction)) + 
   geom_hline(yintercept = 0, linetype = "dashed") +
