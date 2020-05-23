@@ -94,17 +94,15 @@ df %>%
 
 # Import subject-level data 
 babies_indiv <- read_csv("fcr_individual_values_babies.csv") %>%
-  filter(lang == 'SE') %>%
   mutate(age = age/12)
 
-children_indiv <- read_csv("fcr_individual_values_children.csv") %>%
-  filter(lang == 'SE')
+children_indiv <- read_csv("fcr_individual_values_children.csv")
 
 adults_indiv <- read_csv("fcr_individual_values_adults.csv") %>%
   rename(fcr = facechest,
          group = maingroup,
          name = participant) %>%
-  filter(group == 'Deaf Early') %>%
+  filter(group == 'Deaf Early' | group == 'Hearing Novice') %>%
   mutate(lang = if_else(group == 'Deaf Early', 'SE', 'NSE')) %>%
   mutate(group = 'adults')
 
@@ -113,8 +111,11 @@ everybody <- bind_rows(babies_indiv,
                        children_indiv,
                        adults_indiv)
 
+everybody_se <- everybody %>%
+  filter(lang == 'SE')
+
 # Plot
-everybody %>%
+everybody_se %>%
   ggplot(aes(x = age, y = fcr, color = direction)) +
   geom_point(alpha = 0.5, size = 2) +
   geom_smooth(method = 'lm', se = F) +
@@ -143,17 +144,20 @@ everybody %>%
 
 
 # Regression
-age_lm <- lm(data = everybody, fcr ~ age * direction)
+age_lm <- lm(data = everybody_se, fcr ~ age * direction)
 summary(age_lm)
 confint(age_lm)
 ```
 
-# Regression without Eldest Participant
-```{r}
+# What about NSE?
+
+```{r message=FALSE, warning=FALSE}
+
+everybody_nse <- everybody %>%
+  filter(lang == 'NSE')
 
 # Plot
-everybody %>%
-  filter(age < 50) %>%
+everybody_nse %>%
   ggplot(aes(x = age, y = fcr, color = direction)) +
   geom_point(alpha = 0.5, size = 2) +
   geom_smooth(method = 'lm', se = F) +
@@ -182,8 +186,7 @@ everybody %>%
 
 
 # Regression
-age_lm <- lm(data = filter(everybody, age < 50), fcr ~ age * direction)
+age_lm <- lm(data = everybody_nse, fcr ~ age * direction)
 summary(age_lm)
 confint(age_lm)
 ```
-
