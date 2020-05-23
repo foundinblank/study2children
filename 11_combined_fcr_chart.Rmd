@@ -88,3 +88,102 @@ df %>%
 
 ```
 
+# Regressing FCR on Age
+
+```{r message=FALSE, warning=FALSE}
+
+# Import subject-level data 
+babies_indiv <- read_csv("fcr_individual_values_babies.csv") %>%
+  filter(lang == 'SE') %>%
+  mutate(age = age/12)
+
+children_indiv <- read_csv("fcr_individual_values_children.csv") %>%
+  filter(lang == 'SE')
+
+adults_indiv <- read_csv("fcr_individual_values_adults.csv") %>%
+  rename(fcr = facechest,
+         group = maingroup,
+         name = participant) %>%
+  filter(group == 'Deaf Early') %>%
+  mutate(lang = if_else(group == 'Deaf Early', 'SE', 'NSE')) %>%
+  mutate(group = 'adults')
+
+# Combine datasets
+everybody <- bind_rows(babies_indiv,
+                       children_indiv,
+                       adults_indiv)
+
+# Plot
+everybody %>%
+  ggplot(aes(x = age, y = fcr, color = direction)) +
+  geom_point(alpha = 0.5, size = 2) +
+  geom_smooth(method = 'lm', se = F) +
+  scale_y_continuous(limits = c(-1, 1)) +
+  geom_hline(yintercept = 0, size = 0.5) +
+  labs(x = 'Age (Years)',
+       y = 'FPI',
+       color = 'Video Direction') +
+  theme_linedraw() +
+    theme(
+        panel.grid.minor.y = element_blank(),
+        # panel.grid.major.x = element_blank(),
+        # axis.title.y = element_blank(),
+        # axis.title.x = element_blank(),
+        # axis.text.x = element_blank(),
+        # axis.ticks.x = element_blank(),
+        panel.border = element_rect(size = 1),
+        axis.ticks.y = element_line(size = 0.5),
+        axis.text.y = element_text(size = 12),
+        axis.text.x = element_text(size = 12),
+        # panel.grid.major.y = element_line(size = 0.5,
+        #                                   color = "light gray",
+        #                                   linetype = "dashed"),
+        strip.background = element_blank(),
+        strip.text = element_text(color = 'black'))
+
+
+# Regression
+age_lm <- lm(data = everybody, fcr ~ age * direction)
+summary(age_lm)
+confint(age_lm)
+```
+
+# Regression without Eldest Participant
+```{r}
+
+# Plot
+everybody %>%
+  filter(age < 50) %>%
+  ggplot(aes(x = age, y = fcr, color = direction)) +
+  geom_point(alpha = 0.5, size = 2) +
+  geom_smooth(method = 'lm', se = F) +
+  scale_y_continuous(limits = c(-1, 1)) +
+  geom_hline(yintercept = 0, size = 0.5) +
+  labs(x = 'Age (Years)',
+       y = 'FPI',
+       color = 'Video Direction') +
+  theme_linedraw() +
+    theme(
+        panel.grid.minor.y = element_blank(),
+        # panel.grid.major.x = element_blank(),
+        # axis.title.y = element_blank(),
+        # axis.title.x = element_blank(),
+        # axis.text.x = element_blank(),
+        # axis.ticks.x = element_blank(),
+        panel.border = element_rect(size = 1),
+        axis.ticks.y = element_line(size = 0.5),
+        axis.text.y = element_text(size = 12),
+        axis.text.x = element_text(size = 12),
+        # panel.grid.major.y = element_line(size = 0.5,
+        #                                   color = "light gray",
+        #                                   linetype = "dashed"),
+        strip.background = element_blank(),
+        strip.text = element_text(color = 'black'))
+
+
+# Regression
+age_lm <- lm(data = filter(everybody, age < 50), fcr ~ age * direction)
+summary(age_lm)
+confint(age_lm)
+```
+
