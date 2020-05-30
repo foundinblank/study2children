@@ -380,6 +380,8 @@ fcr_lm <- lmer(fcr ~ age + lang * direction + (1|name) + (1|story), data = kids_
 summary(fcr_lm)
 confint(fcr_lm)
 #ggcoef(fcr_lm)
+
+write_csv(kids_fcr, "fcr_trial_level_values_children.csv")
 ```
 
 # The Large Table

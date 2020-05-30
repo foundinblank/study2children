@@ -336,6 +336,7 @@ ggplot(babies_fcr, aes(x = age, y = fcr, color = direction, fill = direction)) +
   geom_jitter(alpha = 0.5) + 
   geom_smooth(method = "lm", se = FALSE) +
   scale_y_continuous(limits = c(-1,1)) +
+  geom_hline(yintercept = 0) +
   theme_bw() + 
   theme(panel.grid.major.x = element_blank()) +
   facet_grid(. ~ lang) +
@@ -377,6 +378,8 @@ fcr_lm <- lmer(fcr ~ age + lang * direction + (1|name) + (1|story), data = babie
 summary(fcr_lm)
 confint(fcr_lm)
 
+write_csv(babies_fcr, "fcr_trial_level_values_babies.csv")
+
 # https://jofrhwld.github.io/teaching/courses/2017_lsa/lectures/Session_8.nb.html
 # library(boot)
 # fcr_boot <- bootMer(fcr_lm, FUN = fixef, nsim = 1000)
@@ -391,6 +394,13 @@ confint(fcr_lm)
 # fcrnse_lm <- lmer(fcr ~ age + direction + (1|name) + (1|story), data = filter(babies_fcr, lang == "NSE"))
 # summary(fcrse_lm)
 # summary(fcrnse_lm)
+```
+## "Posthoc" for NSE babies only 
+```{r}
+
+post_hoc <- lmer(fcr ~ age + direction + (1|name) + (1|story), 
+                 data = filter(babies_fcr, lang == 'NSE'))
+summary(post_hoc)
 ```
 
 # The Large Table

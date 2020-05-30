@@ -17,6 +17,8 @@ The chart that shows FCR ratios for NSE & SE babies, children, and adults. Adult
 
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
+library(lme4)
+library(lmerTest)
 
 babies <- read_csv("fcr_chart_babies.csv")
 children <- read_csv("fcr_chart_children.csv")
