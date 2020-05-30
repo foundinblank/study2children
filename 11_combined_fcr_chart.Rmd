@@ -88,7 +88,7 @@ df %>%
 
 ```
 
-# Regressing FCR on Age
+# Regressing FCR on Age (Subject-level FCRs)
 
 ```{r message=FALSE, warning=FALSE}
 
@@ -98,18 +98,120 @@ babies_indiv <- read_csv("fcr_individual_values_babies.csv") %>%
 
 children_indiv <- read_csv("fcr_individual_values_children.csv")
 
-adults_indiv <- read_csv("fcr_individual_values_adults.csv") %>%
-  rename(fcr = facechest,
-         group = maingroup,
-         name = participant) %>%
-  filter(group == 'Deaf Early' | group == 'Hearing Novice') %>%
-  mutate(lang = if_else(group == 'Deaf Early', 'SE', 'NSE')) %>%
-  mutate(group = 'adults')
+# adults_indiv <- read_csv("fcr_individual_values_adults.csv") %>%
+#   rename(fcr = facechest,
+#          group = maingroup,
+#          name = participant) %>%
+#   filter(group == 'Deaf Early' | group == 'Hearing Novice') %>%
+#   mutate(lang = if_else(group == 'Deaf Early', 'SE', 'NSE')) %>%
+#   mutate(group = 'adults')
 
 # Combine datasets
-everybody <- bind_rows(babies_indiv,
-                       children_indiv,
-                       adults_indiv)
+everybody <- bind_rows(babies_indiv
+                       , children_indiv
+                       # , adults_indiv
+                       )
+
+
+everybody %>%
+  ggplot(aes(x = age, y = fcr, color = lang)) +
+  geom_point(alpha = 0.5, size = 2) +
+  geom_smooth(method = 'lm', se = F) +
+  scale_y_continuous(limits = c(-1, 1)) +
+  geom_hline(yintercept = 0, size = 0.5) +
+  labs(x = 'Age (Years)',
+       y = 'FPI',
+       color = NULL) +
+  facet_wrap("direction") +
+  theme_linedraw() +
+    theme(
+        panel.grid.minor.y = element_blank(),
+        # panel.grid.major.x = element_blank(),
+        # axis.title.y = element_blank(),
+        # axis.title.x = element_blank(),
+        # axis.text.x = element_blank(),
+        # axis.ticks.x = element_blank(),
+        panel.border = element_rect(size = 1),
+        axis.ticks.y = element_line(size = 0.5),
+        axis.text.y = element_text(size = 12),
+        axis.text.x = element_text(size = 12),
+        # panel.grid.major.y = element_line(size = 0.5,
+        #                                   color = "light gray",
+        #                                   linetype = "dashed"),
+        strip.background = element_blank(),
+        strip.text = element_text(color = 'black'))
+
+
+# Regression
+age_lm <- lm(data = everybody, fcr ~ age * direction * lang)
+summary(age_lm)
+confint(age_lm)
+
+```
+
+# Regressing FCR on Age (Trial-level FCRs)
+```{r message=FALSE, warning=FALSE}
+
+# Import trial-level data 
+babies_trial <- read_csv("fcr_trial_level_values_babies.csv") %>%
+  mutate(age = age/12)
+
+children_trial <- read_csv("fcr_trial_level_values_children.csv")
+
+# adults_indiv <- read_csv("fcr_individual_values_adults.csv") %>%
+#   rename(fcr = facechest,
+#          group = maingroup,
+#          name = participant) %>%
+#   filter(group == 'Deaf Early' | group == 'Hearing Novice') %>%
+#   mutate(lang = if_else(group == 'Deaf Early', 'SE', 'NSE')) %>%
+#   mutate(group = 'adults')
+
+# Combine datasets
+everybody <- bind_rows(babies_trial
+                       , children_trial
+                       # , adults_indiv
+                       )
+
+
+everybody %>%
+  ggplot(aes(x = age, y = fcr, color = lang)) +
+  geom_point(alpha = 0.5, size = 2) +
+  geom_smooth(method = 'lm', se = F) +
+  scale_y_continuous(limits = c(-1, 1)) +
+  geom_hline(yintercept = 0, size = 0.5) +
+  labs(x = 'Age (Years)',
+       y = 'FPI',
+       color = NULL) +
+  facet_wrap("direction") +
+  theme_linedraw() +
+    theme(
+        panel.grid.minor.y = element_blank(),
+        # panel.grid.major.x = element_blank(),
+        # axis.title.y = element_blank(),
+        # axis.title.x = element_blank(),
+        # axis.text.x = element_blank(),
+        # axis.ticks.x = element_blank(),
+        panel.border = element_rect(size = 1),
+        axis.ticks.y = element_line(size = 0.5),
+        axis.text.y = element_text(size = 12),
+        axis.text.x = element_text(size = 12),
+        # panel.grid.major.y = element_line(size = 0.5,
+        #                                   color = "light gray",
+        #                                   linetype = "dashed"),
+        strip.background = element_blank(),
+        strip.text = element_text(color = 'black'))
+
+
+# Regression
+fcr_lm <- lmer(fcr ~ age * lang * direction + (1|name) + (1|story), data = everybody)
+summary(fcr_lm)
+confint(fcr_lm)
+
+```
+
+
+```{r eval=FALSE, include=FALSE}
+## SE Only
 
 everybody_se <- everybody %>%
   filter(lang == 'SE')
@@ -149,9 +251,10 @@ summary(age_lm)
 confint(age_lm)
 ```
 
-# What about NSE?
 
-```{r message=FALSE, warning=FALSE}
+
+```{r eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+## NSE Only
 
 everybody_nse <- everybody %>%
   filter(lang == 'NSE')
