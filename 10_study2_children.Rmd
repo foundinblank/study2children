@@ -183,6 +183,12 @@ global_lm <- lmer(percent ~ age + lang * direction + (1|name) + (1|story), data 
 summary(global_lm)
 confint(global_lm)
 #ggcoef(global_lm)
+
+library(sjPlot)
+library(sjmisc)
+library(sjlabelled)
+
+tab_model(global_lm, show.se = T, show.stat = T)
 ```
 
 # AOI Looking
@@ -382,6 +388,8 @@ confint(fcr_lm)
 #ggcoef(fcr_lm)
 
 write_csv(kids_fcr, "fcr_trial_level_values_children.csv")
+
+tab_model(fcr_lm, show.se = T, show.stat = T)
 ```
 
 # The Large Table

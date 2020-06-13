@@ -178,10 +178,16 @@ ggplot(babies_overall_looking, aes(x = age, y = percent, color = direction, fill
 A linear model shows there were no significant effects of any factors. We can conclude there was no effect on how *much* the babies looked at the stimuli.  
 
 ```{r}
-global_lm <- lmer(percent ~ age + lang * direction + (direction|name) + (direction|story), data = babies_overall_looking)
+global_lm <- lmer(percent ~ age + lang * direction + (1|name) + (1|story), data = babies_overall_looking)
 summary(global_lm) 
 confint(global_lm)
 #ggcoef(global_lm)
+
+library(sjPlot)
+library(sjmisc)
+library(sjlabelled)
+
+tab_model(global_lm, show.se = T, show.stat = T)
 ```
 
 # AOI Looking
@@ -377,6 +383,8 @@ What will a linear mixed model tell us? (with no age interactions)
 fcr_lm <- lmer(fcr ~ age + lang * direction + (1|name) + (1|story), data = babies_fcr)
 summary(fcr_lm)
 confint(fcr_lm)
+
+tab_model(fcr_lm, show.se = T, show.stat = T)
 
 write_csv(babies_fcr, "fcr_trial_level_values_babies.csv")
 
