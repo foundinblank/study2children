@@ -123,7 +123,7 @@ The chart below shows there seems to be an effect of age; older kids look longer
 ```{r}
 kids$lang <- as.factor(kids$lang)
 kids_overall_looking <- kids %>%
-  group_by(name, age, lang, direction, story, repetition) %>%
+  group_by(name, age, lang, direction, story, trial) %>%
   summarise(percent = sum(percent)) # gets total looking percent for each trial for each kid
 
 # Table of means
@@ -179,7 +179,7 @@ ggplot(kids_overall_looking, aes(x = age, y = percent, color = direction, fill =
 A linear model shows a significant effect of age. Overall, Age seems to increase overall looking by about 3% every year. However, there are no differences between NSE v. SE, or reversal, on how long they looked, so that's good. 
 
 ```{r}
-global_lm <- lmer(percent ~ age + lang * direction + (1|name) + (1|story), data = kids_overall_looking)
+global_lm <- lmer(percent ~ age + lang * direction + trial + (1|name) + (1|story), data = kids_overall_looking)
 summary(global_lm)
 confint(global_lm)
 #ggcoef(global_lm)
@@ -311,7 +311,7 @@ We did not include Belly or MidFaceTop because of very low looking rates accordi
 kids_fcr <- kids %>%
   ungroup() %>%
   spread(aoi,percent) %>%
-  group_by(name, age, lang, gender, direction, story, repetition) %>%
+  group_by(name, age, lang, gender, direction, story, trial) %>%
   summarise(face = sum(MidFaceCenter, MidFaceBottom, na.rm = TRUE),
          chest = sum(MidChestTop, MidChestCenter, MidChestBottom, BelowChest, na.rm = TRUE),
          fcr = (face - chest) / (face + chest))
@@ -377,12 +377,13 @@ ggplot(kids_fcr, aes(x = age, y = fcr, color = direction, fill = direction)) +
 What will a linear mixed model tell us? (with no age interactions)
 
 * No effect of age. Interesting. Maybe just becuase we don't have that many babies. 
-* Effect of language: SE babies have overall +0.36 FCR than NSE babies (p = 0.03). SE looks at the face more than the chest. 
+* Effect of language: SE babies have overall higher FCR than NSE babies. SE looks at the face more than the chest. 
 * No effect of direction. Interesting. 
 * No interaction. Interesting. 
+* Strong effect of trial; FCR drops for each trial
 
 ```{r}
-fcr_lm <- lmer(fcr ~ age + lang * direction + (1|name) + (1|story), data = kids_fcr)
+fcr_lm <- lmer(fcr ~ age + lang * direction + trial + (1|name) + (1|story), data = kids_fcr)
 summary(fcr_lm)
 confint(fcr_lm)
 #ggcoef(fcr_lm)
@@ -391,6 +392,15 @@ write_csv(kids_fcr, "fcr_trial_level_values_children.csv")
 
 tab_model(fcr_lm, show.se = T, show.stat = T)
 ```
+
+## "Posthoc" for SE babies only 
+```{r}
+
+post_hoc <- lmer(fcr ~ age + direction + trial + (1|name) + (1|story), 
+                 data = filter(kids_fcr, lang == 'SE'))
+summary(post_hoc)
+```
+
 
 # The Large Table
 
@@ -460,7 +470,7 @@ And within-subjects variation here:
 ```{r}
 # First get the mean of each trial, THEN the participant-level means
 within_subjects <- kids_fcr %>%
-  group_by(name, lang, direction, story, repetition) %>%
+  group_by(name, lang, direction, story, trial) %>%
   summarise(fcr = mean(fcr, na.rm = TRUE),
             count = n()) %>%
   group_by(name, lang, direction) %>%
