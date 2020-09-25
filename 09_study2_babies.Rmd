@@ -175,7 +175,7 @@ ggplot(babies_overall_looking, aes(x = age, y = percent, color = direction, fill
 #   geom_violin()
 ```
 
-A linear model shows there were no significant effects of any factors (or of Trial order). We can conclude there was no effect on how *much* the babies looked at the stimuli.  
+A linear model shows there were no significant effects of any factors except for Trial order. We can conclude there was no effect found for age or language experience on how *much* the babies looked at the stimuli.  
 
 ```{r}
 global_lm <- lmer(percent ~ age + lang * direction + trial + (1|name) + (1|story), data = babies_overall_looking)
@@ -404,12 +404,13 @@ write_csv(babies_fcr, "fcr_trial_level_values_babies.csv")
 # summary(fcrse_lm)
 # summary(fcrnse_lm)
 ```
-## (not run anymore) "Posthoc" for NSE babies only
-```{r eval=FALSE, include=FALSE}
+## "Posthoc" for NSE babies only
+```{r}
 
 post_hoc <- lmer(fcr ~ age + direction + trial + (1|name) + (1|story), 
                  data = filter(babies_fcr, lang == 'NSE'))
 summary(post_hoc)
+confint(post_hoc)
 ```
 
 # The Large Table

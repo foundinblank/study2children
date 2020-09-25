@@ -176,7 +176,7 @@ ggplot(kids_overall_looking, aes(x = age, y = percent, color = direction, fill =
 #   geom_violin()
 ```
 
-A linear model shows a significant effect of age. Overall, Age seems to increase overall looking by about 3% every year. However, there are no differences between NSE v. SE, or reversal, on how long they looked, so that's good. 
+A linear model shows a significant effect of age. Overall, Age seems to increase overall looking by about 3% every year. We also see a significant effect of Trial order, with decreased looking per subsequent trial. However, there are no differences between NSE v. SE, or reversal, on how long they looked, so that's good. 
 
 ```{r}
 global_lm <- lmer(percent ~ age + lang * direction + trial + (1|name) + (1|story), data = kids_overall_looking)
