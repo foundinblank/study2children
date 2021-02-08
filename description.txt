@@ -1,0 +1,34 @@
+################################################################################
+
+Data for Bosworth & Stone, Developmental Science (2021)
+
+Citation: Bosworth, R. & Stone, A. (2021). Rapid development of perceptual 
+gaze control in hearing native signing infants and children. Developmental 
+Science, https://onlinelibrary.wiley.com/doi/10.1111/desc.13086
+
+Contact: rain.bosworth@rit.edu
+
+################################################################################
+
+The file bosworth_stone_all_data_for_osf_20210208.csv contains eye-tracking
+and AOI data for all 61 valid participants and used for statistical analysis. 
+The data is processed based on raw Tobii x/y coordinate data (described in 
+Bosworth & Stone, 2021). Participants and trials that were removed from analysis
+due to poor gaze data or miscalibration are not included in this dataset. 
+
+## CSV fields ##
+participant: unique identifier assigned to each participant
+language: nonsigning/signing
+gender: f/m
+age: in years
+age_group: infant/child
+group: we counterbalanced the order of stimuli presentation in group 1 & 2
+story: unique identifier assigned to each video clip
+story_secs: length of video clip
+direction: whether clip was played normally (forward) or in reverse
+trial: trial order
+repetition: whether it was the 1st or 2nd time the story clip was shown
+aoi: area of interest label 
+aoi_hits: count of frames where gaze was directed towards an area within the AOI
+aoi_secs: aoi_hits converted into seconds
+percent_of_story: percentage looking time at the specific AOI during the story
